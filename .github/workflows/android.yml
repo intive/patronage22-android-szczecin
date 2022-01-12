@@ -1,0 +1,68 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+#      - name: Set up JDK 11
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'adopt'
+#          cache: gradle
+#
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
+#
+#      - name: Build with Gradle
+#        run: ./gradlew assembleDebug
+
+      #      - name: Build all artifacts
+      #        id: buildAllApks
+      #        uses: eskatos/gradle-command-action@v2
+      #        with:
+      #          gradle-version: current
+      #          wrapper-cache-enabled: true
+      #          dependencies-cache-enabled: true
+      #          configuration-cache-enabled: true
+      #          arguments: assembleRelease
+
+#      - name: Log all files
+#        run: ls -la app/build/outputs/apk/debug
+#
+#      - name: Upload our APK
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: Release artifact
+#          path: app/build/outputs/apk/debug/app-debug.apk
+
+      #      - name: Save name of our Artifact
+      #        id: set-result-artifact
+      #        run: |
+      #          ARTIFACT_PATHNAME_APK=$(ls app/build/outputs/apk/ourbuildtype/release/*.apk | head -n 1)
+      #          ARTIFACT_NAME_APK=$(basename $ARTIFACT_PATHNAME_APK)
+      #          echo "ARTIFACT_NAME_APK is " ${ARTIFACT_NAME_APK}
+      #          echo "ARTIFACT_PATHNAME_APK=${ARTIFACT_PATHNAME_APK}" >> $GITHUB_ENV
+      #          echo "ARTIFACT_NAME_APK=${ARTIFACT_NAME_APK}" >> $GITHUB_ENV
+
+#      - name: Upload our Artifact Assets
+#        id: upload-release-asset
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: app/build/outputs/apk/debug/
+#          asset_name: app-debug.apk
+#          asset_content_type: application/zip
