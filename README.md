@@ -1,0 +1,7 @@
+## Branch Template
+[SUB-TASK-NUMBER]-[SUB-TASK-NAME]
+`P2022-58-add-README-file`
+
+## Branch Commit
+[MAIN-TASK-NUMBER]-[MAIN-TASK-NAME] -> [SUB-TASK-NUMBER]-[SUB-TASK-NAME]
+`P2022-57 Add Readme -> P2022-58 add README file`
