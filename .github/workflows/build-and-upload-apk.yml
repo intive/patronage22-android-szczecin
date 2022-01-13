@@ -1,0 +1,28 @@
+name: Release .apk
+on:
+  workflow_dispatch:
+    inputs:
+      release_name:
+        required: true
+        description: "Release name"
+
+jobs:
+  assembleProjectAndCreateRelease:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: gradle
+      - name: Assemble debug with Gradle
+        run: ./gradlew assembleDebug
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ github.event.inputs.release_name }}
+          draft: true
+          files: app/build/outputs/apk/debug/app-debug.apk
