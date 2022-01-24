@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "194185401163",
+    "project_id": "patronate2022android",
+    "storage_bucket": "patronate2022android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194185401163:android:e3d1ace4168167faad4ece",
+        "android_client_info": {
+          "package_name": "com.intive.patronage.retro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194185401163-j0s30aav12bestm6ct8iv6d2riske2r1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAODMGHz_6QPjdn2GtfdHDjDjh6D6KAww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194185401163-j0s30aav12bestm6ct8iv6d2riske2r1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
