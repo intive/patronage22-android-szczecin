@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -33,6 +34,9 @@ android {
 
 dependencies {
 
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+    implementation 'com.google.firebase:firebase-auth-ktx'
     implementation "io.insert-koin:koin-android:3.1.5"
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
