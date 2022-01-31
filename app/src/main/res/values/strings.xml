@@ -2,4 +2,5 @@
     <string name="app_name">Retro Board</string>
     <string name="more">More</string>
     <string name="content_description_item">More menu item</string>
+    <string name="title_main_fragment">Main Fragment</string>
 </resources>
