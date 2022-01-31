@@ -3,10 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/boardsFragment"
+    >
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.intive.patronage.retro.main_fragment.MainFragment"
-        android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        android:id="@+id/boardsFragment"
+        android:name="com.intive.patronage.retro.board_fragment.BoardsFragment"
+        android:label="board_fragment"
+        tools:layout="@layout/board_fragment" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.intive.patronage.retro.history_fragment.HistoryFragment"
+        android:label="history_fragment"
+        tools:layout="@layout/history_fragment" />
 </navigation>

@@ -3,4 +3,8 @@
     <string name="more">More</string>
     <string name="content_description_item">More menu item</string>
     <string name="title_main_fragment">Main Fragment</string>
+    <string name="boards">Boards</string>
+    <string name="history">History</string>
+    <string name="boards_text">Boards Fragment</string>
+    <string name="history_text">History Fragment</string>
 </resources>
