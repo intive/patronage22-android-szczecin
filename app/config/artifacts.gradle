@@ -1,0 +1,9 @@
+ext {
+    runNumber = System.getenv("GITHUB_RUN_NUMBER")?.toInteger() ?: 1
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        outputFileName = "RetroBoard-${variant.name}-v${variant.versionName}-c${variant.versionCode}.apk"
+    }
+}
