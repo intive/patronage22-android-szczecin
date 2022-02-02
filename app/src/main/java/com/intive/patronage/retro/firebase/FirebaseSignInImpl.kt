@@ -12,10 +12,11 @@ class FirebaseSignInImpl : FirebaseSignIn {
         .setIsSmartLockEnabled(false)
         .build()
     private val user = FirebaseAuth.getInstance().currentUser
+    private var isReady = false
 
     override fun getUser() = user
-
+    override fun isReady() = isReady
     override fun signIn(app: AppCompatActivity) {
-        app.registerForActivityResult(FirebaseAuthUIActivityResultContract()) {}.launch(intent)
+        app.registerForActivityResult(FirebaseAuthUIActivityResultContract()) { isReady = true }.launch(intent)
     }
 }

@@ -17,13 +17,14 @@ class MainActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        splashScreen.setKeepOnScreenCondition { false }
         setContentView(binding.root)
 
         if (!firebaseViewModel.isUserLogged()) {
             firebaseViewModel.signIn(this)
+            splashScreen.setKeepOnScreenCondition { !firebaseViewModel.isSignInActivityReady() }
         } else {
             Log.i("VIEWMODEL", "onCreate: ${viewModel.sayHello()}")
+            splashScreen.setKeepOnScreenCondition { false }
         }
     }
 }
