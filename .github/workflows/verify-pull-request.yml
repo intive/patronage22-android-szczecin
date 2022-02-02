@@ -2,8 +2,8 @@ name: Verify pull request
 on: pull_request
 
 jobs:
-  buildProject:
-    runs-on: ubuntu-latest
+  BuildProject:
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -13,5 +13,5 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: gradle
-      - name: Build with Gradle
+      - name: Build
         run: ./gradlew build

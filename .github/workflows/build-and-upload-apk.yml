@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
     inputs:
       release_name:
-        required: true
+        required: false
         description: "Release name"
 
 jobs:
-  assembleProjectAndCreateRelease:
-    runs-on: ubuntu-latest
+  BuildAndRelease:
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -18,11 +18,15 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: gradle
-      - name: Assemble debug with Gradle
+      - name: Assemble debug
         run: ./gradlew assembleDebug
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ github.event.inputs.release_name }}
-          draft: true
-          files: app/build/outputs/apk/debug/app-debug.apk
+          name: '[c${{ github.run_number }}] ${{ github.event.inputs.release_name }}'
+          prerelease: true
+          target_commitish: ${{ github.sha }}
+          # TODO Add versionName to tag
+          tag_name: 'debug-c${{ github.run_number }}'
+          fail_on_unmatched_files: true
+          files: app/build/outputs/apk/debug/*.apk
