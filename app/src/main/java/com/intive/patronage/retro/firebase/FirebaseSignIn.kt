@@ -7,4 +7,5 @@ interface FirebaseSignIn {
 
     fun getUser(): FirebaseUser?
     fun signIn(app: AppCompatActivity)
+    fun isReady(): Boolean
 }

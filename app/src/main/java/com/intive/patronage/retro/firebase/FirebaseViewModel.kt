@@ -9,4 +9,5 @@ class FirebaseViewModel(private val firebaseSignIn: FirebaseSignIn) : ViewModel(
     fun signIn(app: AppCompatActivity) {
         firebaseSignIn.signIn(app)
     }
+    fun isSignInActivityReady() = firebaseSignIn.isReady()
 }
