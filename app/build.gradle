@@ -4,6 +4,8 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+apply from: 'config/artifacts.gradle'
+
 android {
     compileSdk 31
 
@@ -11,7 +13,7 @@ android {
         applicationId "com.intive.patronage.retro"
         minSdk 24
         targetSdk 31
-        versionCode 1
+        versionCode runNumber
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
