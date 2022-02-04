@@ -1,5 +1,6 @@
 package com.intive.patronage.retro.firebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
@@ -16,7 +17,7 @@ class FirebaseSignInImpl : FirebaseSignIn {
 
     override fun getUser() = user
     override fun isReady() = isReady
-    override fun signIn(app: AppCompatActivity) {
-        app.registerForActivityResult(FirebaseAuthUIActivityResultContract()) { isReady = true }.launch(intent)
-    }
+    override fun getIntent(): Intent = intent
+    override fun getResultLauncher(app: AppCompatActivity) =
+        app.registerForActivityResult(FirebaseAuthUIActivityResultContract()) { isReady = true }
 }

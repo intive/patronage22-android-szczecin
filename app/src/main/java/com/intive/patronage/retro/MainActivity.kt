@@ -1,8 +1,10 @@
 package com.intive.patronage.retro
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val firebaseViewModel: FirebaseViewModel by viewModel()
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
+    lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initBottomBarAndDrawer()
+        signInResultLauncher = firebaseViewModel.getSignInResultLauncher(this)
         userAuth(splashScreen)
     }
 
@@ -52,11 +56,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun userAuth(splashScreen: SplashScreen) {
         if (!firebaseViewModel.isUserLogged()) {
-            firebaseViewModel.signIn(this)
+            signIn()
             splashScreen.setKeepOnScreenCondition { !firebaseViewModel.isSignInActivityReady() }
         } else {
             Log.i("VIEWMODEL", "onCreate: ${viewModel.sayHello()}")
             splashScreen.setKeepOnScreenCondition { false }
         }
+    }
+
+    private fun signIn() {
+        val signInIntent = firebaseViewModel.getSignInIntent()
+        signInResultLauncher.launch(signInIntent)
     }
 }
