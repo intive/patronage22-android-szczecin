@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 class FirebaseViewModel(private val firebaseSignIn: FirebaseSignIn) : ViewModel() {
 
     fun isUserLogged() = firebaseSignIn.getUser() != null
-    fun signIn(app: AppCompatActivity) {
-        firebaseSignIn.signIn(app)
-    }
     fun isSignInActivityReady() = firebaseSignIn.isReady()
+    fun getSignInIntent() = firebaseSignIn.getIntent()
+    fun getSignInResultLauncher(app: AppCompatActivity) = firebaseSignIn.getResultLauncher(app)
 }
