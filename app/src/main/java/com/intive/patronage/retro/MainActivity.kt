@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
@@ -22,17 +23,17 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
     private val firebaseViewModel: FirebaseViewModel by viewModel()
     private val viewModel: MainViewModel by viewModel()
+
     private lateinit var binding: ActivityMainBinding
-    lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initBottomBarAndDrawer()
-        signInResultLauncher = firebaseViewModel.getSignInResultLauncher(this)
+        signInResultLauncher = firebaseViewModel.getResultLauncher(this)
         userAuth(splashScreen)
     }
 
@@ -55,17 +56,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun userAuth(splashScreen: SplashScreen) {
-        if (!firebaseViewModel.isUserLogged()) {
+        if (!firebaseViewModel.isLogged()) {
+            splashScreen.setKeepOnScreenCondition { !firebaseViewModel.isReady() }
             signIn()
-            splashScreen.setKeepOnScreenCondition { !firebaseViewModel.isSignInActivityReady() }
         } else {
             Log.i("VIEWMODEL", "onCreate: ${viewModel.sayHello()}")
             splashScreen.setKeepOnScreenCondition { false }
         }
     }
 
-    private fun signIn() {
-        val signInIntent = firebaseViewModel.getSignInIntent()
-        signInResultLauncher.launch(signInIntent)
+    fun signIn() {
+        signInResultLauncher.launch(firebaseViewModel.getIntent())
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (firebaseViewModel.isBackPressed()) {
+            signIn()
+        } else {
+            binding.drawerLayout.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.drawerLayout.visibility = View.GONE
     }
 }
