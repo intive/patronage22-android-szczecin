@@ -7,4 +7,7 @@
     <item
         android:id="@+id/historyFragment"
         android:title="@string/history" />
+    <item
+        android:id="@+id/profileFragment"
+        android:title="@string/profile" />
 </menu>

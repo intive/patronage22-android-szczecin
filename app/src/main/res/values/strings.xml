@@ -5,6 +5,8 @@
     <string name="title_main_fragment">Main Fragment</string>
     <string name="boards">Boards</string>
     <string name="history">History</string>
+    <string name="profile">Profile</string>
     <string name="boards_text">Boards Fragment</string>
     <string name="history_text">History Fragment</string>
+    <string name="profile_text">Profile screen</string>
 </resources>
