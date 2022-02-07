@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
@@ -18,11 +19,15 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
 import com.intive.patronage.retro.databinding.ActivityMainBinding
 import com.intive.patronage.retro.firebase.FirebaseViewModel
+import com.intive.patronage.retro.network.CheckNetworkConnect
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.java.KoinJavaComponent.inject
 
 class MainActivity : AppCompatActivity() {
     private val firebaseViewModel: FirebaseViewModel by viewModel()
     private val viewModel: MainViewModel by viewModel()
+    private val checkNet: CheckNetworkConnect by inject()
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
@@ -32,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        callNetworkConnection()
         initBottomBarAndDrawer()
         signInResultLauncher = registerForActivityResult(firebaseViewModel.getActivityResultContract()) {
             res ->
@@ -84,5 +90,15 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         binding.drawerLayout.visibility = View.GONE
+    }
+
+    private fun callNetworkConnection() {
+        checkNet.observe(this) { isConnected ->
+            if (isConnected) {
+                Toast.makeText(this, "APP ONLINE", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "APP OFFLINE", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }
