@@ -15,4 +15,9 @@
         android:name="com.intive.patronage.retro.history_fragment.HistoryFragment"
         android:label="history_fragment"
         tools:layout="@layout/history_fragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.intive.patronage.retro.profile_fragment.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" />
 </navigation>
