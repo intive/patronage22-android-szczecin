@@ -9,4 +9,6 @@
     <string name="boards_text">Boards Fragment</string>
     <string name="history_text">History Fragment</string>
     <string name="profile_text">Profile screen</string>
+    <string name="sign_in_cancelled">Sign-in flow cancelled!</string>
+    <string name="log_out">Log out</string>
 </resources>
