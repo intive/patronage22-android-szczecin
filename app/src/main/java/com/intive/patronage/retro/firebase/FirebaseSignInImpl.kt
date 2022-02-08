@@ -8,6 +8,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import com.intive.patronage.retro.R
 
 class FirebaseSignInImpl : FirebaseSignIn {
     private val intent = AuthUI.getInstance()
@@ -38,7 +39,7 @@ class FirebaseSignInImpl : FirebaseSignIn {
 
         if (result.idpResponse == null) {
             isBackPressed = true
-            Toast.makeText(context, "Sign-in flow cancelled!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.sign_in_cancelled), Toast.LENGTH_SHORT).show()
         }
     }
 
