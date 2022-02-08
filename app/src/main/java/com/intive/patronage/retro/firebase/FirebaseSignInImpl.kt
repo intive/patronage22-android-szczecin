@@ -3,14 +3,14 @@ package com.intive.patronage.retro.firebase
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.intive.patronage.retro.R
 
-class FirebaseSignInImpl : FirebaseSignIn {
+class FirebaseSignInImpl(_context: Context) : FirebaseSignIn {
+    private val context = _context
     private val intent = AuthUI.getInstance()
         .createSignInIntentBuilder()
         .setIsSmartLockEnabled(false)
@@ -23,17 +23,13 @@ class FirebaseSignInImpl : FirebaseSignIn {
     override fun isReady() = isReady
     override fun getIntent(): Intent = intent
 
-    override fun getResultLauncher(app: AppCompatActivity) =
-        app.registerForActivityResult(FirebaseAuthUIActivityResultContract()) {
-            res ->
-            onResult(res, app)
-        }
+    override fun getActivityResultContract() = FirebaseAuthUIActivityResultContract()
 
-    override fun logOut(context: Context) {
+    override fun logOut() {
         AuthUI.getInstance().signOut(context)
     }
 
-    override fun onResult(result: FirebaseAuthUIAuthenticationResult, context: Context) {
+    override fun onResult(result: FirebaseAuthUIAuthenticationResult) {
         isReady = true
         isBackPressed = false
 
