@@ -27,7 +27,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnLogOut.setOnClickListener {
             (activity as MainActivity).signIn()
-            firebaseViewModel.logOut((activity as MainActivity))
+            firebaseViewModel.logOut()
         }
     }
 }

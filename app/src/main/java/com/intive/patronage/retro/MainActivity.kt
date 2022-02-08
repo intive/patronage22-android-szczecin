@@ -33,7 +33,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initBottomBarAndDrawer()
-        signInResultLauncher = firebaseViewModel.getResultLauncher(this)
+        signInResultLauncher = registerForActivityResult(firebaseViewModel.getActivityResultContract()) {
+            res ->
+            firebaseViewModel.onResult(res)
+        }
         userAuth(splashScreen)
     }
 
