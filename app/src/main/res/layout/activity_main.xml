@@ -33,7 +33,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_app_bar_menu"
+            app:menu="@menu/bottom_app_bar_menu_boards"
             app:navigationIcon="@drawable/ic_baseline_dehaze_24" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

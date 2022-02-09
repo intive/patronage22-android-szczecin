@@ -10,5 +10,6 @@
     <string name="history_text">History Fragment</string>
     <string name="profile_text">Profile screen</string>
     <string name="sign_in_cancelled">Sign-in flow cancelled!</string>
-    <string name="log_out">Log out</string>
+    <string name="menu_log_out">Log out</string>
+    <string name="menu_log_out_description">Log out</string>
 </resources>
