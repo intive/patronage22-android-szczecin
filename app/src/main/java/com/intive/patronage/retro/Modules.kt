@@ -14,5 +14,6 @@ val appModule = module {
     factory<FirebaseSignIn> { FirebaseSignInImpl(androidContext()) }
     factory { CheckNetworkConnect(androidApplication()) }
 
+    viewModel { MainViewModel(get()) }
     viewModel { FirebaseViewModel(get()) }
 }
