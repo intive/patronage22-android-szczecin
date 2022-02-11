@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "194185401163",
-    "project_id": "patronate2022android",
-    "storage_bucket": "patronate2022android.appspot.com"
+    "project_number": "30746058309",
+    "project_id": "patronage2022-retro",
+    "storage_bucket": "patronage2022-retro.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:194185401163:android:e3d1ace4168167faad4ece",
+        "mobilesdk_app_id": "1:30746058309:android:3a075628aac931b3980d2c",
         "android_client_info": {
           "package_name": "com.intive.patronage.retro"
         }
       },
       "oauth_client": [
         {
-          "client_id": "194185401163-j0s30aav12bestm6ct8iv6d2riske2r1.apps.googleusercontent.com",
+          "client_id": "30746058309-bkuff1ai1gq1rt5jrlodfrvqb8q0legd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDAODMGHz_6QPjdn2GtfdHDjDjh6D6KAww"
+          "current_key": "AIzaSyB7vjbCKQSLqPXpbNOAmaCEXycudxiBzkA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "194185401163-j0s30aav12bestm6ct8iv6d2riske2r1.apps.googleusercontent.com",
+              "client_id": "30746058309-bkuff1ai1gq1rt5jrlodfrvqb8q0legd.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
