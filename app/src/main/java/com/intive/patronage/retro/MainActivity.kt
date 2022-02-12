@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (firebaseViewModel.isBackPressed()) {
-            signIn()
+            finish()
         } else {
             binding.drawerLayout.visibility = View.VISIBLE
         }
