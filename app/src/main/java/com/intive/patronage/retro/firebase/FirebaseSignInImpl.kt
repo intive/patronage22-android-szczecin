@@ -2,12 +2,10 @@ package com.intive.patronage.retro.firebase
 
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
-import com.intive.patronage.retro.R
 
 class FirebaseSignInImpl(_context: Context) : FirebaseSignIn {
     private val context = _context
@@ -35,7 +33,6 @@ class FirebaseSignInImpl(_context: Context) : FirebaseSignIn {
 
         if (result.idpResponse == null) {
             isBackPressed = true
-            Toast.makeText(context, context.getString(R.string.sign_in_cancelled), Toast.LENGTH_SHORT).show()
         }
     }
 
