@@ -20,4 +20,9 @@
         android:name="com.intive.patronage.retro.profile_fragment.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment" />
+    <activity
+        android:id="@+id/offlineActivity"
+        android:name="com.intive.patronage.retro.offline.OfflineActivity"
+        android:label="activity_offline"
+        tools:layout="@layout/activity_offline" />
 </navigation>

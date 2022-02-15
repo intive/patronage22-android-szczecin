@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="demo_text">
-        <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textColor">@color/intive_blue</item>
         <item name="android:textSize">34sp</item>
     </style>
+
     <style name="log_out_button">
         <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="offline_screen_text" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">font/roboto_regular</item>
+        <item name="android:textAlignment">center</item>
     </style>
 </resources>

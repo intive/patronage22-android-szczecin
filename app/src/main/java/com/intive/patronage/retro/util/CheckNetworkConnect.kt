@@ -1,4 +1,4 @@
-package com.intive.patronage.retro.network
+package com.intive.patronage.retro.util
 
 import android.app.Application
 import android.content.Context
@@ -7,7 +7,7 @@ import android.net.Network
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
 
-class CheckNetworkConnect(private val connectivityManager: ConnectivityManager) : LiveData<Boolean>() {
+class CheckNetworkConnect(var connectivityManager: ConnectivityManager) : LiveData<Boolean>() {
 
     constructor(application: Application) : this(application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
 
