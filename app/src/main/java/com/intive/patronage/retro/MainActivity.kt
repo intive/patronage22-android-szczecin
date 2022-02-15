@@ -2,7 +2,6 @@ package com.intive.patronage.retro
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
@@ -25,7 +24,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private val firebaseViewModel: FirebaseViewModel by viewModel()
-    private val viewModel: MainViewModel by viewModel()
     private val checkNet: CheckNetworkConnect by inject()
 
     private lateinit var binding: ActivityMainBinding
@@ -69,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             splashScreen.setKeepOnScreenCondition { !firebaseViewModel.isReady() }
             signIn()
         } else {
-            Log.i("VIEWMODEL", "onCreate: ${viewModel.sayHello()}")
             splashScreen.setKeepOnScreenCondition { false }
         }
     }
