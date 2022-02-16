@@ -24,6 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private val firebaseViewModel: FirebaseViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModel()
     private val checkNet: CheckNetworkConnect by inject()
 
     private lateinit var binding: ActivityMainBinding
@@ -92,9 +93,20 @@ class MainActivity : AppCompatActivity() {
     private fun callNetworkConnection() {
         checkNet.observe(this) { isConnected ->
             if (!isConnected) {
-                val intent = Intent(this, OfflineActivity::class.java)
-                startActivity(intent)
+                goToOfflineScreen()
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (viewModel.hasNoNetwork()) {
+            goToOfflineScreen()
+        }
+    }
+
+    private fun goToOfflineScreen() {
+        val intent = Intent(this, OfflineActivity::class.java)
+        startActivity(intent)
     }
 }
