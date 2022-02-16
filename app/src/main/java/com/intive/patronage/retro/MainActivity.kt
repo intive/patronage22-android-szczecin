@@ -16,14 +16,12 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
 import com.intive.patronage.retro.databinding.ActivityMainBinding
-import com.intive.patronage.retro.firebase.FirebaseViewModel
 import com.intive.patronage.retro.offline.OfflineActivity
 import com.intive.patronage.retro.util.CheckNetworkConnect
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private val firebaseViewModel: FirebaseViewModel by viewModel()
     private val viewModel: MainViewModel by viewModel()
     private val checkNet: CheckNetworkConnect by inject()
 
@@ -38,9 +36,9 @@ class MainActivity : AppCompatActivity() {
 
         initBottomBarAndDrawer()
         callNetworkConnection()
-        signInResultLauncher = registerForActivityResult(firebaseViewModel.getActivityResultContract()) {
+        signInResultLauncher = registerForActivityResult(viewModel.getActivityResultContract()) {
             res ->
-            firebaseViewModel.onResult(res)
+            viewModel.onResult(res)
         }
         userAuth(splashScreen)
     }
@@ -64,8 +62,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun userAuth(splashScreen: SplashScreen) {
-        if (!firebaseViewModel.isLogged()) {
-            splashScreen.setKeepOnScreenCondition { !firebaseViewModel.isReady() }
+        if (!viewModel.isLogged()) {
+            splashScreen.setKeepOnScreenCondition { !viewModel.isReady() }
             signIn()
         } else {
             splashScreen.setKeepOnScreenCondition { false }
@@ -73,12 +71,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun signIn() {
-        signInResultLauncher.launch(firebaseViewModel.getIntent())
+        signInResultLauncher.launch(viewModel.getIntent())
     }
 
     override fun onResume() {
         super.onResume()
-        if (firebaseViewModel.isBackPressed()) {
+        if (viewModel.isBackPressed()) {
             finish()
         } else {
             binding.drawerLayout.visibility = View.VISIBLE

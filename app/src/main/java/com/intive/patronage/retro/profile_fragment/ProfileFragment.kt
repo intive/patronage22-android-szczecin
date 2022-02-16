@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.intive.patronage.retro.MainActivity
+import com.intive.patronage.retro.MainViewModel
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.databinding.ProfileFragmentBinding
-import com.intive.patronage.retro.firebase.FirebaseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
-    private val firebaseViewModel: FirebaseViewModel by viewModel()
+    private val firebaseViewModel: MainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
