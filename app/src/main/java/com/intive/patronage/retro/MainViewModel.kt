@@ -5,8 +5,22 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
+import com.intive.patronage.retro.firebase.FirebaseSignIn
 
-class MainViewModel(val app: Application) : ViewModel() {
+class MainViewModel(val app: Application, private val firebaseSignIn: FirebaseSignIn) : ViewModel() {
+
+    fun isLogged() = firebaseSignIn.getUser() != null
+    fun isReady() = firebaseSignIn.isReady()
+    fun getIntent() = firebaseSignIn.getIntent()
+    fun isBackPressed() = firebaseSignIn.isBackPressed()
+    fun logOut() {
+        firebaseSignIn.logOut()
+    }
+    fun getActivityResultContract() = firebaseSignIn.getActivityResultContract()
+    fun onResult(result: FirebaseAuthUIAuthenticationResult) {
+        firebaseSignIn.onResult(result)
+    }
 
     @Suppress("DEPRECATION")
     fun hasNoNetwork(): Boolean {
