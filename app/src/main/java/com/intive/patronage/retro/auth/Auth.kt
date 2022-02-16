@@ -1,4 +1,4 @@
-package com.intive.patronage.retro.firebase
+package com.intive.patronage.retro.auth
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 
-class FirebaseSignInImpl(_context: Context) : FirebaseSignIn {
+class Auth(_context: Context) : AuthRepository {
     private val context = _context
     private val intent = AuthUI.getInstance()
         .createSignInIntentBuilder()

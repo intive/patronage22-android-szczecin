@@ -6,20 +6,20 @@ import android.net.ConnectivityManager
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.intive.patronage.retro.firebase.FirebaseSignIn
+import com.intive.patronage.retro.auth.AuthRepository
 
-class MainViewModel(val app: Application, private val firebaseSignIn: FirebaseSignIn) : ViewModel() {
+class MainViewModel(val app: Application, private val authRepository: AuthRepository) : ViewModel() {
 
-    fun isLogged() = firebaseSignIn.getUser() != null
-    fun isReady() = firebaseSignIn.isReady()
-    fun getIntent() = firebaseSignIn.getIntent()
-    fun isBackPressed() = firebaseSignIn.isBackPressed()
+    fun isLogged() = authRepository.getUser() != null
+    fun isReady() = authRepository.isReady()
+    fun getIntent() = authRepository.getIntent()
+    fun isBackPressed() = authRepository.isBackPressed()
     fun logOut() {
-        firebaseSignIn.logOut()
+        authRepository.logOut()
     }
-    fun getActivityResultContract() = firebaseSignIn.getActivityResultContract()
+    fun getActivityResultContract() = authRepository.getActivityResultContract()
     fun onResult(result: FirebaseAuthUIAuthenticationResult) {
-        firebaseSignIn.onResult(result)
+        authRepository.onResult(result)
     }
 
     @Suppress("DEPRECATION")

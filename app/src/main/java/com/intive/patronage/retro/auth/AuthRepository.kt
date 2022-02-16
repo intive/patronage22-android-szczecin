@@ -1,11 +1,11 @@
-package com.intive.patronage.retro.firebase
+package com.intive.patronage.retro.auth
 
 import android.content.Intent
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseUser
 
-interface FirebaseSignIn {
+interface AuthRepository {
     fun getUser(): FirebaseUser?
     fun isReady(): Boolean
     fun getIntent(): Intent
