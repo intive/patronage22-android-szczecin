@@ -16,4 +16,8 @@
         <item name="android:fontFamily">font/roboto_regular</item>
         <item name="android:textAlignment">center</item>
     </style>
+
+    <style name="circular_shape" >
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
