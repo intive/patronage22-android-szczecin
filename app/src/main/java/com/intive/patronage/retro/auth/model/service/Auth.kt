@@ -1,4 +1,4 @@
-package com.intive.patronage.retro.auth
+package com.intive.patronage.retro.auth.model.service
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import com.intive.patronage.retro.auth.model.repo.AuthRepository
 
 class Auth(_context: Context) : AuthRepository {
     private val context = _context

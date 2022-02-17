@@ -1,4 +1,4 @@
-package com.intive.patronage.retro
+package com.intive.patronage.retro.main.presentation.viewModel
 
 import android.app.Application
 import android.content.Context
@@ -6,7 +6,7 @@ import android.net.ConnectivityManager
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.intive.patronage.retro.auth.AuthRepository
+import com.intive.patronage.retro.auth.model.repo.AuthRepository
 
 class MainViewModel(val app: Application, private val authRepository: AuthRepository) : ViewModel() {
 

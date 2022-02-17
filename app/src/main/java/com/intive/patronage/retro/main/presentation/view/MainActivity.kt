@@ -1,4 +1,4 @@
-package com.intive.patronage.retro
+package com.intive.patronage.retro.main.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,9 +15,11 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
+import com.intive.patronage.retro.R
+import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.databinding.ActivityMainBinding
-import com.intive.patronage.retro.offline.OfflineActivity
-import com.intive.patronage.retro.util.CheckNetworkConnect
+import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
+import com.intive.patronage.retro.offline.presentation.view.OfflineActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

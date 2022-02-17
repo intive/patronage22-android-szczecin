@@ -1,4 +1,4 @@
-package com.intive.patronage.retro.auth
+package com.intive.patronage.retro.auth.model.repo
 
 import android.content.Intent
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
