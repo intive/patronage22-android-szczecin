@@ -6,6 +6,7 @@
         android:id="@+id/more"
         android:title="@string/more"
         android:contentDescription="@string/content_description_item"
+        android:visible="false"
         app:showAsAction="never"
         />
 </menu>
