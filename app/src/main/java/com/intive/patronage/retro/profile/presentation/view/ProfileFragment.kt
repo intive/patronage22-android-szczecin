@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.databinding.ProfileFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
@@ -24,6 +25,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bottomAppBar = (activity as MainActivity).findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val fab = (activity as MainActivity).findViewById<FloatingActionButton>(R.id.floatingButton)
+
+        fab.hide()
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_profile)
 
         bottomAppBar.setOnMenuItemClickListener { item ->
