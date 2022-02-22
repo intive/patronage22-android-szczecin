@@ -1,4 +1,4 @@
-package com.intive.patronage.retro.profile_fragment
+package com.intive.patronage.retro.profile.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 

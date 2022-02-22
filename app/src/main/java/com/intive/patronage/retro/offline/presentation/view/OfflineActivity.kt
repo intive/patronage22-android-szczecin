@@ -1,12 +1,12 @@
-package com.intive.patronage.retro.offline
+package com.intive.patronage.retro.offline.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.databinding.ActivityOfflineBinding
-import com.intive.patronage.retro.util.CheckNetworkConnect
 import org.koin.android.ext.android.inject
 
 class OfflineActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.intive.patronage.retro.profile_fragment
+package com.intive.patronage.retro.profile.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomappbar.BottomAppBar
-import com.intive.patronage.retro.MainActivity
-import com.intive.patronage.retro.MainViewModel
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.databinding.ProfileFragmentBinding
+import com.intive.patronage.retro.main.presentation.view.MainActivity
+import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.intive.patronage.retro.util
+package com.intive.patronage.retro.common.network
 
 import android.net.ConnectivityManager
 import android.net.Network

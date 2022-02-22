@@ -7,22 +7,22 @@
     >
     <fragment
         android:id="@+id/boardsFragment"
-        android:name="com.intive.patronage.retro.board_fragment.BoardsFragment"
+        android:name="com.intive.patronage.retro.board.presentation.view.BoardsFragment"
         android:label="board_fragment"
         tools:layout="@layout/board_fragment" />
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.intive.patronage.retro.history_fragment.HistoryFragment"
+        android:name="com.intive.patronage.retro.history.presentation.view.HistoryFragment"
         android:label="history_fragment"
         tools:layout="@layout/history_fragment" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.intive.patronage.retro.profile_fragment.ProfileFragment"
+        android:name="com.intive.patronage.retro.profile.presentation.view.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment" />
     <activity
         android:id="@+id/offlineActivity"
-        android:name="com.intive.patronage.retro.offline.OfflineActivity"
+        android:name="com.intive.patronage.retro.offline.presentation.view.OfflineActivity"
         android:label="activity_offline"
         tools:layout="@layout/activity_offline" />
 </navigation>

@@ -1,6 +1,7 @@
 package com.intive.patronage.retro
 
 import android.app.Application
+import com.intive.patronage.retro.common.dependencyInjection.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
