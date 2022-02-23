@@ -13,6 +13,7 @@ class MainViewModel(val app: Application, private val authRepository: AuthReposi
     fun isLogged() = authRepository.getUser() != null
     fun isReady() = authRepository.isReady()
     fun getIntent() = authRepository.getIntent()
+    fun getUser() = authRepository.getUser()
     fun isBackPressed() = authRepository.isBackPressed()
     fun logOut() {
         authRepository.logOut()

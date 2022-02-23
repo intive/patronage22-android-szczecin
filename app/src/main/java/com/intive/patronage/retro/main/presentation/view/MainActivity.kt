@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.databinding.ActivityMainBinding
+import com.intive.patronage.retro.databinding.HeaderNavigationDrawerBinding
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import com.intive.patronage.retro.offline.presentation.view.OfflineActivity
 import org.koin.android.ext.android.inject
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         initBottomBarAndDrawer()
@@ -43,7 +45,15 @@ class MainActivity : AppCompatActivity() {
             viewModel.onResult(res)
         }
 
+        updateDrawerHeaderInfo()
         userAuth(splashScreen)
+    }
+
+    private fun updateDrawerHeaderInfo() {
+        val bindingHeader: HeaderNavigationDrawerBinding = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
+        // TODO Get URI for avatar and placeholder using Picasso
+        bindingHeader.headerTextName.text = viewModel.getUser()?.email
+        bindingHeader.headerTextEmail.text = viewModel.getUser()?.displayName
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
