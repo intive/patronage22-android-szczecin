@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             res ->
             viewModel.onResult(res)
         }
+
         userAuth(splashScreen)
     }
 
