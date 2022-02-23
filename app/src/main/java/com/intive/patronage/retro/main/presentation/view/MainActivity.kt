@@ -21,6 +21,7 @@ import com.intive.patronage.retro.databinding.ActivityMainBinding
 import com.intive.patronage.retro.databinding.HeaderNavigationDrawerBinding
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import com.intive.patronage.retro.offline.presentation.view.OfflineActivity
+import com.squareup.picasso.Picasso
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,7 +52,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateDrawerHeaderInfo() {
         val bindingHeader: HeaderNavigationDrawerBinding = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
-        // TODO Get URI for avatar and placeholder using Picasso
+
+        Picasso.with(this)
+            .load(viewModel.getUser()?.photoUrl)
+            .placeholder(R.drawable.ic_avatar_default)
+            .into(bindingHeader.avatar)
         bindingHeader.headerTextName.text = viewModel.getUser()?.email
         bindingHeader.headerTextEmail.text = viewModel.getUser()?.displayName
     }
