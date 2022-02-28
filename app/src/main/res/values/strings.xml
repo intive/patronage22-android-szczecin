@@ -20,4 +20,6 @@
     <string name="header_display_name">name</string>
     <string name="header_email_address">e-mail</string>
     <string name="avatar_desc">The user\'s avatar</string>
+    <string name="licenses_text">Licenses</string>
+    <string name="more_drawer">More</string>
 </resources>
