@@ -5,25 +5,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.intive.patronage.retro.R
+import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.databinding.BoardFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BoardsFragment : Fragment() {
+
+    private val boardViewModel: BoardViewModel by viewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ) = BoardFragmentBinding.inflate(inflater, container, false).root
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val bottomAppBar = (activity as MainActivity).findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val fab = (activity as MainActivity).findViewById<FloatingActionButton>(R.id.floatingButton)
+    ): View {
+        val binding = BoardFragmentBinding.inflate(inflater, container, false)
+        val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
+        val fab = (activity as MainActivity).binding.floatingButton
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
+        uploadBoards(binding)
+
+        return binding.root
+    }
+
+    private fun uploadBoards(binding: BoardFragmentBinding) {
+        val boardAdapter = BoardRecyclerAdapter(boardViewModel.takeBoards())
+        binding.boardRv.adapter = boardAdapter
     }
 }

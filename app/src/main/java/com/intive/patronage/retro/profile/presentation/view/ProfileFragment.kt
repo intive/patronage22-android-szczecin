@@ -20,12 +20,15 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ) = ProfileFragmentBinding.inflate(inflater, container, false).root
+    ): View {
+        val binding = ProfileFragmentBinding.inflate(inflater, container, false)
+        val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
+        val fab = (activity as MainActivity).binding.floatingButton
+        setupBottomBar(bottomAppBar, fab)
+        return binding.root
+    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val bottomAppBar = (activity as MainActivity).findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val fab = (activity as MainActivity).findViewById<FloatingActionButton>(R.id.floatingButton)
+    private fun setupBottomBar(bottomAppBar: BottomAppBar, fab: FloatingActionButton) {
 
         fab.hide()
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_profile)
