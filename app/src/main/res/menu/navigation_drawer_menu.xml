@@ -10,4 +10,8 @@
     <item
         android:id="@+id/profileFragment"
         android:title="@string/profile" />
+
+    <item
+        android:id="@+id/moreFragment"
+        android:title="@string/more_drawer" />
 </menu>
