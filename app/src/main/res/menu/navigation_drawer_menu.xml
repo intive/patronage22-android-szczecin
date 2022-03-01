@@ -2,13 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/boardsFragment"
-        android:title="@string/boards"
-        />
+        android:contentDescription="@string/desc_nav_menu_board"
+        android:title="@string/boards" />
     <item
         android:id="@+id/historyFragment"
+        android:contentDescription="@string/desc_nav_menu_history"
         android:title="@string/history" />
     <item
         android:id="@+id/profileFragment"
+        android:contentDescription="@string/desc_nav_menu_profile"
         android:title="@string/profile" />
 
     <item

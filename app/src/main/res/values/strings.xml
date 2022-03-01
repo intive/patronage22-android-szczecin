@@ -22,4 +22,10 @@
     <string name="avatar_desc">The user\'s avatar</string>
     <string name="licenses_text">Licenses</string>
     <string name="more_drawer">More</string>
+    <string name="desc_nav_menu_board">Board in navigation drawer</string>
+    <string name="desc_nav_menu_history">History in navigation drawer</string>
+    <string name="desc_nav_menu_profile">Profile in navigation drawer</string>
+    <string name="desc_screen_board">Board screen</string>
+    <string name="desc_screen_history">History screen</string>
+    <string name="desc_screen_profile">Profile screen</string>
 </resources>
