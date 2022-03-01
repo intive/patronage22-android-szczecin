@@ -26,9 +26,9 @@
         tools:layout="@layout/profile_fragment" />
     <fragment
         android:id="@+id/moreFragment"
-        android:name="com.intive.patronage.retro.licenses.presentation.view.LicensesFragment"
+        android:name="com.intive.patronage.retro.more.presentation.view.MoreFragment"
         android:label="more_fragment"
-        tools:layout="@layout/licenses_fragment" />
+        tools:layout="@layout/more_fragment" />
     <activity
         android:id="@+id/offlineActivity"
         android:name="com.intive.patronage.retro.offline.presentation.view.OfflineActivity"
@@ -39,7 +39,7 @@
         android:id="@+id/ossLicensesMenuActivity"
         android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
         android:label="activity_licenses"
-        tools:layout="@layout/Theme.AppCompat.Light" />
+        tools:layout="@style/Theme.AppCompat.Light" />
     <fragment
         android:id="@+id/retroFragment"
         android:name="com.intive.patronage.retro.retro.presentation.view.RetroFragment"

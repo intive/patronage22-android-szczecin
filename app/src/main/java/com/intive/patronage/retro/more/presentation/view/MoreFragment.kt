@@ -1,4 +1,4 @@
-package com.intive.patronage.retro.licenses.presentation.view
+package com.intive.patronage.retro.more.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,17 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.intive.patronage.retro.R
-import com.intive.patronage.retro.databinding.LicensesFragmentBinding
+import com.intive.patronage.retro.databinding.MoreFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
 
-class LicensesFragment : Fragment() {
+class MoreFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = LicensesFragmentBinding.inflate(inflater, container, false)
+        val binding = MoreFragmentBinding.inflate(inflater, container, false)
         val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
         val fab = (activity as MainActivity).binding.floatingButton
 
