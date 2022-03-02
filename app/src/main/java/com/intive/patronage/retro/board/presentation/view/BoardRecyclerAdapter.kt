@@ -2,6 +2,7 @@ package com.intive.patronage.retro.board.presentation.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.intive.patronage.retro.board.presentation.entity.Board
 import com.intive.patronage.retro.databinding.BoardRecyclerItemLayoutBinding
@@ -12,6 +13,13 @@ class BoardRecyclerAdapter(private val boardList: List<Board>) : RecyclerView.Ad
             binding.textBoardName.text = board.name
             binding.textBoardStatus.text = board.status
         }
+
+        fun setAction(board: Board) {
+            binding.cardViewBoard.setOnClickListener {
+                val action = BoardsFragmentDirections.actionBoardsFragmentToRetroFragment(board.id)
+                Navigation.findNavController(it).navigate(action)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardViewHolder {
@@ -21,6 +29,7 @@ class BoardRecyclerAdapter(private val boardList: List<Board>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: BoardViewHolder, position: Int) {
         val board = boardList[position]
         holder.bindItem(board)
+        holder.setAction(board)
     }
 
     override fun getItemCount() = boardList.size

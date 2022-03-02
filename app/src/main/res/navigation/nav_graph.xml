@@ -9,7 +9,11 @@
         android:id="@+id/boardsFragment"
         android:name="com.intive.patronage.retro.board.presentation.view.BoardsFragment"
         android:label="board_fragment"
-        tools:layout="@layout/board_fragment" />
+        tools:layout="@layout/board_fragment" >
+        <action
+            android:id="@+id/action_boardsFragment_to_retroFragment"
+            app:destination="@id/retroFragment" />
+    </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.intive.patronage.retro.history.presentation.view.HistoryFragment"
@@ -36,4 +40,13 @@
         android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
         android:label="activity_licenses"
         tools:layout="@layout/Theme.AppCompat.Light" />
+    <fragment
+        android:id="@+id/retroFragment"
+        android:name="com.intive.patronage.retro.retro.presentation.view.RetroFragment"
+        android:label="retro_fragment"
+        tools:layout="@layout/retro_fragment">
+        <argument
+            android:name="boardId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
