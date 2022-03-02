@@ -12,8 +12,8 @@
         android:id="@+id/profileFragment"
         android:contentDescription="@string/desc_nav_menu_profile"
         android:title="@string/profile" />
-
     <item
         android:id="@+id/moreFragment"
+        android:contentDescription="@string/desc_nav_menu_more"
         android:title="@string/more_drawer" />
 </menu>

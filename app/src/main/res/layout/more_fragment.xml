@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".licenses.presentation.view.LicensesFragment">
+    android:contentDescription="@string/desc_screen_more"
+    tools:context=".more.presentation.view.MoreFragment">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btLicenses"
