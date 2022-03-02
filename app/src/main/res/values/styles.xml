@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="demo_text">
         <item name="android:textColor">@color/intive_blue</item>
         <item name="android:textSize">34sp</item>
+    </style>
+
+    <style name="retro_board_id_text">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
     <style name="log_out_button">
