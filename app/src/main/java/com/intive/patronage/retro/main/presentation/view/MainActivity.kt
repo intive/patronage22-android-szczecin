@@ -16,6 +16,7 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
 import com.intive.patronage.retro.R
+import com.intive.patronage.retro.auth.model.service.Auth
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.databinding.ActivityMainBinding
 import com.intive.patronage.retro.databinding.HeaderNavigationDrawerBinding
@@ -46,19 +47,19 @@ class MainActivity : AppCompatActivity() {
             viewModel.onResult(res)
         }
 
-        updateDrawerHeaderInfo()
         userAuth(splashScreen)
     }
 
     private fun updateDrawerHeaderInfo() {
         val bindingHeader: HeaderNavigationDrawerBinding = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
-
+        val auth: Auth by inject()
+        val user = auth.getUser()
         Picasso.with(this)
-            .load(viewModel.getUser()?.photoUrl)
+            .load(user?.photoUrl)
             .placeholder(R.drawable.ic_avatar_default)
             .into(bindingHeader.avatar)
-        bindingHeader.headerTextName.text = viewModel.getUser()?.email
-        bindingHeader.headerTextEmail.text = viewModel.getUser()?.displayName
+        bindingHeader.headerTextName.text = user?.displayName
+        bindingHeader.headerTextEmail.text = user?.email
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -127,6 +128,7 @@ class MainActivity : AppCompatActivity() {
         if (viewModel.hasNoNetwork()) {
             goToOfflineScreen()
         }
+        updateDrawerHeaderInfo()
     }
 
     private fun goToOfflineScreen() {
