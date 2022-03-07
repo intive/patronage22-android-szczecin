@@ -11,7 +11,7 @@ class BoardRecyclerAdapter(private val boardList: List<Board>) : RecyclerView.Ad
     inner class BoardViewHolder(private val binding: BoardRecyclerItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(board: Board) {
             binding.textBoardName.text = board.name
-            binding.textBoardStatus.text = board.status
+            binding.textBoardStatus.text = board.state
         }
 
         fun setAction(board: Board) {

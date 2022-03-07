@@ -5,5 +5,5 @@ import com.intive.patronage.retro.board.presentation.entity.Board
 
 class FakeBoardsRepository(private val api: FakeBoardsApi) : BoardRepository {
 
-    override fun getBoards() = api.sendBoards().map { Board(it.id, it.name, it.status) }
+    override fun getBoards() = api.sendBoards().map { Board(it.id, it.state, it.name, it.maximumNumberOfVotes) }
 }
