@@ -19,7 +19,7 @@ val appModule = module {
 
     factory<AuthRepository> { Auth(androidContext()) }
     factory { CheckNetworkConnect(androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager) }
-
+    factory { Auth(androidContext()) }
     factory<BoardRepository> { FakeBoardsRepository(FakeBoardsApi()) }
 
     viewModel { MainViewModel(get(), get()) }
