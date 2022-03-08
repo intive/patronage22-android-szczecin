@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 
 class Auth(_context: Context) : AuthRepository {
+
     private val context = _context
     private val intent = AuthUI.getInstance()
         .createSignInIntentBuilder()

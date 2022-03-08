@@ -2,7 +2,7 @@ package com.intive.patronage.retro.board.model.repo
 
 import com.intive.patronage.retro.board.presentation.entity.Board
 
-interface BoardRepository {
+class BoardRepository(private val api: BoardApi) {
 
-    fun getBoards(): List<Board>
+    suspend fun getBoards() = api.getBoards().map { Board(it.id, it.state, it.name, it.numberOfVotes) }
 }

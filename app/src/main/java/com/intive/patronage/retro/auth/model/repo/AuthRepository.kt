@@ -6,6 +6,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseUser
 
 interface AuthRepository {
+
     fun getUser(): FirebaseUser?
     fun isReady(): Boolean
     fun getIntent(): Intent
