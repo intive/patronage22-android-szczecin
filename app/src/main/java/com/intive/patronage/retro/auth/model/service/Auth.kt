@@ -19,7 +19,6 @@ class Auth(private val context: Context, private val userToken: Token) : AuthRep
 
     override fun getUser() = user
     override fun getIntent(): Intent = intent
-
     override fun getActivityResultContract() = FirebaseAuthUIActivityResultContract()
 
     override fun logOut() {

@@ -15,8 +15,9 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.intive.patronage.retro.R
-import com.intive.patronage.retro.auth.model.service.Auth
 import com.intive.patronage.retro.auth.model.service.Token
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.databinding.ActivityMainBinding
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var splashScreen: SplashScreen
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         splashScreen = installSplashScreen()
@@ -43,21 +45,20 @@ class MainActivity : AppCompatActivity() {
         splashScreen.setKeepOnScreenCondition { true }
 
         setContentView(binding.root)
+        auth = FirebaseAuth.getInstance()
 
         initBottomBarAndDrawer()
         callNetworkConnection()
-        signInResultLauncher = registerForActivityResult(viewModel.getActivityResultContract()) {
-            res ->
+        signInResultLauncher = registerForActivityResult(viewModel.getActivityResultContract()) { res ->
             viewModel.onResult(res)
         }
         endSplashScreen()
         userAuth()
     }
 
-    private fun updateDrawerHeaderInfo() {
+    private fun updateDrawerHeaderInfo(user: FirebaseUser?) {
         val bindingHeader: HeaderNavigationDrawerBinding = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
-        val auth: Auth by inject()
-        val user = auth.getUser()
+
         Picasso.with(this)
             .load(user?.photoUrl)
             .placeholder(R.drawable.ic_avatar_default)
@@ -95,6 +96,7 @@ class MainActivity : AppCompatActivity() {
     private fun userAuth() {
         if (!viewModel.isLogged()) {
             signIn()
+            initBottomBarAndDrawer()
         } else {
             token.startRefreshToken()
         }
@@ -131,7 +133,10 @@ class MainActivity : AppCompatActivity() {
         if (viewModel.hasNoNetwork()) {
             goToOfflineScreen()
         }
-        updateDrawerHeaderInfo()
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            updateDrawerHeaderInfo(currentUser)
+        }
     }
 
     private fun goToOfflineScreen() {
