@@ -38,4 +38,4 @@ jobs:
       - name: Send to BrowserStack
         uses: wei/curl@master
         with:
-          args: -u "${{secrets.BROWSERSTACK_USER}}:${{secrets.BROWSERSTACK_KEY}}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@app/build/outputs/apk/debug/*.apk" -F "custom_id=IntivePatronage"
+          args: -u "${{secrets.BROWSERSTACK_USER}}:${{secrets.BROWSERSTACK_KEY}}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@app/build/outputs/apk/debug/RetroBoard-debug-v1.0-{{ github.run_number }}.apk" -F "custom_id=IntivePatronage"
