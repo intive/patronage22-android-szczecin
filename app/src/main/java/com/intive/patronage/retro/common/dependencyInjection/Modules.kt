@@ -4,10 +4,14 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 import com.intive.patronage.retro.auth.model.service.Auth
+import com.intive.patronage.retro.auth.model.service.Token
 import com.intive.patronage.retro.board.model.fakeApi.FakeBoardsApi
 import com.intive.patronage.retro.board.model.repo.BoardRepository
 import com.intive.patronage.retro.board.model.repo.FakeBoardsRepository
+import com.intive.patronage.retro.board.model.service.AddBoard
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
+import com.intive.patronage.retro.common.httpClient.HTTPClient
+import com.intive.patronage.retro.common.httpClient.Interceptor
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -17,11 +21,15 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    factory<AuthRepository> { Auth(androidContext()) }
+    factory<AuthRepository> { Auth(androidContext(), get()) }
+    factory { Auth(androidContext(), get()) }
     factory { CheckNetworkConnect(androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager) }
-    factory { Auth(androidContext()) }
     factory<BoardRepository> { FakeBoardsRepository(FakeBoardsApi()) }
+    single { Token() }
+    single { Interceptor(get()) }
+    single { HTTPClient(get()) }
+    factory { AddBoard(get()) }
 
     viewModel { MainViewModel(get(), get()) }
-    viewModel { BoardViewModel(get()) }
+    viewModel { BoardViewModel(get(), get()) }
 }

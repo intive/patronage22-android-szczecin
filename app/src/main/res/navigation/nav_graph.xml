@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_boardsFragment_to_retroFragment"
             app:destination="@id/retroFragment" />
+        <action
+            android:id="@+id/action_boardsFragment_to_addBoardDialog"
+            app:destination="@id/addBoardDialog" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -49,4 +52,13 @@
             android:name="boardId"
             app:argType="integer" />
     </fragment>
+    <dialog
+        android:id="@+id/addBoardDialog"
+        android:name="com.intive.patronage.retro.board.presentation.view.AddBoardDialog"
+        android:label="add_board_dialog"
+        tools:layout="@layout/add_board_dialog" >
+        <action
+            android:id="@+id/action_addBoardDialog_to_boardsFragment"
+            app:destination="@id/boardsFragment" />
+    </dialog>
 </navigation>

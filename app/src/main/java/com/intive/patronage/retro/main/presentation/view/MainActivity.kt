@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             res ->
             viewModel.onResult(res)
         }
-
         userAuth(splashScreen)
     }
 
@@ -93,6 +92,7 @@ class MainActivity : AppCompatActivity() {
             splashScreen.setKeepOnScreenCondition { !viewModel.isReady() }
             signIn()
         } else {
+            viewModel.startRefreshToken()
             splashScreen.setKeepOnScreenCondition { false }
         }
     }

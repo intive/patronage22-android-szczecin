@@ -8,8 +8,8 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 
-class Auth(_context: Context) : AuthRepository {
-    private val context = _context
+class Auth(private val context: Context, private val userToken: Token) : AuthRepository {
+
     private val intent = AuthUI.getInstance()
         .createSignInIntentBuilder()
         .setIsSmartLockEnabled(false)
@@ -21,10 +21,10 @@ class Auth(_context: Context) : AuthRepository {
     override fun getUser() = user
     override fun isReady() = isReady
     override fun getIntent(): Intent = intent
-
     override fun getActivityResultContract() = FirebaseAuthUIActivityResultContract()
 
     override fun logOut() {
+        userToken.stopRefreshToken()
         AuthUI.getInstance().signOut(context)
     }
 
@@ -34,8 +34,14 @@ class Auth(_context: Context) : AuthRepository {
 
         if (result.idpResponse == null) {
             isBackPressed = true
+        } else {
+            userToken.startRefreshToken()
         }
     }
 
     override fun isBackPressed() = isBackPressed
+    override fun getToken(): String = userToken.getToken()
+    override fun startRefreshToken() {
+        userToken.startRefreshToken()
+    }
 }

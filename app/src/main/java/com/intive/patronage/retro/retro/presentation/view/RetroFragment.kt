@@ -25,6 +25,8 @@ class RetroFragment : Fragment() {
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
+        fab.setOnClickListener {
+        }
         val boardTitle = "Board id: " + args.boardId.toString()
         binding.retroScreenTitle.text = boardTitle
 

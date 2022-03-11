@@ -13,4 +13,6 @@ interface AuthRepository {
     fun onResult(result: FirebaseAuthUIAuthenticationResult)
     fun isBackPressed(): Boolean
     fun getActivityResultContract(): FirebaseAuthUIActivityResultContract
+    fun getToken(): String
+    fun startRefreshToken()
 }

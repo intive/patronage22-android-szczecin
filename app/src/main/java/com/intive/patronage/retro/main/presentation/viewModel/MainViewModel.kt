@@ -22,6 +22,9 @@ class MainViewModel(val app: Application, private val authRepository: AuthReposi
     fun onResult(result: FirebaseAuthUIAuthenticationResult) {
         authRepository.onResult(result)
     }
+    fun startRefreshToken() {
+        authRepository.startRefreshToken()
+    }
 
     @Suppress("DEPRECATION")
     fun hasNoNetwork(): Boolean {
