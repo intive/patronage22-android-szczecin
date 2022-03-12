@@ -10,6 +10,10 @@ import com.intive.patronage.retro.board.model.repo.FakeBoardsRepository
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
+import com.intive.patronage.retro.retro.model.fakeApi.FakeRetroApi
+import com.intive.patronage.retro.retro.model.repo.FakeRetroRepository
+import com.intive.patronage.retro.retro.model.repo.RetroRepository
+import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -21,7 +25,9 @@ val appModule = module {
     factory { CheckNetworkConnect(androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager) }
     factory { Auth(androidContext()) }
     factory<BoardRepository> { FakeBoardsRepository(FakeBoardsApi()) }
+    factory<RetroRepository> { FakeRetroRepository(FakeRetroApi()) }
 
     viewModel { MainViewModel(get(), get()) }
     viewModel { BoardViewModel(get()) }
+    viewModel { RetroViewModel(get()) }
 }
