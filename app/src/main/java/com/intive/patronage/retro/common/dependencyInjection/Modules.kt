@@ -5,10 +5,14 @@ import android.net.ConnectivityManager
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 import com.intive.patronage.retro.auth.model.service.Auth
 import com.intive.patronage.retro.auth.model.service.Token
-import com.intive.patronage.retro.board.model.fakeApi.FakeBoardsApi
+import com.intive.patronage.retro.board.model.repo.BoardApiImpl
 import com.intive.patronage.retro.board.model.repo.BoardRepository
-import com.intive.patronage.retro.board.model.repo.FakeBoardsRepository
+import com.intive.patronage.retro.board.presentation.view.BoardsFragment
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
+import com.intive.patronage.retro.common.api.AuthInterceptor
+import com.intive.patronage.retro.common.api.HttpClient
+import com.intive.patronage.retro.common.api.ResponseHandler
+import com.intive.patronage.retro.common.api.RestClient
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import com.intive.patronage.retro.retro.model.fakeApi.FakeRetroApi
@@ -24,12 +28,20 @@ val appModule = module {
 
     factory<AuthRepository> { Auth(androidContext(), get()) }
     factory { CheckNetworkConnect(androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager) }
-    factory { Auth(androidContext(), get()) }
-    factory<BoardRepository> { FakeBoardsRepository(FakeBoardsApi()) }
+    factory { ResponseHandler() }
+    factory { BoardRepository(get(), get()) }
+    factory { BoardsFragment() }
     factory<RetroRepository> { FakeRetroRepository(FakeRetroApi()) }
-    single { Token() }
 
     viewModel { MainViewModel(get(), get()) }
     viewModel { BoardViewModel(get()) }
     viewModel { RetroViewModel(get()) }
+}
+
+val networkModule = module {
+    single { Token() }
+    single { AuthInterceptor(get()) }
+    factory { HttpClient(get()) }
+    single { RestClient(get(), getProperty("base_url")) }
+    factory { BoardApiImpl(get()) }
 }

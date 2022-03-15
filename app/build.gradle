@@ -44,7 +44,11 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:29.0.4')
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
     implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
     implementation 'io.insert-koin:koin-android:3.1.5'
     implementation 'io.insert-koin:koin-android:3.1.5'
     implementation 'androidx.core:core-ktx:1.7.0'

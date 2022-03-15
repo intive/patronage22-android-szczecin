@@ -10,7 +10,7 @@ class FakeRetroRepository(private val api: FakeRetroApi) : RetroRepository {
 
     override fun getRetroConfiguration() = api.sendConf().map {
         Retro(
-            Board(it.board.id, it.board.state, it.board.name, it.board.maximumNumberOfVotes),
+            Board(it.board.id, it.board.state, it.board.name, it.board.numberOfVotes),
             listColumns = it.listColumns.map { it2 -> Columns(it2.name, it2.id, it2.position, it2.colour) },
             listUsers = it.listUsers.map { it3 -> User(it3.email, it3.id) }
         )
