@@ -11,7 +11,6 @@ import com.intive.patronage.retro.auth.model.repo.AuthRepository
 class MainViewModel(val app: Application, private val authRepository: AuthRepository) : ViewModel() {
 
     fun isLogged() = authRepository.getUser() != null
-    fun isReady() = authRepository.isReady()
     fun getIntent() = authRepository.getIntent()
     fun getUser() = authRepository.getUser()
     fun isBackPressed() = authRepository.isBackPressed()

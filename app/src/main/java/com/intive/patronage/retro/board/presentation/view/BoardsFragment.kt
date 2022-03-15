@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.intive.patronage.retro.R
+import com.intive.patronage.retro.auth.model.service.Token
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.databinding.BoardFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BoardsFragment : Fragment() {
 
     private val boardViewModel: BoardViewModel by viewModel()
+    private val token: Token by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +35,11 @@ class BoardsFragment : Fragment() {
     }
 
     private fun uploadBoards(binding: BoardFragmentBinding) {
-        val boardAdapter = BoardRecyclerAdapter(boardViewModel.takeBoards())
-        binding.boardRv.adapter = boardAdapter
+        token.observe(viewLifecycleOwner) {
+            isTokenGenerated ->
+            if (isTokenGenerated) {
+                binding.boardRv.adapter = BoardRecyclerAdapter(boardViewModel.takeBoards())
+            }
+        }
     }
 }
