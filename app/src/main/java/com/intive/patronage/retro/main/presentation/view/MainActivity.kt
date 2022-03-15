@@ -17,6 +17,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.Auth
+import com.intive.patronage.retro.auth.model.service.Token
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.databinding.ActivityMainBinding
 import com.intive.patronage.retro.databinding.HeaderNavigationDrawerBinding
@@ -29,14 +30,17 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModel()
     private val checkNet: CheckNetworkConnect by inject()
+    private val token: Token by inject()
 
     lateinit var binding: ActivityMainBinding
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var splashScreen: SplashScreen
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+        splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        splashScreen.setKeepOnScreenCondition { true }
 
         setContentView(binding.root)
 
@@ -46,8 +50,8 @@ class MainActivity : AppCompatActivity() {
             res ->
             viewModel.onResult(res)
         }
-
-        userAuth(splashScreen)
+        endSplashScreen()
+        userAuth()
     }
 
     private fun updateDrawerHeaderInfo() {
@@ -88,12 +92,11 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(navView, navController)
     }
 
-    private fun userAuth(splashScreen: SplashScreen) {
+    private fun userAuth() {
         if (!viewModel.isLogged()) {
-            splashScreen.setKeepOnScreenCondition { !viewModel.isReady() }
             signIn()
         } else {
-            splashScreen.setKeepOnScreenCondition { false }
+            token.startRefreshToken()
         }
     }
 
@@ -134,5 +137,14 @@ class MainActivity : AppCompatActivity() {
     private fun goToOfflineScreen() {
         val intent = Intent(this, OfflineActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun endSplashScreen() {
+        token.observe(this) {
+            isTokenGenerated ->
+            if (isTokenGenerated) {
+                splashScreen.setKeepOnScreenCondition { false }
+            }
+        }
     }
 }
