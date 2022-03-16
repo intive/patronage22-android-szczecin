@@ -32,7 +32,7 @@ class BoardsFragment : Fragment() {
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
-
+        uploadBoards(binding)
         return binding.root
     }
 
@@ -42,17 +42,15 @@ class BoardsFragment : Fragment() {
             if (isTokenGenerated) {
                 boardViewModel.boards.observe(viewLifecycleOwner) {
                     when (it.status) {
-                        Status.SUCCESS -> binding.boardRv.adapter = BoardRecyclerAdapter(it.data!!)
+                        Status.SUCCESS -> {
+                            binding.indicator.visibility = View.GONE
+                            binding.boardRv.adapter = BoardRecyclerAdapter(it.data!!)
+                        }
                         Status.ERROR -> Toast.makeText(this.context, it.message, Toast.LENGTH_LONG).show()
-                        Status.LOADING -> Toast.makeText(this.context, "LOADING...", Toast.LENGTH_SHORT).show()
+                        Status.LOADING -> binding.indicator.isShown
                     }
                 }
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        uploadBoards(binding)
     }
 }
