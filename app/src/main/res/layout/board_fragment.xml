@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:contentDescription="@string/desc_screen_board"
+    android:id="@+id/context_view"
     tools:context=".board.presentation.view.BoardsFragment">
 
 
