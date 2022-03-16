@@ -15,9 +15,9 @@ import com.intive.patronage.retro.common.api.ResponseHandler
 import com.intive.patronage.retro.common.api.RestClient
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
-import com.intive.patronage.retro.retro.model.fakeApi.FakeRetroApi
-import com.intive.patronage.retro.retro.model.repo.FakeRetroRepository
+import com.intive.patronage.retro.retro.model.repo.RetroApiImpl
 import com.intive.patronage.retro.retro.model.repo.RetroRepository
+import com.intive.patronage.retro.retro.presentation.view.RetroFragment
 import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -31,7 +31,8 @@ val appModule = module {
     factory { ResponseHandler() }
     factory { BoardRepository(get(), get()) }
     factory { BoardsFragment() }
-    factory<RetroRepository> { FakeRetroRepository(FakeRetroApi()) }
+    factory { RetroFragment() }
+    factory { RetroRepository(get(), get()) }
 
     viewModel { MainViewModel(get(), get()) }
     viewModel { BoardViewModel(get()) }
@@ -44,4 +45,5 @@ val networkModule = module {
     factory { HttpClient(get()) }
     single { RestClient(get(), getProperty("base_url")) }
     factory { BoardApiImpl(get()) }
+    factory { RetroApiImpl(get()) }
 }
