@@ -19,7 +19,7 @@ class BoardRepository(private val api: BoardApiImpl, var responseHandler: Respon
         return try {
             responseHandler.handleSuccess(api.getBoardApi().addBoard(board))
         } catch (e: Exception) {
-            responseHandler.handleException()
+            responseHandler.handleException(e)
         }
     }
 }
