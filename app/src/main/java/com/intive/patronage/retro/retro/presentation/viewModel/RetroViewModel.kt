@@ -1,9 +1,17 @@
 package com.intive.patronage.retro.retro.presentation.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import com.intive.patronage.retro.common.api.Resource
 import com.intive.patronage.retro.retro.model.repo.RetroRepository
+import com.intive.patronage.retro.retro.presentation.entity.Columns
+import kotlinx.coroutines.Dispatchers
 
 class RetroViewModel(private val repo: RetroRepository) : ViewModel() {
 
-    fun takeRetroConfiguration() = repo.getRetroConfiguration()
+    fun retroConfiguration(id: Int): LiveData<Resource<List<Columns>>> = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        emit(repo.getRetroConfiguration(id))
+    }
 }
