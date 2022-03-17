@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.Token
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
@@ -33,12 +32,7 @@ class BoardsFragment : Fragment() {
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
-        fab.setOnClickListener {
-            val action = BoardsFragmentDirections.actionBoardsFragmentToAddBoardDialog()
-            Navigation.findNavController(binding.root).navigate(action)
-        }
         uploadBoards(binding)
-
         return binding.root
     }
 
@@ -52,7 +46,10 @@ class BoardsFragment : Fragment() {
                             binding.indicator.visibility = View.GONE
                             binding.boardRv.adapter = BoardRecyclerAdapter(it.data!!)
                         }
-                        Status.ERROR -> Toast.makeText(this.context, it.message, Toast.LENGTH_LONG).show()
+                        Status.ERROR -> {
+                            binding.indicator.visibility = View.GONE
+                            Snackbar.make(binding.contextView, it.message!!, Snackbar.LENGTH_SHORT).show()
+                        }
                         Status.LOADING -> binding.indicator.isShown
                     }
                 }
