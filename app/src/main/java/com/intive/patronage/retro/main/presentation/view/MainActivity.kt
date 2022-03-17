@@ -98,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             signIn()
             initBottomBarAndDrawer()
         } else {
+            auth = FirebaseAuth.getInstance()
             token.startRefreshToken()
         }
     }

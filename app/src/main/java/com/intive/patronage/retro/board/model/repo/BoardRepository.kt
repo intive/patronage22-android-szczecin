@@ -11,7 +11,7 @@ class BoardRepository(private val api: BoardApiImpl, var responseHandler: Respon
         return try {
             responseHandler.handleSuccess(api.getBoardApi().getBoards().map { Board(it.id, it.state, it.name, it.numberOfVotes) })
         } catch (e: Exception) {
-            responseHandler.handleException()
+            responseHandler.handleException(e)
         }
     }
 
