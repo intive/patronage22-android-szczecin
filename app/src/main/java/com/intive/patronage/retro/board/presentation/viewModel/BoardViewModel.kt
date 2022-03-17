@@ -14,4 +14,9 @@ class BoardViewModel(private val repo: BoardRepository) : ViewModel() {
         emit(Resource.loading(null))
         emit(repo.getBoards())
     }
+
+    fun addBoard(boardName: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        emit(repo.addBoard(Board(0, "", boardName, 0)))
+    }
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.Token
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
@@ -32,7 +33,10 @@ class BoardsFragment : Fragment() {
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
-
+        fab.setOnClickListener {
+            val action = BoardsFragmentDirections.actionBoardsFragmentToAddBoardDialog()
+            Navigation.findNavController(binding.root).navigate(action)
+        }
         return binding.root
     }
 
