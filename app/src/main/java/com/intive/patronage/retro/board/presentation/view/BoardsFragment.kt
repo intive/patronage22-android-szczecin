@@ -46,7 +46,7 @@ class BoardsFragment : Fragment() {
         token.observe(viewLifecycleOwner) {
             isTokenGenerated ->
             if (isTokenGenerated) {
-                boardViewModel.boards.observe(viewLifecycleOwner) {
+                boardViewModel.getBoards().observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.SUCCESS -> {
                             binding.indicator.visibility = View.GONE
