@@ -25,7 +25,6 @@ import com.intive.patronage.retro.databinding.ActivityMainBinding
 import com.intive.patronage.retro.databinding.HeaderNavigationDrawerBinding
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import com.intive.patronage.retro.offline.presentation.view.OfflineActivity
-import com.squareup.picasso.Picasso
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -45,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         bindingHeader = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
+        binding.lifecycleOwner = this
+
         splashScreen.setKeepOnScreenCondition { true }
 
         auth = FirebaseAuth.getInstance()
@@ -59,10 +60,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDrawerHeaderInfo(user: FirebaseUser?) {
-        Picasso.with(this)
-            .load(user?.photoUrl)
-            .placeholder(R.drawable.ic_avatar_default)
-            .into(bindingHeader.avatar)
         bindingHeader.headerTextName.text = user?.displayName
         bindingHeader.headerTextEmail.text = user?.email
     }

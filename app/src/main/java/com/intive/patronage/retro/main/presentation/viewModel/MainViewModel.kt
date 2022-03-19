@@ -3,6 +3,7 @@ package com.intive.patronage.retro.main.presentation.viewModel
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
@@ -16,11 +17,12 @@ class MainViewModel(val app: Application, private val authRepository: AuthReposi
     fun logOut() {
         authRepository.logOut()
     }
-
     fun getActivityResultContract() = authRepository.getActivityResultContract()
     fun onResult(result: FirebaseAuthUIAuthenticationResult) {
         authRepository.onResult(result)
     }
+
+    fun getPicUri(): Uri? = getUser()?.photoUrl
 
     @Suppress("DEPRECATION")
     fun hasNoNetwork(): Boolean {
