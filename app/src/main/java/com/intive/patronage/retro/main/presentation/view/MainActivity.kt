@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -29,11 +30,12 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
+    lateinit var bindingHeader: HeaderNavigationDrawerBinding
     private val viewModel: MainViewModel by viewModel()
     private val checkNet: CheckNetworkConnect by inject()
     private val token: Token by inject()
-
-    lateinit var binding: ActivityMainBinding
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var splashScreen: SplashScreen
     private lateinit var auth: FirebaseAuth
@@ -41,10 +43,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        bindingHeader = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
         splashScreen.setKeepOnScreenCondition { true }
 
-        setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
         initBottomBarAndDrawer()
@@ -57,8 +59,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDrawerHeaderInfo(user: FirebaseUser?) {
-        val bindingHeader: HeaderNavigationDrawerBinding = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
-
         Picasso.with(this)
             .load(user?.photoUrl)
             .placeholder(R.drawable.ic_avatar_default)
