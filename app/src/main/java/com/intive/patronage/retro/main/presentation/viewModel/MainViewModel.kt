@@ -10,6 +10,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 
 class MainViewModel(val app: Application, private val authRepository: AuthRepository) : ViewModel() {
+
     fun isLogged() = authRepository.getUser() != null
     fun getIntent() = authRepository.getIntent()
     fun getUser() = authRepository.getUser()
@@ -21,8 +22,9 @@ class MainViewModel(val app: Application, private val authRepository: AuthReposi
     fun onResult(result: FirebaseAuthUIAuthenticationResult) {
         authRepository.onResult(result)
     }
-
     fun getPicUri(): Uri? = getUser()?.photoUrl
+    fun getDisplayName() = getUser()?.displayName
+    fun getEmail() = getUser()?.email
 
     @Suppress("DEPRECATION")
     fun hasNoNetwork(): Boolean {
