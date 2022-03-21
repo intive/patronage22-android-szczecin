@@ -16,7 +16,6 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.Token
@@ -38,7 +37,6 @@ class MainActivity : AppCompatActivity() {
     private val token: Token by inject()
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var splashScreen: SplashScreen
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         splashScreen = installSplashScreen()
@@ -46,8 +44,6 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         bindingHeader = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
         splashScreen.setKeepOnScreenCondition { true }
-
-        auth = FirebaseAuth.getInstance()
 
         initBottomBarAndDrawer()
         callNetworkConnection()
@@ -98,7 +94,6 @@ class MainActivity : AppCompatActivity() {
             signIn()
             initBottomBarAndDrawer()
         } else {
-            auth = FirebaseAuth.getInstance()
             token.startRefreshToken()
         }
     }
@@ -134,9 +129,8 @@ class MainActivity : AppCompatActivity() {
         if (viewModel.hasNoNetwork()) {
             goToOfflineScreen()
         }
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            updateDrawerHeaderInfo(currentUser)
+        if (viewModel.getUser() != null) {
+            updateDrawerHeaderInfo(viewModel.getUser())
         }
     }
 

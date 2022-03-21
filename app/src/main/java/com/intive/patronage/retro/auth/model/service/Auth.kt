@@ -14,10 +14,9 @@ class Auth(private val context: Context, private val userToken: Token) : AuthRep
         .createSignInIntentBuilder()
         .setIsSmartLockEnabled(false)
         .build()
-    private val user = FirebaseAuth.getInstance().currentUser
     private var isBackPressed = false
 
-    override fun getUser() = user
+    override fun getUser() = FirebaseAuth.getInstance().currentUser
     override fun getIntent(): Intent = intent
     override fun getActivityResultContract() = FirebaseAuthUIActivityResultContract()
 
