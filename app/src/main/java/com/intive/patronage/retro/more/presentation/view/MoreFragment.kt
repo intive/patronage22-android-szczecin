@@ -1,12 +1,11 @@
 package com.intive.patronage.retro.more.presentation.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import androidx.navigation.findNavController
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.databinding.MoreFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
@@ -24,7 +23,9 @@ class MoreFragment : Fragment() {
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.hide()
-        binding.btLicenses.setOnClickListener { startActivity(Intent(activity, OssLicensesMenuActivity::class.java)) }
+        binding.btLicenses.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_moreFragment_to_ossLicensesMenuActivity)
+        }
 
         return binding.root
     }

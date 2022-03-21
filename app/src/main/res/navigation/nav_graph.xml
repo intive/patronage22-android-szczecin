@@ -35,7 +35,11 @@
         android:id="@+id/moreFragment"
         android:name="com.intive.patronage.retro.more.presentation.view.MoreFragment"
         android:label="more_fragment"
-        tools:layout="@layout/more_fragment" />
+        tools:layout="@layout/more_fragment" >
+        <action
+            android:id="@+id/action_moreFragment_to_ossLicensesMenuActivity"
+            app:destination="@id/ossLicensesMenuActivity" />
+    </fragment>
     <activity
         android:id="@+id/offlineActivity"
         android:name="com.intive.patronage.retro.offline.presentation.view.OfflineActivity"
