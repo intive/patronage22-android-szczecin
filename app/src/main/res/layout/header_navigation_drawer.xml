@@ -35,6 +35,7 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto_bold"
+            android:text="@{viewModel.displayName}"
             tools:text="Johny Bravo" />
 
         <TextView
@@ -45,6 +46,7 @@
             android:textSize="14sp"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto"
+            android:text="@{viewModel.email}"
             tools:text="johny.bravo@gmail.com" />
 
     </LinearLayout>

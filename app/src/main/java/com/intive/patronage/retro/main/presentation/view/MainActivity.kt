@@ -8,7 +8,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,7 +15,6 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseUser
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.Token
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
@@ -39,10 +37,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         bindingHeader = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
-        binding.lifecycleOwner = this
-
+        bindingHeader.lifecycleOwner = this
         splashScreen.setKeepOnScreenCondition { true }
 
         initBottomBarAndDrawer()
@@ -52,11 +49,8 @@ class MainActivity : AppCompatActivity() {
         }
         endSplashScreen()
         userAuth()
-    }
 
-    private fun updateDrawerHeaderInfo(user: FirebaseUser?) {
-        bindingHeader.headerTextName.text = user?.displayName
-        bindingHeader.headerTextEmail.text = user?.email
+        setContentView(binding.root)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -126,7 +120,7 @@ class MainActivity : AppCompatActivity() {
             goToOfflineScreen()
         }
         if (viewModel.getUser() != null) {
-            updateDrawerHeaderInfo(viewModel.getUser())
+            bindingHeader.viewModel = viewModel
         }
     }
 
