@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var splashScreen: SplashScreen
 
+    fun signIn() {
+        signInResultLauncher.launch(viewModel.getIntent())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -55,6 +59,23 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.isBackPressed()) {
+            finish()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (viewModel.hasNoNetwork()) {
+            goToOfflineScreen()
+        }
+        if (viewModel.getUser() != null) {
+            bindingHeader.viewModel = viewModel
+        }
     }
 
     private fun initBottomBarAndDrawer() {
@@ -87,32 +108,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun signIn() {
-        signInResultLauncher.launch(viewModel.getIntent())
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (viewModel.isBackPressed()) {
-            finish()
-        }
-    }
-
     private fun callNetworkConnection() {
         checkNet.observe(this) { isConnected ->
             if (!isConnected) {
                 goToOfflineScreen()
             }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (viewModel.hasNoNetwork()) {
-            goToOfflineScreen()
-        }
-        if (viewModel.getUser() != null) {
-            bindingHeader.viewModel = viewModel
         }
     }
 

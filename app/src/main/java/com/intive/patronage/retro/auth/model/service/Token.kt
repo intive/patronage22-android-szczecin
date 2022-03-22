@@ -12,23 +12,6 @@ class Token : LiveData<Boolean>() {
     private lateinit var scheduledExecutor: ScheduledExecutorService
     private var isRefreshing = false
 
-    private fun generateToken() {
-        FirebaseAuth.getInstance().currentUser?.getIdToken(true)
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    token = task.result?.token.toString()
-                    postValue(true)
-                }
-            }
-    }
-
-    private fun refreshToken(delay: Long) {
-        scheduledExecutor.schedule({
-            generateToken()
-            refreshToken(refreshRate)
-        }, delay, TimeUnit.SECONDS)
-    }
-
     fun getToken() = token
 
     fun stopRefreshToken() {
@@ -44,5 +27,22 @@ class Token : LiveData<Boolean>() {
             scheduledExecutor = Executors.newSingleThreadScheduledExecutor()
             refreshToken(0)
         }
+    }
+
+    private fun generateToken() {
+        FirebaseAuth.getInstance().currentUser?.getIdToken(true)
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    token = task.result?.token.toString()
+                    postValue(true)
+                }
+            }
+    }
+
+    private fun refreshToken(delay: Long) {
+        scheduledExecutor.schedule({
+            generateToken()
+            refreshToken(refreshRate)
+        }, delay, TimeUnit.SECONDS)
     }
 }
