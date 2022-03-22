@@ -23,7 +23,6 @@ import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.databinding.ActivityMainBinding
 import com.intive.patronage.retro.databinding.HeaderNavigationDrawerBinding
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
-import com.intive.patronage.retro.offline.presentation.view.OfflineActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -132,8 +131,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goToOfflineScreen() {
-        val intent = Intent(this, OfflineActivity::class.java)
-        startActivity(intent)
+        binding.navHostFragment.findNavController().navigate(R.id.offlineActivity)
     }
 
     private fun endSplashScreen() {
