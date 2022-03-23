@@ -59,6 +59,9 @@
         <argument
             android:name="boardId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_retroFragment_to_retroDialogFragment"
+            app:destination="@id/retroDialogFragment" />
     </fragment>
     <dialog
         android:id="@+id/addBoardDialog"
@@ -72,4 +75,9 @@
             app:popUpToInclusive="true"
             />
     </dialog>
+    <dialog
+        android:id="@+id/retroDialogFragment"
+        android:name="com.intive.patronage.retro.retro.presentation.view.RetroDialogFragment"
+        android:label="retro_dialog_fragment"
+        tools:layout="@layout/retro_dialog_fragment" />
 </navigation>
