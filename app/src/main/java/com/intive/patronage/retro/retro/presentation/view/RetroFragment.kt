@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
@@ -37,7 +38,9 @@ class RetroFragment : Fragment() {
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
-        fab.setOnClickListener {}
+        fab.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(RetroFragmentDirections.actionRetroFragmentToRetroDialogFragment())
+        }
         setViewPager()
 
         return binding.root
