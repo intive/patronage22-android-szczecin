@@ -3,29 +3,35 @@ package com.intive.patronage.retro.common.network
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
-class CheckNetworkConnect(var connectivityManager: ConnectivityManager) : LiveData<Boolean>() {
+class CheckNetworkConnect(var connectivityManager: ConnectivityManager) {
 
-    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network) {
-            super.onAvailable(network)
-            postValue(true)
-        }
-        override fun onLost(network: Network) {
-            super.onLost(network)
-            postValue(false)
-        }
-    }
+    val status = MutableLiveData(hasNoNetwork())
 
-    override fun onActive() {
-        super.onActive()
+    fun start() {
         val builder = NetworkRequest.Builder()
         connectivityManager.registerNetworkCallback(builder.build(), networkCallback)
     }
 
-    override fun onInactive() {
-        super.onInactive()
+    fun stop() {
         connectivityManager.unregisterNetworkCallback(networkCallback)
+    }
+
+    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            super.onAvailable(network)
+            status.postValue(true)
+        }
+        override fun onLost(network: Network) {
+            super.onLost(network)
+            status.postValue(false)
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun hasNoNetwork(): Boolean {
+        val nInfo = connectivityManager.activeNetworkInfo
+        return nInfo != null && nInfo.isAvailable && nInfo.isConnected
     }
 }

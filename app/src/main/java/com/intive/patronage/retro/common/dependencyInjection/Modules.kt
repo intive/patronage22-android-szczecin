@@ -27,7 +27,7 @@ import org.koin.dsl.module
 val appModule = module {
 
     factory<AuthRepository> { Auth(androidContext(), get()) }
-    factory { CheckNetworkConnect(androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager) }
+    single { CheckNetworkConnect(androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager) }
     factory { ResponseHandler() }
     factory { BoardRepository(get(), get()) }
     factory { BoardsFragment() }

@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         bindingHeader = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
         bindingHeader.lifecycleOwner = this
-
         splashScreen.setKeepOnScreenCondition {
             val isLoaded = viewModel.isUserTokenLoaded(this)
             if (isLoaded) {
@@ -48,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             }
             !isLoaded
         }
-        callNetworkConnection()
         signInResultLauncher = registerForActivityResult(viewModel.getActivityResultContract()) { res ->
             if (res.resultCode != Activity.RESULT_OK) {
                 finish()
@@ -57,8 +55,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         userAuth()
-
         setContentView(binding.root)
+        callNetworkConnection()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -68,9 +66,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (viewModel.hasNoNetwork()) {
-            goToOfflineScreen()
-        }
         if (viewModel.getUser() != null) {
             bindingHeader.viewModel = viewModel
         }
@@ -106,7 +101,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun callNetworkConnection() {
-        checkNet.observe(this) { isConnected ->
+        checkNet.status.observe(this) { isConnected ->
             if (!isConnected) {
                 goToOfflineScreen()
             }
