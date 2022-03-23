@@ -1,5 +1,6 @@
 package com.intive.patronage.retro.main.presentation.view
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -49,7 +50,11 @@ class MainActivity : AppCompatActivity() {
         }
         callNetworkConnection()
         signInResultLauncher = registerForActivityResult(viewModel.getActivityResultContract()) { res ->
-            viewModel.onResult(res)
+            if (res.resultCode != Activity.RESULT_OK) {
+                finish()
+            } else {
+                token.startRefreshToken()
+            }
         }
         userAuth()
 
@@ -59,13 +64,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (viewModel.isBackPressed()) {
-            finish()
-        }
     }
 
     override fun onStart() {
