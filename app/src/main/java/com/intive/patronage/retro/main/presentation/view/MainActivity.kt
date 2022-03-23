@@ -33,10 +33,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var splashScreen: SplashScreen
 
-    fun signIn() {
-        signInResultLauncher.launch(viewModel.getIntent())
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -76,17 +72,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun signIn() {
+        signInResultLauncher.launch(viewModel.getIntent())
+    }
+
     private fun initBottomBarAndDrawer() {
         val drawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val bottomAppBar: BottomAppBar = binding.bottomAppBar
         val appConfig = AppBarConfiguration(
-            setOf(
-                R.id.historyFragment,
-                R.id.boardsFragment,
-                R.id.profileFragment,
-                R.id.moreFragment
-            ),
+            navView.menu,
             drawerLayout
         )
         val navHostFragment =

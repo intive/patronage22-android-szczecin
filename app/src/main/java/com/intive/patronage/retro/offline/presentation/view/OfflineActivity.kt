@@ -23,6 +23,10 @@ class OfflineActivity : AppCompatActivity() {
         callNetworkConnection()
     }
 
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+    }
+
     private fun callNetworkConnection() {
         checkNet.observe(this) { finish() }
     }
@@ -38,9 +42,5 @@ class OfflineActivity : AppCompatActivity() {
             controller.hide(WindowInsetsCompat.Type.systemBars())
             this.supportActionBar?.hide()
         }
-    }
-
-    override fun onBackPressed() {
-        moveTaskToBack(true)
     }
 }
