@@ -43,14 +43,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         bindingHeader = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
         bindingHeader.lifecycleOwner = this
-        splashScreen.setKeepOnScreenCondition { true }
 
         initBottomBarAndDrawer()
         callNetworkConnection()
         signInResultLauncher = registerForActivityResult(viewModel.getActivityResultContract()) { res ->
             viewModel.onResult(res)
         }
-        endSplashScreen()
         userAuth()
 
         setContentView(binding.root)
@@ -118,14 +116,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToOfflineScreen() {
         binding.navHostFragment.findNavController().navigate(R.id.offlineActivity)
-    }
-
-    private fun endSplashScreen() {
-        token.observe(this) {
-            isTokenGenerated ->
-            if (isTokenGenerated) {
-                splashScreen.setKeepOnScreenCondition { false }
-            }
-        }
     }
 }
