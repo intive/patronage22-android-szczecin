@@ -55,6 +55,27 @@ class MainActivity : AppCompatActivity() {
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.isBackPressed()) {
+            finish()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (viewModel.hasNoNetwork()) {
+            goToOfflineScreen()
+        }
+        if (viewModel.getUser() != null) {
+            bindingHeader.viewModel = viewModel
+        }
+    }
+
+    fun signIn() {
+        signInResultLauncher.launch(viewModel.getIntent())
+    }
+
     private fun initBottomBarAndDrawer() {
         val drawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -80,32 +101,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun signIn() {
-        signInResultLauncher.launch(viewModel.getIntent())
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (viewModel.isBackPressed()) {
-            finish()
-        }
-    }
-
     private fun callNetworkConnection() {
         checkNet.observe(this) { isConnected ->
             if (!isConnected) {
                 goToOfflineScreen()
             }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (viewModel.hasNoNetwork()) {
-            goToOfflineScreen()
-        }
-        if (viewModel.getUser() != null) {
-            bindingHeader.viewModel = viewModel
         }
     }
 
