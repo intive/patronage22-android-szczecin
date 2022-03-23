@@ -40,7 +40,13 @@ class MainActivity : AppCompatActivity() {
         bindingHeader = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
         bindingHeader.lifecycleOwner = this
 
-        initBottomBarAndDrawer()
+        splashScreen.setKeepOnScreenCondition {
+            val isLoaded = viewModel.isUserTokenLoaded(this)
+            if (isLoaded) {
+                init()
+            }
+            !isLoaded
+        }
         callNetworkConnection()
         signInResultLauncher = registerForActivityResult(viewModel.getActivityResultContract()) { res ->
             viewModel.onResult(res)
@@ -111,5 +117,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToOfflineScreen() {
         binding.navHostFragment.findNavController().navigate(R.id.offlineActivity)
+    }
+
+    private fun init() {
+        initBottomBarAndDrawer()
     }
 }

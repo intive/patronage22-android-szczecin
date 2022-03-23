@@ -5,11 +5,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
+import com.intive.patronage.retro.auth.model.service.Token
 
-class MainViewModel(val app: Application, private val authRepository: AuthRepository) : ViewModel() {
+class MainViewModel(val app: Application, private val authRepository: AuthRepository, private val userToken: Token) : ViewModel() {
 
     fun isLogged() = authRepository.getUser() != null
     fun getIntent() = authRepository.getIntent()
@@ -40,5 +42,15 @@ class MainViewModel(val app: Application, private val authRepository: AuthReposi
             Log.e("Connectivity Exception", e.message!!)
         }
         return !connected
+    }
+
+    fun isUserTokenLoaded(owner: LifecycleOwner): Boolean {
+        var isLoaded = false
+        userToken.observe(owner) {
+            if (it) {
+                isLoaded = true
+            }
+        }
+        return isLoaded
     }
 }
