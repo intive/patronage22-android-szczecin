@@ -34,7 +34,7 @@ val appModule = module {
     factory { RetroFragment() }
     factory { RetroRepository(get(), get()) }
 
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { MainViewModel(get(), get(), get()) }
     viewModel { BoardViewModel(get()) }
     viewModel { RetroViewModel(get()) }
 }

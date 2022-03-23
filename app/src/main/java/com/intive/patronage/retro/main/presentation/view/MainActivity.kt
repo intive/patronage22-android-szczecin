@@ -40,7 +40,13 @@ class MainActivity : AppCompatActivity() {
         bindingHeader = HeaderNavigationDrawerBinding.bind(binding.navView.getHeaderView(0))
         bindingHeader.lifecycleOwner = this
 
-        initBottomBarAndDrawer()
+        splashScreen.setKeepOnScreenCondition {
+            val isLoaded = viewModel.isUserTokenLoaded(this)
+            if (isLoaded) {
+                init()
+            }
+            !isLoaded
+        }
         callNetworkConnection()
         signInResultLauncher = registerForActivityResult(viewModel.getActivityResultContract()) { res ->
             viewModel.onResult(res)
@@ -48,6 +54,10 @@ class MainActivity : AppCompatActivity() {
         userAuth()
 
         setContentView(binding.root)
+    }
+
+    fun init() {
+        initBottomBarAndDrawer()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
