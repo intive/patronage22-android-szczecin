@@ -60,12 +60,7 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         val bottomAppBar: BottomAppBar = binding.bottomAppBar
         val appConfig = AppBarConfiguration(
-            setOf(
-                R.id.historyFragment,
-                R.id.boardsFragment,
-                R.id.profileFragment,
-                R.id.moreFragment
-            ),
+            navView.menu,
             drawerLayout
         )
         val navHostFragment =
