@@ -6,21 +6,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.intive.patronage.retro.databinding.ViewRetroHolderItemBinding
 import com.intive.patronage.retro.retro.presentation.entity.Columns
+import com.intive.patronage.retro.retro.presentation.entity.RetroDetails
 
 class RetroViewPagerAdapter(
-    private val data: List<Columns>
+    private val data: List<Columns>,
+    private val detailsData: List<RetroDetails>
 ) : RecyclerView.Adapter<RetroViewPagerAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ViewRetroHolderItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(color: Columns) {
+        fun bind(color: Columns, retroDetails: RetroDetails) {
             binding.viewRetroHolderItem.setBackgroundColor(Color.parseColor(color.colour))
+            binding.retroDetailsCardRecyclerView.adapter = RetroDetailsViewPagerAdapter(retroDetails.boardCards)
         }
     }
 
     override fun getItemCount(): Int = data.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position], detailsData[position])
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ViewRetroHolderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
