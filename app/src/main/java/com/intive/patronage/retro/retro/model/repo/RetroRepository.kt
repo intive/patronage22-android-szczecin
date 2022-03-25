@@ -2,7 +2,9 @@ package com.intive.patronage.retro.retro.model.repo
 
 import com.intive.patronage.retro.common.api.Resource
 import com.intive.patronage.retro.common.api.ResponseHandler
+import com.intive.patronage.retro.retro.presentation.entity.BoardCards
 import com.intive.patronage.retro.retro.presentation.entity.Columns
+import com.intive.patronage.retro.retro.presentation.entity.RetroDetails
 
 class RetroRepository(private val api: RetroApiImpl, private var responseHandler: ResponseHandler) {
 
@@ -11,6 +13,25 @@ class RetroRepository(private val api: RetroApiImpl, private var responseHandler
             responseHandler.handleSuccess(
                 api.getRetroApi().getRetroConfiguration(id).listColumns.map
                 { Columns(it.name, it.id, it.position, it.colour) }
+            )
+        } catch (e: Exception) {
+            responseHandler.handleException()
+        }
+    }
+
+    suspend fun getRetroDetails(id: Int): Resource<List<RetroDetails>> {
+        return try {
+            responseHandler.handleSuccess(
+                api.getRetroApi().getRetroDetails(id).map {
+                    RetroDetails(
+                        it.id,
+                        boardCards = it.boardCards.map { it2 ->
+                            BoardCards(
+                                it2.id, it2.cardText, it2.columnId, it2.boardCardCreator, it2.actionTexts
+                            )
+                        }
+                    )
+                }
             )
         } catch (e: Exception) {
             responseHandler.handleException()

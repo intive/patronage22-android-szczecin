@@ -1,6 +1,7 @@
 package com.intive.patronage.retro.retro.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,8 +43,20 @@ class RetroFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(RetroFragmentDirections.actionRetroFragmentToRetroDialogFragment())
         }
         setViewPager()
-
+        getRetroDetailsData()
         return binding.root
+    }
+
+    private fun getRetroDetailsData() {
+        retroViewModel.retroDetails(args.boardId).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    Log.d("RETRO DETAILS", it.data!!.toString())
+                }
+                Status.ERROR -> Snackbar.make(binding.retroConstraintLayout, it.message!!, Snackbar.LENGTH_SHORT).show()
+                Status.LOADING -> binding.retroSpinner.isShown
+            }
+        }
     }
 
     private fun setViewPager() {
