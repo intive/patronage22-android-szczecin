@@ -2,6 +2,7 @@ package com.intive.patronage.retro.retro.model.repo
 
 import com.intive.patronage.retro.common.api.Resource
 import com.intive.patronage.retro.common.api.ResponseHandler
+import com.intive.patronage.retro.retro.model.entity.BoardCardsRemote
 import com.intive.patronage.retro.retro.presentation.entity.BoardCards
 import com.intive.patronage.retro.retro.presentation.entity.Columns
 import com.intive.patronage.retro.retro.presentation.entity.RetroDetails
@@ -33,6 +34,14 @@ class RetroRepository(private val api: RetroApiImpl, private var responseHandler
                     )
                 }
             )
+        } catch (e: Exception) {
+            responseHandler.handleException()
+        }
+    }
+
+    suspend fun postCard(id: Int, card: BoardCards): Resource<BoardCardsRemote> {
+        return try {
+            responseHandler.handleSuccess(api.getRetroApi().postCard(id, card))
         } catch (e: Exception) {
             responseHandler.handleException()
         }
