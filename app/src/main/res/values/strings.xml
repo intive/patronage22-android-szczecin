@@ -15,6 +15,7 @@
     <string name="title_activity_offline">OfflineActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="dummy_text_card">Name NameName Name  NameName NameNameName NameNameNameName Name</string>
     <string name="offline_text">You are offline!\nMake sure you are connected to the internet </string>
     <string name="offline_pic_desc">No internet</string>
     <string name="header_display_name">name</string>

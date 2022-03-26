@@ -1,7 +1,6 @@
 package com.intive.patronage.retro.retro.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,39 +41,37 @@ class RetroFragment : Fragment() {
         fab.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(RetroFragmentDirections.actionRetroFragmentToRetroDialogFragment())
         }
+
         setViewPager()
-        getRetroDetailsData()
+
         return binding.root
     }
 
-    private fun getRetroDetailsData() {
+    private fun setViewPager() {
         retroViewModel.retroDetails(args.boardId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Log.d("RETRO DETAILS", it.data!!.toString())
-                }
-                Status.ERROR -> Snackbar.make(binding.retroConstraintLayout, it.message!!, Snackbar.LENGTH_SHORT).show()
-                Status.LOADING -> binding.retroSpinner.isShown
-            }
-        }
-    }
+                    retroViewModel.retroConfiguration(args.boardId).observe(viewLifecycleOwner) { it2 ->
+                        when (it2.status) {
+                            Status.SUCCESS -> {
+                                binding.retroSpinner.visibility = View.GONE
+                                viewPager = binding.viewPagerRetro
+                                tab = binding.tabLayoutRetro
 
-    private fun setViewPager() {
+                                viewPager.adapter = RetroViewPagerAdapter(it2.data!!, it.data!!)
 
-        retroViewModel.retroConfiguration(args.boardId).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    binding.retroSpinner.visibility = View.GONE
-                    viewPager = binding.viewPagerRetro
-                    tab = binding.tabLayoutRetro
-
-                    viewPager.adapter = RetroViewPagerAdapter(it.data!!)
-
-                    TabLayoutMediator(
-                        tab, viewPager
-                    ) { tab: TabLayout.Tab, position: Int ->
-                        tab.text = it.data[position].name
-                    }.attach()
+                                TabLayoutMediator(
+                                    tab, viewPager
+                                ) { tab: TabLayout.Tab, position: Int ->
+                                    tab.text = it2.data[position].name
+                                }.attach()
+                            }
+                            Status.ERROR -> {
+                                binding.retroSpinner.visibility = View.GONE
+                                Snackbar.make(binding.retroConstraintLayout, it2.message!!, Snackbar.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
                 }
                 Status.ERROR -> {
                     binding.retroSpinner.visibility = View.GONE
