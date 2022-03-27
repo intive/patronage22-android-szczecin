@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.intive.patronage.retro.R
-import com.intive.patronage.retro.auth.model.service.Token
+import com.intive.patronage.retro.auth.model.service.AuthToken
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.databinding.BoardFragmentBinding
@@ -19,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BoardsFragment : Fragment() {
 
     private val boardViewModel: BoardViewModel by viewModel()
-    private val token: Token by inject()
+    private val authToken: AuthToken by inject()
     private lateinit var binding: BoardFragmentBinding
 
     override fun onCreateView(
@@ -43,9 +43,8 @@ class BoardsFragment : Fragment() {
     }
 
     private fun uploadBoards(binding: BoardFragmentBinding) {
-        token.observe(viewLifecycleOwner) {
-            isTokenGenerated ->
-            if (isTokenGenerated) {
+        authToken.getToken().observe(viewLifecycleOwner) { authToken ->
+            if (authToken.isNotEmpty()) {
                 boardViewModel.getBoards().observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.SUCCESS -> {

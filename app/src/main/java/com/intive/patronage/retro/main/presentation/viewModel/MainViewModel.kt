@@ -8,9 +8,9 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
-import com.intive.patronage.retro.auth.model.service.Token
+import com.intive.patronage.retro.auth.model.service.AuthToken
 
-class MainViewModel(val app: Application, private val authRepository: AuthRepository, private val userToken: Token) : ViewModel() {
+class MainViewModel(val app: Application, private val authRepository: AuthRepository, private val authToken: AuthToken) : ViewModel() {
 
     fun isLogged() = authRepository.getUser() != null
     fun getIntent() = authRepository.getIntent()
@@ -41,8 +41,8 @@ class MainViewModel(val app: Application, private val authRepository: AuthReposi
 
     fun isUserTokenLoaded(owner: LifecycleOwner): Boolean {
         var isLoaded = false
-        userToken.observe(owner) {
-            if (it) {
+        authToken.getToken().observe(owner) {
+            if (it.isNotEmpty()) {
                 isLoaded = true
             }
         }

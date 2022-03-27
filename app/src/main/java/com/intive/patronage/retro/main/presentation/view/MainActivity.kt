@@ -16,7 +16,7 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
 import com.intive.patronage.retro.R
-import com.intive.patronage.retro.auth.model.service.Token
+import com.intive.patronage.retro.auth.model.service.AuthToken
 import com.intive.patronage.retro.common.network.CheckNetworkConnect
 import com.intive.patronage.retro.databinding.ActivityMainBinding
 import com.intive.patronage.retro.databinding.HeaderNavigationDrawerBinding
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var bindingHeader: HeaderNavigationDrawerBinding
     private val viewModel: MainViewModel by viewModel()
     private val checkNet: CheckNetworkConnect by inject()
-    private val token: Token by inject()
+    private val authToken: AuthToken by inject()
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var splashScreen: SplashScreen
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             if (res.resultCode != Activity.RESULT_OK) {
                 finish()
             } else {
-                token.startRefreshToken()
+                authToken.startRefresh()
             }
         }
         userAuth()
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
             signIn()
             initBottomBarAndDrawer()
         } else {
-            token.startRefreshToken()
+            authToken.startRefresh()
         }
     }
 
