@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 import com.intive.patronage.retro.auth.model.service.Auth
-import com.intive.patronage.retro.auth.model.service.Token
+import com.intive.patronage.retro.auth.model.service.AuthToken
 import com.intive.patronage.retro.board.model.repo.BoardApiImpl
 import com.intive.patronage.retro.board.model.repo.BoardRepository
 import com.intive.patronage.retro.board.presentation.view.BoardsFragment
@@ -40,7 +40,7 @@ val appModule = module {
 }
 
 val networkModule = module {
-    single { Token() }
+    single { AuthToken() }
     single { AuthInterceptor(get()) }
     factory { HttpClient(get()) }
     single { RestClient(get(), getProperty("base_url")) }

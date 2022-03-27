@@ -6,7 +6,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.firebase.auth.FirebaseAuth
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 
-class Auth(private val context: Context, private val userToken: Token) : AuthRepository {
+class Auth(private val context: Context, private val authToken: AuthToken) : AuthRepository {
 
     override fun getUser() = FirebaseAuth.getInstance().currentUser
     override fun getIntent() = AuthUI.getInstance()
@@ -15,7 +15,7 @@ class Auth(private val context: Context, private val userToken: Token) : AuthRep
         .build()
     override fun getActivityResultContract() = FirebaseAuthUIActivityResultContract()
     override fun logOut() {
-        userToken.stopRefreshToken()
+        authToken.stopRefresh()
         AuthUI.getInstance().signOut(context)
     }
 }
