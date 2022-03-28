@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.intive.patronage.retro.databinding.RetroDetailsCardItemLayoutBinding
 import com.intive.patronage.retro.retro.presentation.entity.BoardCards
 
-class RetroDetailsViewPagerAdapter(private val list: List<BoardCards>) :
-    RecyclerView.Adapter<RetroDetailsViewPagerAdapter.RetroDetailsViewHolder>() {
+class RetroDetailsViewPagerAdapter : RecyclerView.Adapter<RetroDetailsViewPagerAdapter.RetroDetailsViewHolder>() {
+
+    private var oldBoardCardsList = emptyList<BoardCards>()
+
     inner class RetroDetailsViewHolder(val binding: RetroDetailsCardItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(data: BoardCards) {
             binding.retroDetailsTextCard.text = data.cardText
@@ -21,9 +23,13 @@ class RetroDetailsViewPagerAdapter(private val list: List<BoardCards>) :
     }
 
     override fun onBindViewHolder(holder: RetroDetailsViewHolder, position: Int) {
-        val details = list[position]
+        val details = oldBoardCardsList[position]
         holder.bindItem(details)
     }
 
-    override fun getItemCount() = list.size
+    override fun getItemCount() = oldBoardCardsList.size
+
+    fun setBoardCardsData(newBoardCardsList: List<BoardCards>) {
+        oldBoardCardsList = newBoardCardsList
+    }
 }
