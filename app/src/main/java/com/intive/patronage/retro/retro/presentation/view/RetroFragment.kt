@@ -35,6 +35,12 @@ class RetroFragment : Fragment() {
 
         val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
         val fab = (activity as MainActivity).binding.floatingButton
+        val retroColumnsAdapter = RetroViewPagerAdapter()
+
+        viewPager = binding.viewPagerRetro
+        tab = binding.tabLayoutRetro
+
+        viewPager.adapter = retroColumnsAdapter
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
@@ -42,12 +48,45 @@ class RetroFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(RetroFragmentDirections.actionRetroFragmentToRetroDialogFragment())
         }
 
-        setViewPager()
-
+        setViewPagerHeartBeat(retroColumnsAdapter)
         return binding.root
     }
 
-    private fun setViewPager() {
+    private fun setViewPagerHeartBeat(adapter: RetroViewPagerAdapter) {
+        retroViewModel.startHeartBeatRetro(args.boardId).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    retroViewModel.retroConfiguration(args.boardId).observe(viewLifecycleOwner) { it2 ->
+                        when (it2.status) {
+                            Status.SUCCESS -> {
+                                binding.retroSpinner.visibility = View.GONE
+
+                                adapter.setRetroColumnsData(it2.data!!, it.data!!)
+
+                                TabLayoutMediator(
+                                    tab, viewPager
+                                ) { tab: TabLayout.Tab, position: Int ->
+                                    tab.text = it2.data[position].name
+                                }.attach()
+                            }
+                            Status.ERROR -> {
+                                retroViewModel.stopHeartBeat()
+                                binding.retroSpinner.visibility = View.GONE
+                                Snackbar.make(binding.retroConstraintLayout, it2.message!!, Snackbar.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    binding.retroSpinner.visibility = View.GONE
+                    Snackbar.make(binding.retroConstraintLayout, it.message!!, Snackbar.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> binding.retroSpinner.isShown
+            }
+        }
+    }
+
+    private fun setViewPager(adapter: RetroViewPagerAdapter) {
         retroViewModel.retroDetails(args.boardId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -55,11 +94,8 @@ class RetroFragment : Fragment() {
                         when (it2.status) {
                             Status.SUCCESS -> {
                                 binding.retroSpinner.visibility = View.GONE
-                                viewPager = binding.viewPagerRetro
-                                tab = binding.tabLayoutRetro
 
-                                viewPager.adapter = RetroViewPagerAdapter(it2.data!!, it.data!!)
-
+                                adapter.setRetroColumnsData(it2.data!!, it.data!!)
                                 TabLayoutMediator(
                                     tab, viewPager
                                 ) { tab: TabLayout.Tab, position: Int ->

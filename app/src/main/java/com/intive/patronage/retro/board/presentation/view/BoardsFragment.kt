@@ -13,12 +13,14 @@ import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.databinding.BoardFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
+import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BoardsFragment : Fragment() {
 
     private val boardViewModel: BoardViewModel by viewModel()
+    private val retroViewModel: RetroViewModel by viewModel()
     private val authToken: AuthToken by inject()
     private lateinit var binding: BoardFragmentBinding
 
@@ -31,6 +33,7 @@ class BoardsFragment : Fragment() {
         val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
         val fab = (activity as MainActivity).binding.floatingButton
 
+        retroViewModel.stopHeartBeat()
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
         fab.setOnClickListener {
