@@ -30,7 +30,7 @@ class AuthToken {
         authToken.value = String()
     }
 
-    private fun generate() {
+    fun generate() {
         FirebaseAuth.getInstance().currentUser?.getIdToken(true)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
