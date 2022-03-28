@@ -12,12 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Starting">
         <activity
+            android:name="com.intive.patronage.retro.main.presentation.view.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.App.Starting">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".offline.presentation.view.OfflineActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
             android:label="@string/title_activity_offline"
-            android:theme="@style/Theme.AppCompat"
-            />
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:theme="@style/Theme.AppCompat.Light" />
@@ -25,16 +33,6 @@
         <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
             android:theme="@style/Theme.AppCompat.Light" />
-        <activity
-            android:name="com.intive.patronage.retro.main.presentation.view.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.App.Starting">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

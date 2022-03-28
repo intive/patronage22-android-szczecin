@@ -32,7 +32,7 @@ class OfflineActivity : AppCompatActivity() {
     }
 
     private fun callNetworkConnection() {
-        checkNet.observe(this) { status ->
+        checkNet.status.observe(this) { status ->
             if (status) {
                 if (auth.getUser() == null) {
                     finish()
