@@ -9,6 +9,6 @@ import retrofit2.http.POST
 interface BoardApi {
     @GET("api/v1/boards")
     suspend fun getBoards(): List<BoardRemote>
-    @POST("/api/v1/boards")
+    @POST("api/v1/boards")
     suspend fun addBoard(@Body board: Board): BoardRemote
 }
