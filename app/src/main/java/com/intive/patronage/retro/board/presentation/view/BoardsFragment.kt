@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.AuthToken
+import com.intive.patronage.retro.board.presentation.entity.Board
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.databinding.BoardFragmentBinding
@@ -40,8 +41,8 @@ class BoardsFragment : Fragment() {
             val action = BoardsFragmentDirections.actionBoardsFragmentToAddBoardDialog()
             Navigation.findNavController(binding.root).navigate(action)
         }
-        uploadBoards(binding)
-
+        //uploadBoards(binding)
+        binding.boardRv.adapter = BoardRecyclerAdapter(fakeData())
         return binding.root
     }
 
@@ -64,4 +65,11 @@ class BoardsFragment : Fragment() {
             }
         }
     }
+
+    fun fakeData() = listOf(
+            Board(1, "CREATED", "nameOne", 4),
+            Board(2, "VOTING", "nameTwo", 3),
+            Board(3, "ACTIONS", "nameThree", 2)
+    )
+
 }
