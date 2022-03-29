@@ -5,5 +5,5 @@ data class BoardCards(
     val cardText: String,
     val columnId: Int,
     val boardCardCreator: String,
-    val actionTexts: List<String>
+    val actionTexts: List<String>,
 )

@@ -15,6 +15,7 @@ class MainViewModel(val app: Application, private val authRepository: AuthReposi
     fun logOut() {
         authRepository.logOut()
     }
+
     fun getActivityResultContract() = authRepository.getActivityResultContract()
     fun getPicUri(): Uri? = getUser()?.photoUrl
     fun getDisplayName() = getUser()?.displayName

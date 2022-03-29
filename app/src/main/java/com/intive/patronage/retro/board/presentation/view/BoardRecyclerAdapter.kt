@@ -20,6 +20,13 @@ class BoardRecyclerAdapter(private val boardList: List<Board>) : RecyclerView.Ad
                 Navigation.findNavController(it).navigate(action)
             }
         }
+
+        fun setAddUser(board: Board) {
+            binding.addUserIcon.setOnClickListener {
+                val action = BoardsFragmentDirections.actionBoardsFragmentToAddUserDialog(board.id)
+                Navigation.findNavController(it).navigate(action)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardViewHolder {
@@ -30,6 +37,7 @@ class BoardRecyclerAdapter(private val boardList: List<Board>) : RecyclerView.Ad
         val board = boardList[position]
         holder.bindItem(board)
         holder.setAction(board)
+        holder.setAddUser(board)
     }
 
     override fun getItemCount() = boardList.size

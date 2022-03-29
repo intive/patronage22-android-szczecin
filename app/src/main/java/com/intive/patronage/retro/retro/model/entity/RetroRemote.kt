@@ -12,6 +12,5 @@ data class RetroRemote(
     val listColumns: List<ColumnsRemote>,
     @SerializedName("users")
     @Expose
-    val listUsers: List<UserRemote>
-
+    val listUsers: List<UserRemote>,
 )

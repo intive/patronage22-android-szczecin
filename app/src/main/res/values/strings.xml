@@ -34,5 +34,6 @@
     <string name="desc_screen_retro">Retro screen</string>
     <string name="add_board_button">ADD A NEW BOARD</string>
     <string name="add_retro_button">ADD A NEW CARD</string>
+    <string name="add_user_button">ADD A NEW USERS</string>
     <string name="desc_floating_button">Floating button</string>
 </resources>

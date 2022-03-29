@@ -5,7 +5,7 @@ import com.intive.patronage.retro.retro.presentation.entity.RetroDetails
 
 class RetroDetailsDiffUtil(
     private val oldRetroDetailsList: List<RetroDetails>,
-    private val newRetroDetailsList: List<RetroDetails>
+    private val newRetroDetailsList: List<RetroDetails>,
 ) : DiffUtil.Callback() {
     override fun getOldListSize() = oldRetroDetailsList.size
 
