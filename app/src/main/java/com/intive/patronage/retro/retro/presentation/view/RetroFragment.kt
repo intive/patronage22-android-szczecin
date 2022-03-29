@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
@@ -22,6 +22,7 @@ class RetroFragment : Fragment() {
     private lateinit var binding: RetroFragmentBinding
     private lateinit var viewPager: ViewPager2
     private lateinit var tab: TabLayout
+    private lateinit var columns: List<Int>
 
     private val args: RetroFragmentArgs by navArgs()
     private val retroViewModel: RetroViewModel by viewModel()
@@ -32,7 +33,7 @@ class RetroFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = RetroFragmentBinding.inflate(inflater, container, false)
-
+        tab = binding.tabLayoutRetro
         val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
         val fab = (activity as MainActivity).binding.floatingButton
         val retroColumnsAdapter = RetroViewPagerAdapter()
@@ -45,7 +46,10 @@ class RetroFragment : Fragment() {
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
         fab.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(RetroFragmentDirections.actionRetroFragmentToRetroDialogFragment())
+            findNavController().navigate(
+                RetroFragmentDirections
+                    .actionRetroFragmentToRetroDialogFragment(args.boardId, columns[tab.selectedTabPosition])
+            )
         }
 
         setViewPagerHeartBeat(retroColumnsAdapter)
@@ -62,6 +66,7 @@ class RetroFragment : Fragment() {
                                 binding.retroSpinner.visibility = View.GONE
 
                                 adapter.setRetroColumnsData(it2.data!!, it.data!!)
+                                columns = it2.data.map { list -> list.id }.toMutableList()
 
                                 TabLayoutMediator(
                                     tab, viewPager
@@ -94,8 +99,9 @@ class RetroFragment : Fragment() {
                         when (it2.status) {
                             Status.SUCCESS -> {
                                 binding.retroSpinner.visibility = View.GONE
-
                                 adapter.setRetroColumnsData(it2.data!!, it.data!!)
+                                columns = it2.data.map { list -> list.id }.toMutableList()
+
                                 TabLayoutMediator(
                                     tab, viewPager
                                 ) { tab: TabLayout.Tab, position: Int ->

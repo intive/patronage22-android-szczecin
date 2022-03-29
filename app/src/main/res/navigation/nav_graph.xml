@@ -44,12 +44,6 @@
     </fragment>
 
     <activity
-        android:id="@+id/mainActivity"
-        android:name="com.intive.patronage.retro.main.presentation.view.MainActivity"
-        android:label="activity_offline"
-        tools:layout="@layout/activity_main" />
-
-    <activity
         android:id="@+id/offlineActivity"
         android:name="com.intive.patronage.retro.offline.presentation.view.OfflineActivity"
         android:label="activity_offline"
@@ -90,5 +84,14 @@
         android:id="@+id/retroDialogFragment"
         android:name="com.intive.patronage.retro.retro.presentation.view.RetroDialogFragment"
         android:label="retro_dialog_fragment"
-        tools:layout="@layout/retro_dialog_fragment" />
+        tools:layout="@layout/retro_dialog_fragment" >
+        <argument
+            android:name="boardId"
+            app:argType="integer" />
+        <argument android:name="columnId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_retroDialogFragment_to_retroFragment"
+            app:destination="@id/retroFragment" />
+    </dialog>
 </navigation>
