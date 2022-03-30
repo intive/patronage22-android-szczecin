@@ -32,6 +32,7 @@
                 android:id="@+id/new_retro_name_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/retro_card_input_hint"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,6 +48,8 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:enabled="false"
             android:text="@string/add_retro_button" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
