@@ -5,8 +5,6 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/boardsFragment"
     >
-
-
     <fragment
         android:id="@+id/boardsFragment"
         android:name="com.intive.patronage.retro.board.presentation.view.BoardsFragment"
@@ -20,6 +18,12 @@
             android:id="@+id/action_boardsFragment_to_addBoardDialog"
             app:destination="@id/addBoardDialog"
             app:popUpTo="@id/addBoardDialog"
+            app:popUpToInclusive="true"
+            />
+        <action
+            android:id="@+id/action_boardsFragment_to_addUserDialog"
+            app:destination="@id/addUserDialog"
+            app:popUpTo="@id/addUserDialog"
             app:popUpToInclusive="true"
             />
     </fragment>
@@ -79,6 +83,21 @@
             app:popUpTo="@id/boardsFragment"
             app:popUpToInclusive="true"
             />
+    </dialog>
+    <dialog
+        android:id="@+id/addUserDialog"
+        android:name="com.intive.patronage.retro.board.presentation.view.AddUserDialog"
+        android:label="add_user_dialog"
+        tools:layout="@layout/add_user_dialog" >
+        <action
+            android:id="@+id/action_addUserDialog_to_boardsFragment"
+            app:destination="@id/boardsFragment"
+            app:popUpTo="@id/boardsFragment"
+            app:popUpToInclusive="true"
+            />
+        <argument
+            android:name="boardId"
+            app:argType="integer" />
     </dialog>
     <dialog
         android:id="@+id/retroDialogFragment"

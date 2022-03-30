@@ -6,7 +6,7 @@
     android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".board.presentation.view.AddBoardDialog">
+    tools:context=".board.presentation.view.AddUserDialog">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,22 +14,30 @@
         android:orientation="vertical"
         android:paddingBottom="10dp"
         android:gravity="center"
-        tools:context=".board.presentation.view.AddBoardDialog"
+        tools:context=".board.presentation.view.AddUserDialog"
         tools:ignore="HardcodedText">
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Chips can be declared here, or added dynamically. -->
+
+        </com.google.android.material.chip.ChipGroup>
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_board_name"
+            android:id="@+id/new_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/new_board_name_input"
+                android:id="@+id/new_user_name_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -43,10 +51,14 @@
             android:indeterminateTint="@color/intive_blue" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/add_new_board_button"
+            android:id="@+id/add_new_user_button"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_board_button" />
+            android:text="@string/add_user_button" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+

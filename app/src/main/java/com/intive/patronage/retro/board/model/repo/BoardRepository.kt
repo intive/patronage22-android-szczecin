@@ -22,4 +22,12 @@ class BoardRepository(private val api: BoardApiImpl, var responseHandler: Respon
             responseHandler.handleException()
         }
     }
+
+    suspend fun addUsers(id: Int, users: List<String>): Resource<List<String>> {
+        return try {
+            responseHandler.handleSuccess(api.getBoardApi().addUsers(id, users))
+        } catch (e: Exception) {
+            responseHandler.handleException()
+        }
+    }
 }

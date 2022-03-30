@@ -13,6 +13,7 @@ class Auth(private val context: Context, private val authToken: AuthToken) : Aut
         .createSignInIntentBuilder()
         .setIsSmartLockEnabled(false)
         .build()
+
     override fun getActivityResultContract() = FirebaseAuthUIActivityResultContract()
     override fun logOut() {
         authToken.stopRefresh()

@@ -5,7 +5,7 @@ import com.intive.patronage.retro.retro.presentation.entity.Columns
 
 class RetroColumnsDiffUtil(
     private val oldColumnsList: List<Columns>,
-    private val newColumnsList: List<Columns>
+    private val newColumnsList: List<Columns>,
 ) : DiffUtil.Callback() {
     override fun getOldListSize() = oldColumnsList.size
 
