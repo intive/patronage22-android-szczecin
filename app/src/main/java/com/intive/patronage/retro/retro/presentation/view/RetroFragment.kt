@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -15,6 +16,7 @@ import com.intive.patronage.retro.R
 import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.databinding.RetroFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
+import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,6 +28,7 @@ class RetroFragment : Fragment() {
 
     private val args: RetroFragmentArgs by navArgs()
     private val retroViewModel: RetroViewModel by viewModel()
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,9 +54,18 @@ class RetroFragment : Fragment() {
                     .actionRetroFragmentToRetroDialogFragment(args.boardId, columns[tab.selectedTabPosition])
             )
         }
-
+        refreshCards(retroColumnsAdapter)
         setViewPagerHeartBeat(retroColumnsAdapter)
         return binding.root
+    }
+
+    private fun refreshCards(retroColumnsAdapter: RetroViewPagerAdapter) {
+        mainViewModel.isDialogClosed.observe(requireActivity()) {
+            if (it) {
+                setViewPager(retroColumnsAdapter)
+                mainViewModel.isDialogClosed.value = false
+            }
+        }
     }
 
     private fun setViewPagerHeartBeat(adapter: RetroViewPagerAdapter) {
@@ -79,6 +91,7 @@ class RetroFragment : Fragment() {
                                 binding.retroSpinner.visibility = View.GONE
                                 Snackbar.make(binding.retroConstraintLayout, it2.message!!, Snackbar.LENGTH_SHORT).show()
                             }
+                            else -> {}
                         }
                     }
                 }
@@ -112,6 +125,7 @@ class RetroFragment : Fragment() {
                                 binding.retroSpinner.visibility = View.GONE
                                 Snackbar.make(binding.retroConstraintLayout, it2.message!!, Snackbar.LENGTH_SHORT).show()
                             }
+                            else -> {}
                         }
                     }
                 }
