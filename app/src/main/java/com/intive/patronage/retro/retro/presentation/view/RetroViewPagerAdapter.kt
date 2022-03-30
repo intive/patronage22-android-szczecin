@@ -23,7 +23,6 @@ class RetroViewPagerAdapter : RecyclerView.Adapter<RetroViewPagerAdapter.ViewHol
             adapter.setBoardCardsData(details.boardCards)
         }
     }
-
     override fun getItemCount(): Int = oldColumnsList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(oldColumnsList[position], oldRetroDetailsList[position])
@@ -33,7 +32,6 @@ class RetroViewPagerAdapter : RecyclerView.Adapter<RetroViewPagerAdapter.ViewHol
     }
 
     fun setRetroColumnsData(newColumnsList: List<Columns>, newRetroDetailsList: List<RetroDetails>) {
-
         val diffUtil = RetroColumnsDiffUtil(oldColumnsList, newColumnsList)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
 
@@ -41,8 +39,8 @@ class RetroViewPagerAdapter : RecyclerView.Adapter<RetroViewPagerAdapter.ViewHol
         val diffResult2 = DiffUtil.calculateDiff(diffUtil2)
 
         oldRetroDetailsList = newRetroDetailsList
-        diffResult2.dispatchUpdatesTo(this)
         oldColumnsList = newColumnsList
+        diffResult2.dispatchUpdatesTo(this)
         diffResults.dispatchUpdatesTo(this)
     }
 }
