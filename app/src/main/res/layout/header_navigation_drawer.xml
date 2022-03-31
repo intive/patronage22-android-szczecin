@@ -15,17 +15,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <LinearLayout
+            android:id="@+id/avatar_image"
+            android:orientation="vertical"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="30dp"
-            app:shapeAppearanceOverlay="@style/circular_shape"
-            app:imageUrl="@{viewModel.picUri}"
-            tools:src="@drawable/ic_launcher_foreground"
-            android:contentDescription="@string/avatar_desc" />
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxHeight="40dp"
+                android:maxWidth="40dp"
+                app:shapeAppearanceOverlay="@style/circular_shape"
+                app:imageUrl="@{viewModel.picUri}"
+                tools:src="@drawable/ic_launcher_foreground"
+                android:contentDescription="@string/avatar_desc" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progress_bar_circular"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:indeterminate="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
 
         <TextView
             android:id="@+id/header_text_name"
