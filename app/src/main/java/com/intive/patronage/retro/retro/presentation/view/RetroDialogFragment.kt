@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -31,7 +32,16 @@ class RetroDialogFragment : BottomSheetDialogFragment() {
 
         buttonListener()
 
+        binding.newRetroName.editText?.doOnTextChanged { text, _, _, _ ->
+            text?.let { handleAddButton(text.length in 5..150) }
+        }
+
         return binding.root
+    }
+
+    private fun handleAddButton(buttonStatus: Boolean) {
+        binding.addNewCardButton.isClickable = buttonStatus
+        binding.addNewCardButton.isEnabled = buttonStatus
     }
 
     private fun buttonListener() {

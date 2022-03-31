@@ -36,4 +36,5 @@
     <string name="add_retro_button">ADD A NEW CARD</string>
     <string name="add_user_button">ADD A NEW USERS</string>
     <string name="desc_floating_button">Floating button</string>
+    <string name="retro_card_input_hint">Note</string>
 </resources>
