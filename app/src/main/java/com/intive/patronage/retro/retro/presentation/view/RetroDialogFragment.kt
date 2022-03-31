@@ -28,7 +28,6 @@ class RetroDialogFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = RetroDialogFragmentBinding.inflate(inflater, container, false)
-        binding.retroProgressBarCircular.visibility = View.GONE
 
         buttonListener()
 
@@ -61,6 +60,7 @@ class RetroDialogFragment : BottomSheetDialogFragment() {
                     }
                     Status.LOADING -> {
                         binding.retroProgressBarCircular.visibility = View.VISIBLE
+                        binding.addNewCardButton.visibility = View.GONE
                         binding.retroProgressBarCircular.isShown
                     }
                 }
