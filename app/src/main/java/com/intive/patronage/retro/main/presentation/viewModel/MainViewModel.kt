@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 import com.intive.patronage.retro.auth.model.service.AuthToken
 
@@ -30,6 +31,17 @@ class MainViewModel(val app: Application, private val authRepository: AuthReposi
             if (it.isNotEmpty()) {
                 isLoaded = true
             }
+        }
+        return isLoaded
+    }
+
+    fun changeProfilePicture(picture: Uri): MutableLiveData<Boolean> {
+        val isLoaded = MutableLiveData<Boolean>()
+        val profileUpdates = userProfileChangeRequest {
+            photoUri = picture
+        }
+        getUser()?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
+            isLoaded.value = task.isSuccessful
         }
         return isLoaded
     }

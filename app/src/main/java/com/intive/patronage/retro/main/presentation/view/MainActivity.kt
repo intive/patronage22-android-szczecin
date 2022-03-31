@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private val checkNet: CheckNetworkConnect by inject()
     private val authToken: AuthToken by inject()
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var changePictureResultLauncher: ActivityResultLauncher<String>
     private lateinit var splashScreen: SplashScreen
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +58,11 @@ class MainActivity : AppCompatActivity() {
                 authToken.startRefresh()
             }
         }
+        changePictureResultLauncher = changePictureResult()
+        bindingHeader.avatar.setOnClickListener {
+            changePictureResultLauncher.launch("image/*")
+        }
+
         userAuth()
         setContentView(binding.root)
         callNetworkConnection()
@@ -114,5 +123,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         initBottomBarAndDrawer()
+    }
+
+    private fun changePictureResult(): ActivityResultLauncher<String> {
+        val changePictureResult = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            if (it != null && it != viewModel.getPicUri()) {
+                bindingHeader.avatar.visibility = View.GONE
+                bindingHeader.progressBarCircular.visibility = ProgressBar.VISIBLE
+
+                viewModel.changeProfilePicture(it).observe(this) { isLoaded ->
+                    if (isLoaded) {
+                        bindingHeader.avatar.visibility = View.VISIBLE
+                        bindingHeader.progressBarCircular.visibility = ProgressBar.GONE
+                    } else {
+                        bindingHeader.avatar.visibility = View.VISIBLE
+                        bindingHeader.progressBarCircular.visibility = ProgressBar.GONE
+                    }
+                    bindingHeader.invalidateAll()
+                }
+            }
+        }
+        return changePictureResult
     }
 }
