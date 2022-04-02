@@ -113,4 +113,9 @@
             android:id="@+id/action_retroDialogFragment_to_retroFragment"
             app:destination="@id/retroFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.intive.patronage.retro.about.presentation.view.AboutUsFragment"
+        android:label="about_us_fragment"
+        tools:layout="@layout/about_us_fragment" />
 </navigation>

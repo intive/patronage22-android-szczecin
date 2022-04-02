@@ -6,8 +6,10 @@
     <string name="boards">Boards</string>
     <string name="history">History</string>
     <string name="profile">Profile</string>
+    <string name="about_us">About us</string>
     <string name="boards_text">Boards Fragment</string>
     <string name="history_text">History Fragment</string>
+    <string name="about_us_text">About us Fragment</string>
     <string name="profile_text">Profile screen</string>
     <string name="sign_in_cancelled">Sign-in flow cancelled!</string>
     <string name="menu_log_out">Log out</string>
@@ -27,11 +29,13 @@
     <string name="desc_nav_menu_history">History in navigation drawer</string>
     <string name="desc_nav_menu_profile">Profile in navigation drawer</string>
     <string name="desc_nav_menu_more">More in navigation drawer</string>
+    <string name="desc_nav_menu_about_us">About us in navigation drawer</string>
     <string name="desc_screen_board">Board screen</string>
     <string name="desc_screen_history">History screen</string>
     <string name="desc_screen_profile">Profile screen</string>
     <string name="desc_screen_more">More screen</string>
     <string name="desc_screen_retro">Retro screen</string>
+    <string name="desc_screen_about_us">About us screen</string>
     <string name="add_board_button">ADD A NEW BOARD</string>
     <string name="add_retro_button">ADD A NEW CARD</string>
     <string name="add_user_button">ADD A NEW USERS</string>
