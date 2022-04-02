@@ -16,4 +16,8 @@
         android:id="@+id/moreFragment"
         android:contentDescription="@string/desc_nav_menu_more"
         android:title="@string/more_drawer" />
+    <item
+    android:id="@+id/aboutUsFragment"
+    android:contentDescription="@string/desc_nav_menu_about_us"
+    android:title="@string/about_us" />
 </menu>
