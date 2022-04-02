@@ -17,6 +17,7 @@ import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.databinding.RetroFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
+import com.intive.patronage.retro.retro.presentation.entity.RetroDetails
 import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -54,8 +55,9 @@ class RetroFragment : Fragment() {
                     .actionRetroFragmentToRetroDialogFragment(args.boardId, columns[tab.selectedTabPosition])
             )
         }
-        refreshCards(retroColumnsAdapter)
         setViewPagerHeartBeat(retroColumnsAdapter)
+        refreshCards(retroColumnsAdapter)
+
         return binding.root
     }
 
@@ -69,33 +71,39 @@ class RetroFragment : Fragment() {
     }
 
     private fun setViewPagerHeartBeat(adapter: RetroViewPagerAdapter) {
-        retroViewModel.startHeartBeatRetro(args.boardId).observe(viewLifecycleOwner) {
+        retroViewModel.retroConfiguration(args.boardId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    retroViewModel.retroConfiguration(args.boardId).observe(viewLifecycleOwner) { it2 ->
+
+                    TabLayoutMediator(
+                        tab, viewPager
+                    ) { tab: TabLayout.Tab, position: Int ->
+                        tab.text = it.data!![position].name
+                    }.attach()
+
+                    retroViewModel.startHeartBeatRetro(args.boardId).observe(viewLifecycleOwner) { it2 ->
                         when (it2.status) {
                             Status.SUCCESS -> {
                                 binding.retroSpinner.visibility = View.GONE
+                                binding.errorViewPagerCards.root.visibility = View.GONE
+                                binding.viewPagerRetro.visibility = View.VISIBLE
 
-                                adapter.setRetroColumnsData(it2.data!!, it.data!!)
-                                columns = it2.data.map { list -> list.id }.toMutableList()
-
-                                TabLayoutMediator(
-                                    tab, viewPager
-                                ) { tab: TabLayout.Tab, position: Int ->
-                                    tab.text = it2.data[position].name
-                                }.attach()
+                                adapter.setRetroColumnsData(it.data!!, it2.data!!)
+                                columns = it.data.map { list -> list.id }.toMutableList()
                             }
                             Status.ERROR -> {
-                                retroViewModel.stopHeartBeat()
+                                adapter.setRetroColumnsData(it.data!!, emptyBoardCardsList(it.data.size))
+                                columns = it.data.map { list -> list.id }.toMutableList()
+                                binding.viewPagerRetro.visibility = View.GONE
                                 binding.retroSpinner.visibility = View.GONE
-                                Snackbar.make(binding.retroConstraintLayout, it2.message!!, Snackbar.LENGTH_SHORT).show()
+                                binding.errorViewPagerCards.root.visibility = View.VISIBLE
                             }
                             else -> {}
                         }
                     }
                 }
                 Status.ERROR -> {
+                    retroViewModel.stopHeartBeat()
                     binding.retroSpinner.visibility = View.GONE
                     Snackbar.make(binding.retroConstraintLayout, it.message!!, Snackbar.LENGTH_SHORT).show()
                 }
@@ -105,25 +113,23 @@ class RetroFragment : Fragment() {
     }
 
     private fun setViewPager(adapter: RetroViewPagerAdapter) {
-        retroViewModel.retroDetails(args.boardId).observe(viewLifecycleOwner) {
+        retroViewModel.retroConfigurationRefresh(args.boardId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    retroViewModel.retroConfiguration(args.boardId).observe(viewLifecycleOwner) { it2 ->
+                    retroViewModel.retroDetailsRefresh(args.boardId).observe(viewLifecycleOwner) { it2 ->
                         when (it2.status) {
                             Status.SUCCESS -> {
-                                binding.retroSpinner.visibility = View.GONE
-                                adapter.setRetroColumnsData(it2.data!!, it.data!!)
-                                columns = it2.data.map { list -> list.id }.toMutableList()
+                                binding.errorViewPagerCards.root.visibility = View.GONE
+                                binding.viewPagerRetro.visibility = View.VISIBLE
 
-                                TabLayoutMediator(
-                                    tab, viewPager
-                                ) { tab: TabLayout.Tab, position: Int ->
-                                    tab.text = it2.data[position].name
-                                }.attach()
+                                adapter.setRetroColumnsData(it.data!!, it2.data!!)
+                                columns = it.data.map { list -> list.id }.toMutableList()
                             }
                             Status.ERROR -> {
-                                binding.retroSpinner.visibility = View.GONE
-                                Snackbar.make(binding.retroConstraintLayout, it2.message!!, Snackbar.LENGTH_SHORT).show()
+                                adapter.setRetroColumnsData(it.data!!, emptyBoardCardsList(it.data.size))
+                                columns = it.data.map { list -> list.id }.toMutableList()
+                                binding.viewPagerRetro.visibility = View.GONE
+                                binding.errorViewPagerCards.root.visibility = View.VISIBLE
                             }
                             else -> {}
                         }
@@ -133,8 +139,15 @@ class RetroFragment : Fragment() {
                     binding.retroSpinner.visibility = View.GONE
                     Snackbar.make(binding.retroConstraintLayout, it.message!!, Snackbar.LENGTH_SHORT).show()
                 }
-                Status.LOADING -> binding.retroSpinner.isShown
+                else -> {}
             }
         }
+    }
+    private fun emptyBoardCardsList(countColumns: Int): MutableList<RetroDetails> {
+        val emptyBoardCardsList = emptyList<RetroDetails>().toMutableList()
+        for (i in 0..countColumns) {
+            emptyBoardCardsList += RetroDetails(i, emptyList())
+        }
+        return emptyBoardCardsList
     }
 }

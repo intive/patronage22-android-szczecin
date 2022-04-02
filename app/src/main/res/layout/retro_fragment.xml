@@ -34,5 +34,14 @@
         app:layout_constraintTop_toBottomOf="@+id/tab_layout_retro"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <include
+        android:id="@+id/error_view_pager_cards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        layout="@layout/error_layout_board_cards"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout_retro"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
