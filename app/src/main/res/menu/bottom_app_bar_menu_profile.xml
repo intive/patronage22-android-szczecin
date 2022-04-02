@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item
-        android:id="@+id/more"
-        android:title="@string/more"
-        android:contentDescription="@string/content_description_item"
-        app:showAsAction="never"
-        />
-    <item
         android:id="@+id/menu_log_out"
         android:title="@string/menu_log_out"
         android:contentDescription="@string/menu_log_out_description"
