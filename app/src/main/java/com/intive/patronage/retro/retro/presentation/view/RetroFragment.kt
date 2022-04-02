@@ -17,6 +17,7 @@ import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.databinding.RetroFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
+import com.intive.patronage.retro.retro.presentation.entity.Columns
 import com.intive.patronage.retro.retro.presentation.entity.RetroDetails
 import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,6 +31,7 @@ class RetroFragment : Fragment() {
     private val args: RetroFragmentArgs by navArgs()
     private val retroViewModel: RetroViewModel by viewModel()
     private val mainViewModel by activityViewModels<MainViewModel>()
+    private lateinit var startColumns: List<Columns>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +46,6 @@ class RetroFragment : Fragment() {
 
         viewPager = binding.viewPagerRetro
         tab = binding.tabLayoutRetro
-
         viewPager.adapter = retroColumnsAdapter
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
@@ -55,16 +56,16 @@ class RetroFragment : Fragment() {
                     .actionRetroFragmentToRetroDialogFragment(args.boardId, columns[tab.selectedTabPosition])
             )
         }
-        setViewPagerHeartBeat(retroColumnsAdapter)
         refreshCards(retroColumnsAdapter)
+        setViewPagerHeartBeat(retroColumnsAdapter)
 
         return binding.root
     }
 
     private fun refreshCards(retroColumnsAdapter: RetroViewPagerAdapter) {
-        mainViewModel.isDialogClosed.observe(requireActivity()) {
+        mainViewModel.isDialogClosed.observe(viewLifecycleOwner) {
             if (it) {
-                setViewPager(retroColumnsAdapter)
+                refreshPagerAdapter(retroColumnsAdapter)
                 mainViewModel.isDialogClosed.value = false
             }
         }
@@ -87,8 +88,8 @@ class RetroFragment : Fragment() {
                                 binding.retroSpinner.visibility = View.GONE
                                 binding.errorViewPagerCards.root.visibility = View.GONE
                                 binding.viewPagerRetro.visibility = View.VISIBLE
-
-                                adapter.setRetroColumnsData(it.data!!, it2.data!!)
+                                startColumns = it.data!!
+                                adapter.setRetroColumnsData(it.data, it2.data!!)
                                 columns = it.data.map { list -> list.id }.toMutableList()
                             }
                             Status.ERROR -> {
@@ -112,34 +113,24 @@ class RetroFragment : Fragment() {
         }
     }
 
-    private fun setViewPager(adapter: RetroViewPagerAdapter) {
-        retroViewModel.retroConfigurationRefresh(args.boardId).observe(viewLifecycleOwner) {
+    private fun refreshPagerAdapter(adapter: RetroViewPagerAdapter) {
+        binding.horizontalProgressBar.visibility = View.VISIBLE
+        retroViewModel.retroDetailsRefresh(args.boardId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    retroViewModel.retroDetailsRefresh(args.boardId).observe(viewLifecycleOwner) { it2 ->
-                        when (it2.status) {
-                            Status.SUCCESS -> {
-                                binding.errorViewPagerCards.root.visibility = View.GONE
-                                binding.viewPagerRetro.visibility = View.VISIBLE
-
-                                adapter.setRetroColumnsData(it.data!!, it2.data!!)
-                                columns = it.data.map { list -> list.id }.toMutableList()
-                            }
-                            Status.ERROR -> {
-                                adapter.setRetroColumnsData(it.data!!, emptyBoardCardsList(it.data.size))
-                                columns = it.data.map { list -> list.id }.toMutableList()
-                                binding.viewPagerRetro.visibility = View.GONE
-                                binding.errorViewPagerCards.root.visibility = View.VISIBLE
-                            }
-                            else -> {}
-                        }
-                    }
+                    binding.horizontalProgressBar.visibility = View.GONE
+                    adapter.setRetroColumnsData(startColumns, it.data!!)
                 }
                 Status.ERROR -> {
+                    adapter.setRetroColumnsData(startColumns, emptyBoardCardsList(it.data!!.size))
+                    columns = it.data.map { list -> list.id }.toMutableList()
+                    binding.viewPagerRetro.visibility = View.GONE
                     binding.retroSpinner.visibility = View.GONE
-                    Snackbar.make(binding.retroConstraintLayout, it.message!!, Snackbar.LENGTH_SHORT).show()
+                    binding.errorViewPagerCards.root.visibility = View.VISIBLE
                 }
-                else -> {}
+                Status.LOADING -> {
+                    binding.horizontalProgressBar.isShown
+                }
             }
         }
     }
