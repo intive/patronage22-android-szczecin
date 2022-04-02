@@ -53,6 +53,7 @@ class BoardsFragment : Fragment() {
                         Status.SUCCESS -> {
                             binding.indicator.visibility = View.GONE
                             binding.boardRv.adapter = BoardRecyclerAdapter(it.data!!)
+                            noBoardsDisplay(it.data.isEmpty())
                         }
                         Status.ERROR -> {
                             binding.indicator.visibility = View.GONE
@@ -62,6 +63,13 @@ class BoardsFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun noBoardsDisplay(isListEmpty: Boolean) {
+        if (isListEmpty) {
+            binding.boardRv.visibility = View.GONE
+            binding.noBoardsLayout.root.visibility = View.VISIBLE
         }
     }
 }

@@ -40,8 +40,12 @@
     <string name="add_retro_button">ADD A NEW CARD</string>
     <string name="add_user_button">ADD A NEW USERS</string>
     <string name="desc_floating_button">Floating button</string>
+    <string name="desc_no_boards_image">Image that appears when there is no boards</string>
     <string name="retro_card_input_hint">Note</string>
     <string name="edit_icon">Edit icon</string>
     <string name="error_board_card_message_1">Something went wrong</string>
     <string name="error_board_card_message_2"> Please try again.</string>
+    <string name="no_boards_up_label">There are no boards added.</string>
+    <string name="no_boards_bottom_label">Go ahead and add a new board!</string>
+    <string name="desc_api_error">Red circle with X in it</string>
 </resources>
