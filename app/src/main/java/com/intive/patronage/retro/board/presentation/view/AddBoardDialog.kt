@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.api.Status
+import com.intive.patronage.retro.common.helpers.softKeyboardHandler
 import com.intive.patronage.retro.databinding.AddBoardDialogBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,6 +40,7 @@ class AddBoardDialog : BottomSheetDialogFragment() {
         showButton(isVisible = true, isEnabled = false, isClickable = false)
         showProgressBar("gone")
         showBoardInput(true, "Board name")
+        softKeyboardHandler(dialog)
 
         return binding.root
     }

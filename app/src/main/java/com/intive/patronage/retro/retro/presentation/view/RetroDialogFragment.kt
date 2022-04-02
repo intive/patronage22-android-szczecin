@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.intive.patronage.retro.common.api.Status
+import com.intive.patronage.retro.common.helpers.softKeyboardHandler
 import com.intive.patronage.retro.databinding.RetroDialogFragmentBinding
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
@@ -30,6 +31,7 @@ class RetroDialogFragment : BottomSheetDialogFragment() {
         binding = RetroDialogFragmentBinding.inflate(inflater, container, false)
 
         buttonListener()
+        softKeyboardHandler(dialog)
 
         binding.newRetroName.editText?.doOnTextChanged { text, _, _, _ ->
             text?.let { handleAddButton(text.length in 5..150) }
