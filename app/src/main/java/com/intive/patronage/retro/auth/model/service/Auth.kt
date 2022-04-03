@@ -10,7 +10,7 @@ import com.intive.patronage.retro.auth.model.repo.AuthRepository
 class Auth(private val context: Context, private val authToken: AuthToken) : AuthRepository {
     override fun getUser() = FirebaseAuth.getInstance().currentUser
     override fun getIntent() = AuthUI.getInstance()
-        .createSignInIntentBuilder().setTheme(R.style.Theme_RetroBoard)
+        .createSignInIntentBuilder().setTheme(R.style.Theme_FireBase)
         .setIsSmartLockEnabled(false)
         .build()
 
