@@ -4,13 +4,13 @@ import android.content.Context
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.firebase.auth.FirebaseAuth
+import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 
 class Auth(private val context: Context, private val authToken: AuthToken) : AuthRepository {
-
     override fun getUser() = FirebaseAuth.getInstance().currentUser
     override fun getIntent() = AuthUI.getInstance()
-        .createSignInIntentBuilder()
+        .createSignInIntentBuilder().setTheme(R.style.Theme_RetroBoard)
         .setIsSmartLockEnabled(false)
         .build()
 
