@@ -2,6 +2,8 @@ package com.intive.patronage.retro.common.dependencyInjection
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.intive.patronage.retro.about.model.repo.Storage
+import com.intive.patronage.retro.about.presentation.viewModel.AboutUsViewModel
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 import com.intive.patronage.retro.auth.model.service.Auth
 import com.intive.patronage.retro.auth.model.service.AuthToken
@@ -33,10 +35,12 @@ val appModule = module {
     factory { BoardsFragment() }
     factory { RetroFragment() }
     factory { RetroRepository(get(), get()) }
+    single { Storage() }
 
     viewModel { MainViewModel(get(), get(), get()) }
     viewModel { BoardViewModel(get()) }
     viewModel { RetroViewModel(get()) }
+    viewModel { AboutUsViewModel(get()) }
 }
 
 val networkModule = module {
