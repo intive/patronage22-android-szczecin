@@ -31,10 +31,7 @@ class AboutUsFragment : Fragment() {
         aboutUsViewModel.downloadDevs()
         aboutUsViewModel.areDevsLoaded.observe(viewLifecycleOwner) { areDevsLoaded ->
             if (areDevsLoaded) {
-                binding.aboutUsText.visibility = View.VISIBLE
-                binding.progressBarCircular.visibility = View.GONE
-
-                val devs = aboutUsViewModel.getDevs()
+                binding.aboutUsRecyclerView.adapter = AboutUsRecyclerAdapter(aboutUsViewModel.getDevs(), binding.progressBarCircular)
             } else {
                 binding.progressBarCircular.visibility = View.GONE
             }
