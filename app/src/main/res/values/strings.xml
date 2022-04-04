@@ -48,4 +48,11 @@
     <string name="no_boards_up_label">There are no boards added.</string>
     <string name="no_boards_bottom_label">Go ahead and add a new board!</string>
     <string name="desc_api_error">Red circle with X in it</string>
+    <string name="dummy_developer_name">Jan Kowalski</string>
+    <string name="dummy_developer_role">Android Developer</string>
+    <string name="dummy_developer_email">kowalski.jan@gmail.com</string>
+    <string name="dummy_developer_github">https://github.com/JanKowalski</string>
+    <string name="desc_dev_card">Dev card</string>
+    <string name="desc_dev_email">Developer email</string>
+    <string name="desc_dev_github">Developer github link</string>
 </resources>

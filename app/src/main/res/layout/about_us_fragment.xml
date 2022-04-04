@@ -8,17 +8,18 @@
     android:id="@+id/context_view"
     tools:context=".about.presentation.view.AboutUsFragment">
 
-    <TextView
-        android:id="@+id/about_us_text"
-        style="@style/demo_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/about_us_text"
-        android:visibility="gone"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/about_us_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_bar_circular"
