@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="56dp"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
