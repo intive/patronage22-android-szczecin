@@ -11,22 +11,21 @@ import com.intive.patronage.retro.about.presentation.entity.Devs
 class AboutUsViewModel(private val storage: Storage) : ViewModel() {
     private val devsPath = "about-us.json"
     private var devs = Devs()
-    var areDevsLoaded = MutableLiveData<Boolean>()
 
-    fun downloadDevs() {
+    fun downloadDevs(): MutableLiveData<Boolean> {
+        val areDevsLoaded = MutableLiveData<Boolean>()
         val oneMegabyte: Long = 1024 * 1024
+
         storage.getFile(devsPath).getBytes(oneMegabyte).addOnSuccessListener { devsFile ->
             devs = Gson().fromJson(devsFile.decodeToString(), DevsRemote::class.java).mapToDevs()
-            areDevsLoaded.value = true
+            areDevsLoaded.postValue(true)
         }.addOnFailureListener {
-            areDevsLoaded.value = false
+            areDevsLoaded.postValue(false)
         }
+        return areDevsLoaded
     }
 
-    fun getDevs(): Devs {
-        areDevsLoaded.value = false
-        return devs
-    }
+    fun getDevs() = devs
 
     private fun DevsRemote.mapToDevs(): Devs {
         val developers = Devs()

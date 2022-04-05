@@ -28,18 +28,23 @@ class AboutUsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        aboutUsViewModel.downloadDevs()
-        aboutUsViewModel.areDevsLoaded.observe(viewLifecycleOwner) { areDevsLoaded ->
+        aboutUsViewModel.downloadDevs().observe(viewLifecycleOwner) { areDevsLoaded ->
             if (areDevsLoaded) {
-                binding.aboutUsRecyclerView.adapter = AboutUsRecyclerAdapter(aboutUsViewModel.getDevs(), binding.progressBarCircular)
+                binding.devsRecyclerView.adapter = AboutUsRecyclerAdapter(aboutUsViewModel.getDevs(), binding)
             } else {
-                binding.progressBarCircular.visibility = View.GONE
+                with(binding) {
+                    devsProgressBarCircular.visibility = View.GONE
+                    devsErrorImage.visibility = View.VISIBLE
+                    devsErrorMessage.visibility = View.VISIBLE
+                }
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        binding.progressBarCircular.visibility = View.VISIBLE
+        if (binding.devsRecyclerView.adapter == null) {
+            binding.devsProgressBarCircular.visibility = View.VISIBLE
+        }
     }
 }

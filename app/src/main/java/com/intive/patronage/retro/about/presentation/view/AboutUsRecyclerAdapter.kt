@@ -1,29 +1,32 @@
 package com.intive.patronage.retro.about.presentation.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.about.presentation.entity.Dev
 import com.intive.patronage.retro.about.presentation.entity.Devs
+import com.intive.patronage.retro.databinding.AboutUsFragmentBinding
 import com.intive.patronage.retro.databinding.AboutUsRecyclerItemLayoutBinding
 
-class AboutUsRecyclerAdapter(private val devs: Devs, private val progressBar: ProgressBar) :
+class AboutUsRecyclerAdapter(private val devs: Devs, private val aboutUsBinding: AboutUsFragmentBinding) :
     RecyclerView.Adapter<AboutUsRecyclerAdapter.AboutUsViewHolder>() {
 
     inner class AboutUsViewHolder(private val binding: AboutUsRecyclerItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(dev: Dev) {
-            binding.developerNameText.text = dev.displayName
-            binding.developerRoleText.text = dev.role
-            binding.developerEmailText.text = dev.email
-            binding.developerGithubText.text = dev.githubUrl
-            Glide.with(binding.avatarImage.context)
-                .load(dev.avatarUrl)
-                .centerCrop()
-                .error(R.drawable.ic_avatar_default)
-                .into(binding.avatarImage)
+            with(binding) {
+                developerNameText.text = dev.displayName
+                developerRoleText.text = dev.role
+                developerEmailText.text = dev.email
+                developerGithubText.text = dev.githubUrl
+                Glide.with(avatarImage.context)
+                    .load(dev.avatarUrl)
+                    .centerCrop()
+                    .error(R.drawable.ic_avatar_default)
+                    .into(avatarImage)
+            }
         }
     }
 
@@ -35,7 +38,8 @@ class AboutUsRecyclerAdapter(private val devs: Devs, private val progressBar: Pr
         val dev = devs.devs[position]
         holder.bindItem(dev)
         if (position == devs.devs.size - 1) {
-            progressBar.visibility = ProgressBar.GONE
+            aboutUsBinding.devsProgressBarCircular.visibility = View.GONE
+            aboutUsBinding.devsAppBar.visibility = View.VISIBLE
         }
     }
 
