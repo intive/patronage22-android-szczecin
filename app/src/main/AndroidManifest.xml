@@ -26,9 +26,13 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
             android:label="@string/title_activity_offline" />
-        <activity android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity" />
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:theme="@style/Theme.LicenseOSS" />
 
-        <activity android:name="com.google.android.gms.oss.licenses.OssLicensesActivity" />
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+            android:theme="@style/Theme.LicenseOSS" />
 
         <meta-data
             android:name="preloaded_fonts"
