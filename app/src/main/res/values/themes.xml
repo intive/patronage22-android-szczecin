@@ -16,7 +16,7 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
     </style>
 
-    <!-- Base application theme. -->
+    <!-- Firebase dependency application theme. -->
     <style name="Theme.FireBase" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
@@ -31,8 +31,8 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <!-- Base application theme. -->
-    <style name="Theme.FireBase" parent="Theme.MaterialComponents.DayNight">
+    <!-- License oss dependency application theme. -->
+    <style name="Theme.LicenseOSS" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
