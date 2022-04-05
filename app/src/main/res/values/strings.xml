@@ -44,6 +44,7 @@
     <string name="retro_card_input_hint">Note</string>
     <string name="edit_icon">Edit icon</string>
     <string name="error_board_card_message_1">Something went wrong</string>
+    <string name="error_about_us_message">Something went wrong</string>
     <string name="no_boards_up_label">There are no boards added.</string>
     <string name="no_boards_bottom_label">Go ahead and add a new board!</string>
     <string name="desc_api_error">Red circle with X in it</string>
