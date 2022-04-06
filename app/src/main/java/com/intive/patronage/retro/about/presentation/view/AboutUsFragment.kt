@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.intive.patronage.retro.R
 import com.intive.patronage.retro.about.presentation.viewModel.AboutUsViewModel
 import com.intive.patronage.retro.databinding.AboutUsFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
@@ -20,6 +21,8 @@ class AboutUsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = AboutUsFragmentBinding.inflate(inflater, container, false)
+        val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
+        bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_about_us)
         val fab = (activity as MainActivity).binding.floatingButton
         fab.hide()
         return binding.root
