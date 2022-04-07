@@ -15,7 +15,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.AuthToken
@@ -84,16 +83,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBottomBarAndDrawer() {
-        val drawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val bottomAppBar: BottomAppBar = binding.bottomAppBar
         val appConfig = AppBarConfiguration(
             navView.menu,
-            drawerLayout
+            binding.drawerLayout
         )
         val navController = binding.navHostFragment.findNavController()
 
-        NavigationUI.setupWithNavController(bottomAppBar, navController, appConfig)
+        NavigationUI.setupWithNavController(binding.bottomAppBar, navController, appConfig)
         NavigationUI.setupWithNavController(navView, navController)
     }
 
