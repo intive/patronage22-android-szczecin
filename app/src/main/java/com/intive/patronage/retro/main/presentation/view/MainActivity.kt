@@ -20,7 +20,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.AuthToken
-import com.intive.patronage.retro.common.network.CheckNetworkConnect
+import com.intive.patronage.retro.common.network.NetworkConnectionObserver
 import com.intive.patronage.retro.databinding.ActivityMainBinding
 import com.intive.patronage.retro.databinding.HeaderNavigationDrawerBinding
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var bindingHeader: HeaderNavigationDrawerBinding
     private val viewModel: MainViewModel by viewModel()
-    private val checkNet: CheckNetworkConnect by inject()
+    private val net: NetworkConnectionObserver by inject()
     private val authToken: AuthToken by inject()
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var changePictureResultLauncher: ActivityResultLauncher<String>
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun callNetworkConnection() {
-        checkNet.status.observe(this) { isConnected ->
+        net.status.observe(this) { isConnected ->
             if (!isConnected) {
                 goToOfflineScreen()
             }
