@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
@@ -92,9 +91,7 @@ class MainActivity : AppCompatActivity() {
             navView.menu,
             drawerLayout
         )
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navController = binding.navHostFragment.findNavController()
 
         NavigationUI.setupWithNavController(bottomAppBar, navController, appConfig)
         NavigationUI.setupWithNavController(navView, navController)
