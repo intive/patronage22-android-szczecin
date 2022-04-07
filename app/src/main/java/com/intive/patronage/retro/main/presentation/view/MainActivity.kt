@@ -12,15 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
 import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.AuthToken
-import com.intive.patronage.retro.common.network.CheckNetworkConnect
+import com.intive.patronage.retro.common.network.NetworkConnectionObserver
 import com.intive.patronage.retro.databinding.ActivityMainBinding
 import com.intive.patronage.retro.databinding.HeaderNavigationDrawerBinding
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var bindingHeader: HeaderNavigationDrawerBinding
     private val viewModel: MainViewModel by viewModel()
-    private val checkNet: CheckNetworkConnect by inject()
+    private val net: NetworkConnectionObserver by inject()
     private val authToken: AuthToken by inject()
     private lateinit var signInResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var changePictureResultLauncher: ActivityResultLauncher<String>
@@ -85,18 +83,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBottomBarAndDrawer() {
-        val drawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val bottomAppBar: BottomAppBar = binding.bottomAppBar
         val appConfig = AppBarConfiguration(
             navView.menu,
-            drawerLayout
+            binding.drawerLayout
         )
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navController = binding.navHostFragment.findNavController()
 
-        NavigationUI.setupWithNavController(bottomAppBar, navController, appConfig)
+        NavigationUI.setupWithNavController(binding.bottomAppBar, navController, appConfig)
         NavigationUI.setupWithNavController(navView, navController)
     }
 
@@ -110,7 +104,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun callNetworkConnection() {
-        checkNet.status.observe(this) { isConnected ->
+        net.status.observe(this) { isConnected ->
             if (!isConnected) {
                 goToOfflineScreen()
             }

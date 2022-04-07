@@ -15,7 +15,7 @@ import com.intive.patronage.retro.common.api.AuthInterceptor
 import com.intive.patronage.retro.common.api.HttpClient
 import com.intive.patronage.retro.common.api.ResponseHandler
 import com.intive.patronage.retro.common.api.RestClient
-import com.intive.patronage.retro.common.network.CheckNetworkConnect
+import com.intive.patronage.retro.common.network.NetworkConnectionObserver
 import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import com.intive.patronage.retro.retro.model.repo.RetroApiImpl
 import com.intive.patronage.retro.retro.model.repo.RetroRepository
@@ -29,7 +29,7 @@ import org.koin.dsl.module
 val appModule = module {
 
     factory<AuthRepository> { Auth(androidContext(), get()) }
-    single { CheckNetworkConnect(androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager) }
+    single { NetworkConnectionObserver(androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager) }
     factory { ResponseHandler() }
     factory { BoardRepository(get(), get()) }
     factory { BoardsFragment() }

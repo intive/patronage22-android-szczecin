@@ -7,14 +7,14 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.intive.patronage.retro.auth.model.repo.AuthRepository
 import com.intive.patronage.retro.auth.model.service.AuthToken
-import com.intive.patronage.retro.common.network.CheckNetworkConnect
+import com.intive.patronage.retro.common.network.NetworkConnectionObserver
 import com.intive.patronage.retro.databinding.ActivityOfflineBinding
 import org.koin.android.ext.android.inject
 
 class OfflineActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOfflineBinding
-    private val checkNet: CheckNetworkConnect by inject()
+    private val net: NetworkConnectionObserver by inject()
     private val authToken: AuthToken by inject()
     private val auth: AuthRepository by inject()
 
@@ -32,7 +32,7 @@ class OfflineActivity : AppCompatActivity() {
     }
 
     private fun callNetworkConnection() {
-        checkNet.status.observe(this) { status ->
+        net.status.observe(this) { status ->
             if (status) {
                 if (auth.getUser() == null) {
                     finish()

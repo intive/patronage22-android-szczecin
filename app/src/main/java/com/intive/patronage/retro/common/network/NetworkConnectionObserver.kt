@@ -5,7 +5,7 @@ import android.net.Network
 import android.net.NetworkRequest
 import androidx.lifecycle.MutableLiveData
 
-class CheckNetworkConnect(var connectivityManager: ConnectivityManager) {
+class NetworkConnectionObserver(private val connectivityManager: ConnectivityManager) {
 
     val status = MutableLiveData(hasNoNetwork())
 
