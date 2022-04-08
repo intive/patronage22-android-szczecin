@@ -16,7 +16,7 @@ class RetroRepository(private val api: RetroApiImpl, private var responseHandler
                 { Columns(it.name, it.id, it.position, it.colour) }
             )
         } catch (e: Exception) {
-            responseHandler.handleException()
+            responseHandler.handleException(e)
         }
     }
 
@@ -35,7 +35,7 @@ class RetroRepository(private val api: RetroApiImpl, private var responseHandler
                 }
             )
         } catch (e: Exception) {
-            responseHandler.handleException()
+            responseHandler.handleException(e)
         }
     }
 
@@ -43,7 +43,7 @@ class RetroRepository(private val api: RetroApiImpl, private var responseHandler
         return try {
             responseHandler.handleSuccess(api.getRetroApi().postCard(id, card))
         } catch (e: Exception) {
-            responseHandler.handleException()
+            responseHandler.handleException(e)
         }
     }
 }
