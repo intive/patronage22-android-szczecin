@@ -52,7 +52,7 @@ class BoardsFragment : Fragment() {
                     when (it.status) {
                         Status.SUCCESS -> {
                             binding.indicator.visibility = View.GONE
-                            binding.boardRv.adapter = BoardRecyclerAdapter(it.data!!)
+                            binding.boardRv.adapter = BoardRecyclerAdapter(it.data!!, boardViewModel)
                             noBoardsDisplay(it.data.isEmpty())
                         }
                         Status.ERROR -> {

@@ -5,10 +5,16 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.intive.patronage.retro.board.presentation.entity.Board
+import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.databinding.BoardRecyclerItemLayoutBinding
 
-class BoardRecyclerAdapter(private val boardList: List<Board>) : RecyclerView.Adapter<BoardRecyclerAdapter.BoardViewHolder>() {
+class BoardRecyclerAdapter(
+    private val boardList: List<Board>,
+    private val viewModel: BoardViewModel
+) : RecyclerView.Adapter<BoardRecyclerAdapter.BoardViewHolder>() {
+
     inner class BoardViewHolder(private val binding: BoardRecyclerItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bindItem(board: Board) {
             binding.textBoardName.text = board.name
             binding.textBoardStatus.text = board.status
@@ -27,9 +33,15 @@ class BoardRecyclerAdapter(private val boardList: List<Board>) : RecyclerView.Ad
                 Navigation.findNavController(it).navigate(action)
             }
         }
+
+        fun deleteBoard(board: Board) {
+            binding.boardViewModel = viewModel
+            binding.board = board
+            binding.view = binding.root
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardRecyclerAdapter.BoardViewHolder {
         return BoardViewHolder(BoardRecyclerItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
@@ -38,6 +50,7 @@ class BoardRecyclerAdapter(private val boardList: List<Board>) : RecyclerView.Ad
         holder.bindItem(board)
         holder.setAction(board)
         holder.setAddUser(board)
+        holder.deleteBoard(board)
     }
 
     override fun getItemCount() = boardList.size
