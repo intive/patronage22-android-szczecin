@@ -39,6 +39,12 @@ class BoardRecyclerAdapter(
             binding.board = board
             binding.view = binding.root
         }
+
+        fun editBoard(board: Board) {
+            binding.editBoardIcon.setOnClickListener {
+                Navigation.findNavController(it).navigate(BoardsFragmentDirections.actionBoardsFragmentToAddBoardDialog(board.id))
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardRecyclerAdapter.BoardViewHolder {
@@ -51,6 +57,7 @@ class BoardRecyclerAdapter(
         holder.setAction(board)
         holder.setAddUser(board)
         holder.deleteBoard(board)
+        holder.editBoard(board)
     }
 
     override fun getItemCount() = boardList.size
