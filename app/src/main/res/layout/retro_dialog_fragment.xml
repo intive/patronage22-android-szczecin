@@ -15,7 +15,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="10dp"
-        tools:context=".board.presentation.view.AddBoardDialog">
+        tools:context=".board.presentation.view.BoardDialog">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/new_retro_name"

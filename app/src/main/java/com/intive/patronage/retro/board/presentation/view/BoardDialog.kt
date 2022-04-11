@@ -16,14 +16,14 @@ import com.google.android.material.textfield.TextInputLayout
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.common.helpers.softKeyboardHandler
-import com.intive.patronage.retro.databinding.AddBoardDialogBinding
+import com.intive.patronage.retro.databinding.BoardDialogBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AddBoardDialog : BottomSheetDialogFragment() {
+class BoardDialog : BottomSheetDialogFragment() {
     private lateinit var boardNameButton: MaterialButton
     private lateinit var boardNameInput: TextInputLayout
     private lateinit var progressBar: ProgressBar
-    private lateinit var binding: AddBoardDialogBinding
+    private lateinit var binding: BoardDialogBinding
 
     private val boardViewModel: BoardViewModel by viewModel()
 
@@ -32,7 +32,7 @@ class AddBoardDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = AddBoardDialogBinding.inflate(inflater, container, false)
+        binding = BoardDialogBinding.inflate(inflater, container, false)
         boardNameButton = binding.addNewBoardButton
         progressBar = binding.progressBarCircular
         boardNameInput = binding.newBoardName
@@ -132,6 +132,6 @@ class AddBoardDialog : BottomSheetDialogFragment() {
     }
 
     private fun onSuccess() {
-        findNavController().navigate(AddBoardDialogDirections.actionAddBoardDialogToBoardsFragment())
+        findNavController().navigate(BoardDialogDirections.actionAddBoardDialogToBoardsFragment())
     }
 }
