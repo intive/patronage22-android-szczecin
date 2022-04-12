@@ -10,6 +10,7 @@ import com.intive.patronage.retro.auth.model.service.AuthToken
 import com.intive.patronage.retro.board.model.repo.BoardApiImpl
 import com.intive.patronage.retro.board.model.repo.BoardRepository
 import com.intive.patronage.retro.board.presentation.view.BoardsFragment
+import com.intive.patronage.retro.board.presentation.view.BoardsNavigator
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.api.AuthInterceptor
 import com.intive.patronage.retro.common.api.HttpClient
@@ -36,9 +37,10 @@ val appModule = module {
     factory { RetroFragment() }
     factory { RetroRepository(get(), get()) }
     single { Storage() }
+    single { BoardsNavigator() }
 
     viewModel { MainViewModel(get(), get(), get()) }
-    viewModel { BoardViewModel(get()) }
+    viewModel { BoardViewModel(get(), get()) }
     viewModel { RetroViewModel(get()) }
     viewModel { AboutUsViewModel(get()) }
 }

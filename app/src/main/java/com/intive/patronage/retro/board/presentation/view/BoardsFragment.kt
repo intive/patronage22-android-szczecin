@@ -1,5 +1,6 @@
 package com.intive.patronage.retro.board.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,13 @@ class BoardsFragment : Fragment() {
     private val boardViewModel: BoardViewModel by viewModel()
     private val retroViewModel: RetroViewModel by viewModel()
     private val authToken: AuthToken by inject()
+    private val boardsNavigator: BoardsNavigator by inject()
     private lateinit var binding: BoardFragmentBinding
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        boardsNavigator.attach(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +50,11 @@ class BoardsFragment : Fragment() {
         uploadBoards(binding)
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        boardsNavigator.detach(this)
     }
 
     private fun uploadBoards(binding: BoardFragmentBinding) {
