@@ -58,4 +58,5 @@
     <string name="desc_add_user_icon">Icon to add new user for a board</string>
     <string name="desc_retro_edit_icon">Icon to edit retro card</string>
     <string name="desc_delete_board_icon">Icon to delete the board</string>
+    <string name="edit_board_button">UPDATE A BOARD</string>
 </resources>
