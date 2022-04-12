@@ -42,4 +42,9 @@ class BoardViewModel(private val repo: BoardRepository) : ViewModel() {
             else -> { Log.d("RECYCLER", "Something else") }
         }
     }
+
+    fun getUsers(email: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        emit(repo.getUsers(email))
+    }
 }

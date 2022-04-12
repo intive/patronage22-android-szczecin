@@ -7,6 +7,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface BoardApi {
     @GET("api/v1/boards")
@@ -20,4 +21,7 @@ interface BoardApi {
 
     @DELETE("api/v1/boards/{id}/")
     suspend fun deleteBoard(@Path("id") id: Int)
+
+    @GET("api/v1/users")
+    suspend fun getUsers(@Query("email") email: String): List<String>
 }

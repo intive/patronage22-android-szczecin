@@ -38,4 +38,12 @@ class BoardRepository(private val api: BoardApiImpl, var responseHandler: Respon
             responseHandler.handleException(e)
         }
     }
+
+    suspend fun getUsers(email: String): Resource<List<String>> {
+        return try {
+            responseHandler.handleSuccess(api.getBoardApi().getUsers(email))
+        } catch (e: Exception) {
+            responseHandler.handleException(e)
+        }
+    }
 }
