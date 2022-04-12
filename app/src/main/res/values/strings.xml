@@ -38,7 +38,7 @@
     <string name="desc_screen_about_us">About us screen</string>
     <string name="add_board_button">ADD A NEW BOARD</string>
     <string name="add_retro_button">ADD A NEW CARD</string>
-    <string name="add_user_button">ADD A NEW USERS</string>
+    <string name="add_the_users_button">ADD A NEW USERS TO THE BOARD</string>
     <string name="desc_floating_button">Floating button</string>
     <string name="desc_no_boards_image">Image that appears when there is no boards</string>
     <string name="retro_card_input_hint">Note</string>
@@ -59,4 +59,9 @@
     <string name="desc_retro_edit_icon">Icon to edit retro card</string>
     <string name="desc_delete_board_icon">Icon to delete the board</string>
     <string name="edit_board_button">UPDATE A BOARD</string>
+    <string name="user_email">User email</string>
+    <string name="error_add_user_to_board">Something went wrong</string>
+    <string name="add_the_user_button">ATTACH THE USER</string>
+    <string name="searching">searching…</string>
+    <string name="no_matching_results">No matching results.</string>
 </resources>

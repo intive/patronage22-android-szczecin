@@ -11,6 +11,8 @@ import com.intive.patronage.retro.board.presentation.entity.Board
 import com.intive.patronage.retro.common.api.Resource
 import com.intive.patronage.retro.common.api.Status
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 class BoardViewModel(private val repo: BoardRepository) : ViewModel() {
@@ -39,7 +41,24 @@ class BoardViewModel(private val repo: BoardRepository) : ViewModel() {
             Status.ERROR -> {
                 Snackbar.make(v, response.message!!, Snackbar.LENGTH_SHORT).show()
             }
-            else -> { Log.d("RECYCLER", "Something else") }
+            else -> {
+                Log.d("RECYCLER", "Something else")
+            }
+        }
+    }
+
+    suspend fun getUsers(email: String): Flow<List<String>> {
+        val emails = repo.getUsers(email)
+        return when (emails.status) {
+            Status.SUCCESS -> {
+                flow { emit(emails.data!!) }
+            }
+            Status.ERROR -> {
+                flow { emit(listOf("")) }
+            }
+            else -> {
+                flow { emit(emptyList()) }
+            }
         }
     }
 }
