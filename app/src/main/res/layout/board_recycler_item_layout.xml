@@ -9,9 +9,6 @@
         <variable
             name="board"
             type="com.intive.patronage.retro.board.presentation.entity.Board" />
-        <variable
-            name="view"
-            type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,6 +32,17 @@
                 android:id="@+id/constraint_layout_board"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/indicator_boards_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/text_board_name"
@@ -86,8 +94,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/edit_board_icon"
                     app:layout_constraintTop_toBottomOf="@+id/text_board_status"
-                    app:srcCompat="@drawable/ic_baseline_person_add_24"
-                    />
+                    app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
                 <ImageView
                     android:id="@+id/edit_board_icon"
@@ -112,7 +119,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:contentDescription="@string/desc_delete_board_icon"
-                    android:onClick="@{() -> boardViewModel.deleteBoard(board, view)}"
+                    android:onClick="@{() -> boardViewModel.deleteBoard(board)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_board_status"

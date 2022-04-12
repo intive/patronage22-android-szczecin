@@ -26,6 +26,9 @@
             app:popUpTo="@id/addUserDialog"
             app:popUpToInclusive="true"
             />
+        <action
+            android:id="@+id/action_boardsFragment_self"
+            app:destination="@id/boardsFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"

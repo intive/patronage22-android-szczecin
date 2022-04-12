@@ -37,7 +37,6 @@ class BoardRecyclerAdapter(
         fun deleteBoard(board: Board) {
             binding.boardViewModel = viewModel
             binding.board = board
-            binding.view = binding.root
         }
 
         fun editBoard(board: Board) {
