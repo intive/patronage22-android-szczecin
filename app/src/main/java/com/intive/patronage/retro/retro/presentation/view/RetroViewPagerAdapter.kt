@@ -23,6 +23,7 @@ class RetroViewPagerAdapter : RecyclerView.Adapter<RetroViewPagerAdapter.ViewHol
             adapter.setBoardCardsData(details.boardCards)
         }
     }
+
     override fun getItemCount(): Int = oldColumnsList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(oldColumnsList[position], oldRetroDetailsList[position])

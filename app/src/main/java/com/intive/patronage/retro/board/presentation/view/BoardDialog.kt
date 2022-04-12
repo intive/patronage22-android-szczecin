@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
@@ -83,19 +82,7 @@ class BoardDialog : BottomSheetDialogFragment() {
         boardNameButton.setOnClickListener {
             val inputText = boardNameInput.editText?.text.toString()
             boardViewModel.addBoard(inputText).observe(viewLifecycleOwner) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        onSuccess()
-                    }
-                    Status.ERROR -> {
-                        onError("Something went wrong")
-                    }
-                    Status.LOADING -> {
-                        showProgressBar("visible")
-                        showBoardInput(false)
-                        showButton(isVisible = false, isEnabled = false, isClickable = false)
-                    }
-                }
+                checkStatus(it.status)
             }
         }
     }
@@ -103,7 +90,25 @@ class BoardDialog : BottomSheetDialogFragment() {
     private fun editButtonListener() {
         boardNameButton.setOnClickListener {
             val inputText = boardNameInput.editText?.text.toString()
-            Toast.makeText(requireActivity(), "Change text to $inputText in Board # ${args.boardId}", Toast.LENGTH_SHORT).show()
+            boardViewModel.editBoard(args.boardId, inputText).observe(viewLifecycleOwner) {
+                checkStatus(it.status)
+            }
+        }
+    }
+
+    private fun checkStatus(it: Status) {
+        when (it) {
+            Status.SUCCESS -> {
+                onSuccess()
+            }
+            Status.ERROR -> {
+                onError("Something went wrong")
+            }
+            Status.LOADING -> {
+                showProgressBar("visible")
+                showBoardInput(false)
+                showButton(isVisible = false, isEnabled = false, isClickable = false)
+            }
         }
     }
 

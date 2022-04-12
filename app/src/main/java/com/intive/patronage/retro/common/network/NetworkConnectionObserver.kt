@@ -23,6 +23,7 @@ class NetworkConnectionObserver(private val connectivityManager: ConnectivityMan
             super.onAvailable(network)
             status.postValue(true)
         }
+
         override fun onLost(network: Network) {
             super.onLost(network)
             status.postValue(false)

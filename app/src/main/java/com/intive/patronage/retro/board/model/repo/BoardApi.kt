@@ -1,10 +1,12 @@
 package com.intive.patronage.retro.board.model.repo
 
 import com.intive.patronage.retro.board.model.entity.BoardRemote
+import com.intive.patronage.retro.board.model.entity.BoardUpdateRemote
 import com.intive.patronage.retro.board.presentation.entity.Board
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -20,4 +22,7 @@ interface BoardApi {
 
     @DELETE("api/v1/boards/{id}/")
     suspend fun deleteBoard(@Path("id") id: Int)
+
+    @PATCH("api/v1/boards/{id}/")
+    suspend fun updateBoard(@Path("id") id: Int, @Body boardUpdateRemote: BoardUpdateRemote)
 }

@@ -134,6 +134,7 @@ class RetroFragment : Fragment() {
             }
         }
     }
+
     private fun emptyBoardCardsList(countColumns: Int): MutableList<RetroDetails> {
         val emptyBoardCardsList = emptyList<RetroDetails>().toMutableList()
         for (i in 0..countColumns) {

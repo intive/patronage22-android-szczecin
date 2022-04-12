@@ -5,5 +5,5 @@ data class Dev(
     val displayName: String,
     val email: String,
     val githubUrl: String,
-    val role: String
+    val role: String,
 )
