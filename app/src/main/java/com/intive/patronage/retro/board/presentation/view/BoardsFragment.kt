@@ -24,7 +24,7 @@ class BoardsFragment : Fragment() {
     private val retroViewModel: RetroViewModel by viewModel()
     private val authToken: AuthToken by inject()
     private val boardsNavigator: BoardsNavigator by inject()
-    private lateinit var binding: BoardFragmentBinding
+    lateinit var binding: BoardFragmentBinding
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,6 +39,8 @@ class BoardsFragment : Fragment() {
         binding = BoardFragmentBinding.inflate(inflater, container, false)
         val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
         val fab = (activity as MainActivity).binding.floatingButton
+
+        binding.boardRecyclerAdapter = BoardRecyclerAdapter()
 
         retroViewModel.stopHeartBeat()
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
@@ -64,7 +66,7 @@ class BoardsFragment : Fragment() {
                     when (it.status) {
                         Status.SUCCESS -> {
                             binding.indicator.visibility = View.GONE
-                            binding.boardRv.adapter = BoardRecyclerAdapter(it.data!!, boardViewModel)
+                            binding.boardRecyclerAdapter!!.uploadBoardsData(it.data!!, boardViewModel)
                             noBoardsDisplay(it.data.isEmpty())
                         }
                         Status.ERROR -> {
@@ -80,7 +82,7 @@ class BoardsFragment : Fragment() {
 
     private fun noBoardsDisplay(isListEmpty: Boolean) {
         if (isListEmpty) {
-            binding.boardRv.visibility = View.GONE
+            binding.boardRecyclerView.visibility = View.GONE
             binding.noBoardsLayout.root.visibility = View.VISIBLE
         }
     }
