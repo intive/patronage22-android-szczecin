@@ -84,7 +84,7 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="boardId"
-            android:defaultValue="0"
+            android:defaultValue="-1"
             app:argType="integer" />
     </dialog>
     <dialog

@@ -5,45 +5,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import com.intive.patronage.retro.R
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.common.helpers.softKeyboardHandler
 import com.intive.patronage.retro.databinding.BoardDialogBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+private const val NEW_BOARD_ID = -1
+
 class BoardDialog : BottomSheetDialogFragment() {
     private lateinit var boardNameButton: MaterialButton
     private lateinit var boardNameInput: TextInputLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var binding: BoardDialogBinding
+    private val args: BoardDialogArgs by navArgs()
 
     private val boardViewModel: BoardViewModel by viewModel()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = BoardDialogBinding.inflate(inflater, container, false)
-        boardNameButton = binding.addNewBoardButton
-        progressBar = binding.progressBarCircular
-        boardNameInput = binding.newBoardName
-
-        showButton(isVisible = true, isEnabled = false, isClickable = false)
-        showProgressBar("gone")
-        showBoardInput(true, "Board name")
-        softKeyboardHandler(dialog)
-
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +46,40 @@ class BoardDialog : BottomSheetDialogFragment() {
             }
         }
 
+        if (args.boardId == NEW_BOARD_ID) addButtonListener() else editButtonListener()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        binding = BoardDialogBinding.inflate(inflater, container, false)
+        boardNameButton = binding.actionBoardButton
+        progressBar = binding.progressBarCircular
+        boardNameInput = binding.newBoardName
+
+        showButton(isVisible = true, isEnabled = false, isClickable = false)
+        showProgressBar("gone")
+        softKeyboardHandler(dialog)
+
+        if (args.boardId == NEW_BOARD_ID) {
+            showBoardInput(true, "Board name")
+        } else {
+            binding.actionBoardButton.text = getString(R.string.edit_board_button)
+            showBoardInput(true, "New Board name")
+        }
+
+        return binding.root
+    }
+
+    private fun showButton(isVisible: Boolean, isEnabled: Boolean, isClickable: Boolean) {
+        boardNameButton.isVisible = isVisible
+        boardNameButton.isEnabled = isEnabled
+        boardNameButton.isClickable = isClickable
+    }
+
+    private fun addButtonListener() {
         boardNameButton.setOnClickListener {
             val inputText = boardNameInput.editText?.text.toString()
             boardViewModel.addBoard(inputText).observe(viewLifecycleOwner) {
@@ -78,10 +100,11 @@ class BoardDialog : BottomSheetDialogFragment() {
         }
     }
 
-    private fun showButton(isVisible: Boolean, isEnabled: Boolean, isClickable: Boolean) {
-        boardNameButton.isVisible = isVisible
-        boardNameButton.isEnabled = isEnabled
-        boardNameButton.isClickable = isClickable
+    private fun editButtonListener() {
+        boardNameButton.setOnClickListener {
+            val inputText = boardNameInput.editText?.text.toString()
+            Toast.makeText(requireActivity(), "Change text to $inputText in Board # ${args.boardId}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun showProgressBar(state: String) {
