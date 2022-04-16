@@ -3,6 +3,7 @@ package com.intive.patronage.retro.board.presentation.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.intive.patronage.retro.board.model.entity.BoardUpdateRemote
 import com.intive.patronage.retro.board.model.repo.BoardRepository
 import com.intive.patronage.retro.board.presentation.entity.Board
 import com.intive.patronage.retro.board.presentation.view.BoardsNavigator
@@ -26,6 +27,11 @@ class BoardViewModel(private val repo: BoardRepository, private val boardsNaviga
     fun addUsers(id: Int, users: List<String>) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
         emit(repo.addUsers(id, users))
+    }
+
+    fun editBoard(id: Int, name: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        emit(repo.updateBoard(id, BoardUpdateRemote(name)))
     }
 
     fun deleteBoard(board: Board) = viewModelScope.launch(Dispatchers.Main) {

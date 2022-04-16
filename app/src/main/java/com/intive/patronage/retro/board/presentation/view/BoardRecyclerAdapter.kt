@@ -10,7 +10,7 @@ import com.intive.patronage.retro.databinding.BoardRecyclerItemLayoutBinding
 
 class BoardRecyclerAdapter(
     private val boardList: List<Board>,
-    private val viewModel: BoardViewModel
+    private val viewModel: BoardViewModel,
 ) : RecyclerView.Adapter<BoardRecyclerAdapter.BoardViewHolder>() {
 
     inner class BoardViewHolder(private val binding: BoardRecyclerItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {

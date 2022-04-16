@@ -13,7 +13,7 @@ class HistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val binding = HistoryFragmentBinding.inflate(inflater, container, false)
         val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
