@@ -1,5 +1,6 @@
 package com.intive.patronage.retro.about.presentation.viewModel
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
@@ -17,7 +18,14 @@ class AboutUsViewModel(private val storage: Storage) : ViewModel() {
         val oneMegabyte: Long = 1024 * 1024
 
         storage.getFile(devsPath).getBytes(oneMegabyte).addOnSuccessListener { devsFile ->
-            devs = Gson().fromJson(devsFile.decodeToString(), DevsRemote::class.java).mapToDevs()
+            devs = Devs(
+                (
+                    Gson().fromJson(devsFile.decodeToString(), DevsRemote::class.java).devs.map
+                    { devRemote ->
+                        Dev(Uri.parse(devRemote.avatarUrl), devRemote.displayName, devRemote.email, devRemote.githubUrl, devRemote.role)
+                    }
+                    )
+            )
             areDevsLoaded.postValue(true)
         }.addOnFailureListener {
             areDevsLoaded.postValue(false)
@@ -26,20 +34,4 @@ class AboutUsViewModel(private val storage: Storage) : ViewModel() {
     }
 
     fun getDevs() = devs
-
-    private fun DevsRemote.mapToDevs(): Devs {
-        val developers = Devs()
-        for (dev in devs) {
-            developers.devs.add(
-                Dev(
-                    avatarUrl = dev.avatarUrl,
-                    displayName = dev.displayName,
-                    email = dev.email,
-                    githubUrl = dev.githubUrl,
-                    role = dev.role
-                )
-            )
-        }
-        return developers
-    }
 }
