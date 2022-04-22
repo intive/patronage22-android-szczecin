@@ -9,6 +9,9 @@
         <variable
             name="board"
             type="com.intive.patronage.retro.board.presentation.entity.Board" />
+        <variable
+            name="boardPosition"
+            type="java.lang.Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -119,7 +122,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:contentDescription="@string/desc_delete_board_icon"
-                    android:onClick="@{() -> boardViewModel.deleteBoard(board)}"
+                    android:onClick="@{() -> boardViewModel.deleteBoard(board, boardPosition)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_board_status"

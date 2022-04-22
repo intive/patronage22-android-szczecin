@@ -21,6 +21,10 @@ class BoardsNavigator {
         fragment!!.findNavController().navigate(R.id.action_boardsFragment_self)
     }
 
+    fun recyclerAdapterProgress(flag: Boolean, boardPosition: Int) {
+        fragment!!.binding.boardRecyclerAdapter!!.recyclerAdapterProgressVisibility(flag, boardPosition)
+    }
+
     fun errorSnackBar(message: String) {
         Snackbar.make(fragment!!.requireView(), message, Snackbar.LENGTH_SHORT).show()
     }

@@ -34,17 +34,19 @@ class BoardViewModel(private val repo: BoardRepository, private val boardsNaviga
         emit(repo.updateBoard(id, BoardUpdateRemote(name)))
     }
 
-    fun deleteBoard(board: Board) = viewModelScope.launch(Dispatchers.Main) {
+    fun deleteBoard(board: Board, position: Int) = viewModelScope.launch(Dispatchers.Main) {
+        boardsNavigator.recyclerAdapterProgress(true, position)
         val response = repo.deleteBoard(board.id)
         when (response.status) {
             Status.SUCCESS -> {
+                boardsNavigator.recyclerAdapterProgress(false, position)
                 boardsNavigator.navigateToBoards()
             }
             Status.ERROR -> {
+                boardsNavigator.recyclerAdapterProgress(false, position)
                 boardsNavigator.errorSnackBar(response.message!!)
             }
-            Status.LOADING -> {
-            }
+            else -> {}
         }
     }
 }
