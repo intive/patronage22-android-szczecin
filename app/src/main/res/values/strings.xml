@@ -55,6 +55,8 @@
     <string name="desc_dev_card">Dev card</string>
     <string name="desc_dev_email">Developer email</string>
     <string name="desc_dev_github">Developer github link</string>
+    <string name="desc_user_card">User card</string>
+    <string name="desc_user_email">User email</string>
     <string name="desc_add_user_icon">Icon to add new user for a board</string>
     <string name="desc_retro_edit_icon">Icon to edit retro card</string>
     <string name="desc_delete_board_icon">Icon to delete the board</string>
