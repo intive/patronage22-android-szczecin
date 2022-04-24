@@ -7,10 +7,10 @@ import com.bumptech.glide.Glide
 import com.intive.patronage.retro.R
 
 @BindingAdapter("imageUrl")
-fun loadImage(view: ImageView, imageUrl: Uri?) {
-    Glide.with(view.context)
+fun ImageView.loadImage(imageUrl: Uri?) {
+    Glide.with(this)
         .load(imageUrl)
         .centerCrop()
         .error(R.drawable.ic_avatar_default)
-        .into(view)
+        .into(this)
 }

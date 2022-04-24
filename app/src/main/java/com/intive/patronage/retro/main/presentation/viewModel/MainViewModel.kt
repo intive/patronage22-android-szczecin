@@ -11,7 +11,7 @@ import com.intive.patronage.retro.auth.model.service.AuthToken
 
 class MainViewModel(val app: Application, private val authRepository: AuthRepository, private val authToken: AuthToken) : ViewModel() {
 
-    var isDialogClosed = MutableLiveData<Boolean>()
+    val isDialogClosed = MutableLiveData<Boolean>()
 
     fun isLogged() = authRepository.getUser() != null
     fun getIntent() = authRepository.getIntent()
