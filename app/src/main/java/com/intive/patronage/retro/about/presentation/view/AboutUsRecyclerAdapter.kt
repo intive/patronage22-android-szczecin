@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.intive.patronage.retro.R
 import com.intive.patronage.retro.about.presentation.entity.Dev
 import com.intive.patronage.retro.about.presentation.entity.Devs
 import com.intive.patronage.retro.databinding.AboutUsFragmentBinding
@@ -16,17 +14,7 @@ class AboutUsRecyclerAdapter(private val devs: Devs, private val aboutUsBinding:
 
     inner class AboutUsViewHolder(private val binding: AboutUsRecyclerItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(dev: Dev) {
-            with(binding) {
-                developerNameText.text = dev.displayName
-                developerRoleText.text = dev.role
-                developerEmailText.text = dev.email
-                developerGithubText.text = dev.githubUrl
-                Glide.with(avatarImage.context)
-                    .load(dev.avatarUrl)
-                    .centerCrop()
-                    .error(R.drawable.ic_avatar_default)
-                    .into(avatarImage)
-            }
+            binding.dev = dev
         }
     }
 
