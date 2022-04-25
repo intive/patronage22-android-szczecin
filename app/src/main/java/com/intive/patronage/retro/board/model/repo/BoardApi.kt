@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface BoardApi {
     @GET("api/v1/boards")
@@ -25,4 +26,7 @@ interface BoardApi {
 
     @PATCH("api/v1/boards/{id}/")
     suspend fun updateBoard(@Path("id") id: Int, @Body boardUpdateRemote: BoardUpdateRemote)
+
+    @GET("api/v1/users")
+    suspend fun getUsers(@Query("email") email: String): List<String>
 }
