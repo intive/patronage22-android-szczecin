@@ -66,4 +66,9 @@
     <string name="add_the_user_button">ATTACH THE USER</string>
     <string name="searching">searching…</string>
     <string name="no_matching_results">No matching results.</string>
+    <string name="send_email_subject">Retro Board App, Android Developer&#160;</string>
+    <string name="question_to_user_before_choose_email_app">Choose an Email client:</string>
+    <string name="greetings_to_developer">Hello&#160;</string>
+    <string name="email_text_to_developer">\n\nI write to you...</string>
+    <string name="mail_message_type">message/rfc822</string>
 </resources>
