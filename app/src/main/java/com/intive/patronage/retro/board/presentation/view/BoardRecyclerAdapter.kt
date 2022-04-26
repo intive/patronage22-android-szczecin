@@ -26,15 +26,13 @@ class BoardRecyclerAdapter : RecyclerView.Adapter<BoardRecyclerAdapter.BoardView
 
         fun setAction(board: Board) {
             binding.cardViewBoard.setOnClickListener {
-                val action = BoardsFragmentDirections.actionBoardsFragmentToRetroFragment(board.id)
-                Navigation.findNavController(it).navigate(action)
+                Navigation.findNavController(it).navigate(BoardsFragmentDirections.actionBoardsFragmentToRetroFragment(board.id))
             }
         }
 
         fun setAddUser(board: Board) {
-            binding.addUserIcon.setOnClickListener {
-                val action = BoardsFragmentDirections.actionBoardsFragmentToAddUserDialog(board.id)
-                Navigation.findNavController(it).navigate(action)
+            binding.addUserTextButton.setOnClickListener {
+                Navigation.findNavController(it).navigate(BoardsFragmentDirections.actionBoardsFragmentToAddUserDialog(board.id))
             }
         }
 
@@ -50,16 +48,14 @@ class BoardRecyclerAdapter : RecyclerView.Adapter<BoardRecyclerAdapter.BoardView
         }
 
         fun editBoard(board: Board) {
-            binding.editBoardIcon.setOnClickListener {
+            binding.editBoardTextButton.setOnClickListener {
                 Navigation.findNavController(it).navigate(BoardsFragmentDirections.actionBoardsFragmentToAddBoardDialog(board.id))
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardRecyclerAdapter.BoardViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = BoardRecyclerItemLayoutBinding.inflate(layoutInflater, parent, false)
-        return BoardViewHolder(binding)
+        return BoardViewHolder(BoardRecyclerItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: BoardViewHolder, position: Int) {
