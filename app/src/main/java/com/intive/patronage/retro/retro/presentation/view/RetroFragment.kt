@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -49,7 +50,7 @@ class RetroFragment : Fragment() {
         viewPager.adapter = retroColumnsAdapter
 
         bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
-        fab.show()
+        fab.hide()
         fab.setOnClickListener {
             findNavController().navigate(
                 RetroFragmentDirections
@@ -57,7 +58,7 @@ class RetroFragment : Fragment() {
             )
         }
         refreshCards(retroColumnsAdapter)
-        setViewPagerHeartBeat(retroColumnsAdapter)
+        setViewPagerHeartBeat(retroColumnsAdapter, fab)
 
         return binding.root
     }
@@ -71,11 +72,10 @@ class RetroFragment : Fragment() {
         }
     }
 
-    private fun setViewPagerHeartBeat(adapter: RetroViewPagerAdapter) {
+    private fun setViewPagerHeartBeat(adapter: RetroViewPagerAdapter, fab: FloatingActionButton) {
         retroViewModel.retroConfiguration(args.boardId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-
                     TabLayoutMediator(
                         tab, viewPager
                     ) { tab: TabLayout.Tab, position: Int ->
@@ -85,6 +85,7 @@ class RetroFragment : Fragment() {
                     retroViewModel.startHeartBeatRetro(args.boardId).observe(viewLifecycleOwner) { it2 ->
                         when (it2.status) {
                             Status.SUCCESS -> {
+                                fab.show()
                                 binding.retroSpinner.visibility = View.GONE
                                 binding.errorViewPagerCards.root.visibility = View.GONE
                                 binding.viewPagerRetro.visibility = View.VISIBLE
@@ -93,6 +94,7 @@ class RetroFragment : Fragment() {
                                 columns = it.data.map { list -> list.id }.toMutableList()
                             }
                             Status.ERROR -> {
+                                fab.hide()
                                 adapter.setRetroColumnsData(it.data!!, emptyBoardCardsList(it.data.size))
                                 columns = it.data.map { list -> list.id }.toMutableList()
                                 binding.viewPagerRetro.visibility = View.GONE
