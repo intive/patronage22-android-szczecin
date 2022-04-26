@@ -43,4 +43,6 @@ class RetroViewModel(private val repo: RetroRepository) : ViewModel() {
     fun stopHeartBeat() {
         stopHeartBeat = false
     }
+
+    // TODO vote function for adapter
 }

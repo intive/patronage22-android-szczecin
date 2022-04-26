@@ -6,4 +6,6 @@ data class BoardCardsRemote(
     val columnId: Int,
     val boardCardCreator: String,
     val actionTexts: List<String>,
+    val votes: Int,
+    val userVotes: Int,
 )

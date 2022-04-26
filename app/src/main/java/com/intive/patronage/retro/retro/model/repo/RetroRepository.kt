@@ -28,7 +28,7 @@ class RetroRepository(private val api: RetroApiImpl, private var responseHandler
                         it.id,
                         boardCards = it.boardCards.map { it2 ->
                             BoardCards(
-                                it2.id, it2.cardText, it2.columnId, it2.boardCardCreator, it2.actionTexts
+                                it2.id, it2.cardText, it2.columnId, it2.boardCardCreator, it2.actionTexts, it2.votes, it2.userVotes
                             )
                         }
                     )
@@ -42,6 +42,14 @@ class RetroRepository(private val api: RetroApiImpl, private var responseHandler
     suspend fun postCard(id: Int, card: BoardCards): Resource<BoardCardsRemote> {
         return try {
             responseHandler.handleSuccess(api.getRetroApi().postCard(id, card))
+        } catch (e: Exception) {
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun postVote(id: Int): Resource<Unit> {
+        return try {
+            responseHandler.handleSuccess(api.getRetroApi().postVote(id))
         } catch (e: Exception) {
             responseHandler.handleException(e)
         }
