@@ -19,4 +19,7 @@ interface RetroApi {
 
     @POST("api/v1/cards/boards/{id}")
     suspend fun postCard(@Path("id") id: Int, @Body card: BoardCards): BoardCardsRemote
+
+    @POST("api/v1/cards/{id}/votes")
+    suspend fun postVote(@Path("id") id: Int)
 }
