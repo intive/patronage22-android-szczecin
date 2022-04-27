@@ -2,14 +2,15 @@ package com.intive.patronage.retro.retro.presentation.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.intive.patronage.retro.databinding.RetroDetailsCardItemLayoutBinding
 import com.intive.patronage.retro.retro.presentation.entity.BoardCards
+import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 
 class RetroDetailsViewPagerAdapter : RecyclerView.Adapter<RetroDetailsViewPagerAdapter.RetroDetailsViewHolder>() {
 
     private var oldBoardCardsList = emptyList<BoardCards>()
+    private lateinit var viewModel: RetroViewModel
 
     inner class RetroDetailsViewHolder(val binding: RetroDetailsCardItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(data: BoardCards) {
@@ -17,10 +18,8 @@ class RetroDetailsViewPagerAdapter : RecyclerView.Adapter<RetroDetailsViewPagerA
         }
 
         fun addVote(data: BoardCards) {
-            binding.voteRetroIcon.setOnClickListener {
-                // TODO this will be replaced with call to Api
-                Toast.makeText(it.context, "Vote given for ${data.id}", Toast.LENGTH_SHORT).show()
-            }
+            binding.viewModel = viewModel
+            binding.card = data
         }
     }
 
@@ -38,7 +37,8 @@ class RetroDetailsViewPagerAdapter : RecyclerView.Adapter<RetroDetailsViewPagerA
 
     override fun getItemCount() = oldBoardCardsList.size
 
-    fun setBoardCardsData(newBoardCardsList: List<BoardCards>) {
+    fun setBoardCardsData(newBoardCardsList: List<BoardCards>, newViewModel: RetroViewModel) {
         oldBoardCardsList = newBoardCardsList
+        viewModel = newViewModel
     }
 }
