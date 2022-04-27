@@ -90,12 +90,12 @@ class RetroFragment : Fragment() {
                                 binding.errorViewPagerCards.root.visibility = View.GONE
                                 binding.viewPagerRetro.visibility = View.VISIBLE
                                 startColumns = it.data!!
-                                adapter.setRetroColumnsData(it.data, it2.data!!)
+                                adapter.setRetroColumnsData(it.data, it2.data!!, retroViewModel)
                                 columns = it.data.map { list -> list.id }.toMutableList()
                             }
                             Status.ERROR -> {
                                 fab.hide()
-                                adapter.setRetroColumnsData(it.data!!, emptyBoardCardsList(it.data.size))
+                                adapter.setRetroColumnsData(it.data!!, emptyBoardCardsList(it.data.size), retroViewModel)
                                 columns = it.data.map { list -> list.id }.toMutableList()
                                 binding.viewPagerRetro.visibility = View.GONE
                                 binding.retroSpinner.visibility = View.GONE
@@ -121,10 +121,10 @@ class RetroFragment : Fragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.horizontalProgressBar.visibility = View.GONE
-                    adapter.setRetroColumnsData(startColumns, it.data!!)
+                    adapter.setRetroColumnsData(startColumns, it.data!!, retroViewModel)
                 }
                 Status.ERROR -> {
-                    adapter.setRetroColumnsData(startColumns, emptyBoardCardsList(it.data!!.size))
+                    adapter.setRetroColumnsData(startColumns, emptyBoardCardsList(it.data!!.size), retroViewModel)
                     columns = it.data.map { list -> list.id }.toMutableList()
                     binding.viewPagerRetro.visibility = View.GONE
                     binding.retroSpinner.visibility = View.GONE

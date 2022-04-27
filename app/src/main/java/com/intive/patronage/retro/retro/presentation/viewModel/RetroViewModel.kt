@@ -1,5 +1,6 @@
 package com.intive.patronage.retro.retro.presentation.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.intive.patronage.retro.common.api.Resource
@@ -44,5 +45,8 @@ class RetroViewModel(private val repo: RetroRepository) : ViewModel() {
         stopHeartBeat = false
     }
 
-    // TODO vote function for adapter
+    fun vote(id: Int) {
+        Log.i("ViewModel ", "Card id $id")
+        // TODO will be replaced with call to api
+    }
 }

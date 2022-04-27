@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.intive.patronage.retro.databinding.ViewRetroHolderItemBinding
 import com.intive.patronage.retro.retro.presentation.entity.Columns
 import com.intive.patronage.retro.retro.presentation.entity.RetroDetails
+import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 
 class RetroViewPagerAdapter : RecyclerView.Adapter<RetroViewPagerAdapter.ViewHolder>() {
 
     private var oldColumnsList = emptyList<Columns>()
     private var oldRetroDetailsList = emptyList<RetroDetails>()
+    private lateinit var oldViewModel: RetroViewModel
     private val adapter = RetroDetailsViewPagerAdapter()
 
     inner class ViewHolder(val binding: ViewRetroHolderItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -20,7 +22,7 @@ class RetroViewPagerAdapter : RecyclerView.Adapter<RetroViewPagerAdapter.ViewHol
         fun bind(color: Columns, details: RetroDetails) {
             binding.retroDetailsCardRecyclerView.adapter = adapter
             binding.viewRetroHolderItem.setBackgroundColor(Color.parseColor(color.colour))
-            adapter.setBoardCardsData(details.boardCards)
+            adapter.setBoardCardsData(details.boardCards, oldViewModel)
         }
     }
 
@@ -32,13 +34,14 @@ class RetroViewPagerAdapter : RecyclerView.Adapter<RetroViewPagerAdapter.ViewHol
         return ViewHolder(ViewRetroHolderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    fun setRetroColumnsData(newColumnsList: List<Columns>, newRetroDetailsList: List<RetroDetails>) {
+    fun setRetroColumnsData(newColumnsList: List<Columns>, newRetroDetailsList: List<RetroDetails>, viewModel: RetroViewModel) {
         val diffUtil = RetroColumnsDiffUtil(oldColumnsList, newColumnsList)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
 
         val diffUtil2 = RetroDetailsDiffUtil(oldRetroDetailsList, newRetroDetailsList)
         val diffResult2 = DiffUtil.calculateDiff(diffUtil2)
 
+        oldViewModel = viewModel
         oldRetroDetailsList = newRetroDetailsList
         oldColumnsList = newColumnsList
         diffResult2.dispatchUpdatesTo(this)
