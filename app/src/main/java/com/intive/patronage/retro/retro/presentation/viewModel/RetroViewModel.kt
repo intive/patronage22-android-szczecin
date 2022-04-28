@@ -52,7 +52,6 @@ class RetroViewModel(private val repo: RetroRepository) : ViewModel() {
         val response = repo.postVote(id)
         when (response.status) {
             Status.SUCCESS -> {
-                Log.i("SUCCESS ", "Vote for Card id $id was given")
             }
             Status.ERROR -> {
                 Log.i("ERROR ", "${response.message}")
