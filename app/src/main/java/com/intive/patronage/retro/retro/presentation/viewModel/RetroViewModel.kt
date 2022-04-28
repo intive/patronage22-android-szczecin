@@ -3,11 +3,14 @@ package com.intive.patronage.retro.retro.presentation.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.intive.patronage.retro.common.api.Resource
+import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.retro.model.repo.RetroRepository
 import com.intive.patronage.retro.retro.presentation.entity.BoardCards
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class RetroViewModel(private val repo: RetroRepository) : ViewModel() {
 
@@ -45,8 +48,16 @@ class RetroViewModel(private val repo: RetroRepository) : ViewModel() {
         stopHeartBeat = false
     }
 
-    fun vote(id: Int) {
-        Log.i("ViewModel ", "Card id $id")
-        // TODO will be replaced with call to api
+    fun vote(id: Int) = viewModelScope.launch(Dispatchers.Main) {
+        val response = repo.postVote(id)
+        when (response.status) {
+            Status.SUCCESS -> {
+                Log.i("SUCCESS ", "Vote for Card id $id was given")
+            }
+            Status.ERROR -> {
+                Log.i("ERROR ", "${response.message}")
+            }
+            else -> {}
+        }
     }
 }
