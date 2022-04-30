@@ -17,15 +17,14 @@ class RetroDetailsViewPagerAdapter : RecyclerView.Adapter<RetroDetailsViewPagerA
 
     inner class RetroDetailsViewHolder(val binding: RetroDetailsCardItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(data: BoardCards) {
+            binding.viewModel = viewModel
+            binding.card = data
             if (data.votes >= MAX_CARD_VOTES) binding.voteRetroIcon.visibility = View.GONE
             binding.retroDetailsTextCard.text = data.cardText
+            binding.counterUsersVotes.text = data.userVotes.toString()
         }
 
         fun addVote(data: BoardCards) {
-            binding.viewModel = viewModel
-            binding.card = data
-            // TODO databinding will be used for userVotes counter
-
             binding.voteRetroIcon.setOnClickListener {
                 viewModel.vote(data.id)
                 if (data.votes >= MAX_CARD_VOTES) {
