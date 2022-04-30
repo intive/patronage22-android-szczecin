@@ -3,6 +3,8 @@ package com.intive.patronage.retro.board.presentation.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.intive.patronage.retro.R
 import com.intive.patronage.retro.board.model.entity.BoardUpdateRemote
 import com.intive.patronage.retro.board.model.repo.BoardRepository
 import com.intive.patronage.retro.board.presentation.entity.Board
@@ -36,20 +38,22 @@ class BoardViewModel(private val repo: BoardRepository, private val boardsNaviga
         emit(repo.updateBoard(id, BoardUpdateRemote(name)))
     }
 
-    fun deleteBoard(board: Board, position: Int) = viewModelScope.launch(Dispatchers.Main) {
-        boardsNavigator.recyclerAdapterProgress(true, position)
-        val response = repo.deleteBoard(board.id)
-        when (response.status) {
-            Status.SUCCESS -> {
-                boardsNavigator.recyclerAdapterProgress(false, position)
-                boardsNavigator.navigateToBoards()
+    fun deleteBoard(board: Board, position: Int) {
+        val fragmentContext = boardsNavigator.getContextFromBoardFragment()!!
+        val alertDialog = MaterialAlertDialogBuilder(fragmentContext)
+        alertDialog.setTitle(R.string.alert_dialog_title)
+        alertDialog.setMessage("Do you really want to remove the ${board.name} board")
+        alertDialog.setCancelable(false)
+        alertDialog
+            .setPositiveButton(R.string.alert_dialog_positive_button) { dialog, _ ->
+                dialog.cancel()
+                delete(board, position)
             }
-            Status.ERROR -> {
-                boardsNavigator.recyclerAdapterProgress(false, position)
-                boardsNavigator.errorSnackBar(response.message!!)
+        alertDialog
+            .setNegativeButton(R.string.alert_dialog_negative_button) { dialog, _ ->
+                dialog.cancel()
             }
-            else -> {}
-        }
+        alertDialog.show()
     }
 
     suspend fun getUsers(email: String): Flow<List<String>> {
@@ -64,6 +68,22 @@ class BoardViewModel(private val repo: BoardRepository, private val boardsNaviga
             else -> {
                 flow { emit(emptyList()) }
             }
+        }
+    }
+
+    private fun delete(board: Board, position: Int) = viewModelScope.launch(Dispatchers.Main) {
+        boardsNavigator.recyclerAdapterProgress(true, position)
+        val response = repo.deleteBoard(board.id)
+        when (response.status) {
+            Status.SUCCESS -> {
+                boardsNavigator.recyclerAdapterProgress(false, position)
+                boardsNavigator.navigateToBoards()
+            }
+            Status.ERROR -> {
+                boardsNavigator.recyclerAdapterProgress(false, position)
+                boardsNavigator.errorSnackBar(response.message!!)
+            }
+            else -> {}
         }
     }
 }

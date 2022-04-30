@@ -1,5 +1,6 @@
 package com.intive.patronage.retro.board.presentation.view
 
+import android.content.Context
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.intive.patronage.retro.R
@@ -16,6 +17,8 @@ class BoardsNavigator {
         if (this.fragment === fragment)
             this.fragment = null
     }
+
+    fun getContextFromBoardFragment(): Context? = fragment!!.context
 
     fun navigateToBoards() {
         fragment!!.findNavController().navigate(R.id.action_boardsFragment_self)
