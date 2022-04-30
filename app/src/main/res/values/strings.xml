@@ -73,4 +73,7 @@
     <string name="mail_message_type">message/rfc822</string>
     <string name="text_button_edit">Edit</string>
     <string name="text_button_add_user">Add user</string>
+    <string name="alert_dialog_title">Remove board</string>
+    <string name="alert_dialog_positive_button">YES</string>
+    <string name="alert_dialog_negative_button">CANCEL</string>
 </resources>
