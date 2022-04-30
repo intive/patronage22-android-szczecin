@@ -12,6 +12,8 @@
             name="card"
             type="com.intive.patronage.retro.retro.presentation.entity.BoardCards" />
 
+        <import type="android.view.View" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,7 +62,6 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:contentDescription="@string/desc_retro_edit_icon"
-                    android:onClick="@{() -> viewModel.vote(card.id)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/retro_details_text_card"
