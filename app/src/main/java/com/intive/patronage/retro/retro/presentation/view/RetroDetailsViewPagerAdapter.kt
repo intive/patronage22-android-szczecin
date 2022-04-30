@@ -1,7 +1,6 @@
 package com.intive.patronage.retro.retro.presentation.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.intive.patronage.retro.databinding.RetroDetailsCardItemLayoutBinding
@@ -10,25 +9,24 @@ import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 
 const val MAX_CARD_VOTES = 1
 
-class RetroDetailsViewPagerAdapter : RecyclerView.Adapter<RetroDetailsViewPagerAdapter.RetroDetailsViewHolder>() {
+class RetroDetailsViewPagerAdapter :
+    RecyclerView.Adapter<RetroDetailsViewPagerAdapter.RetroDetailsViewHolder>() {
 
     private var oldBoardCardsList = emptyList<BoardCards>()
     private lateinit var viewModel: RetroViewModel
 
     inner class RetroDetailsViewHolder(val binding: RetroDetailsCardItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(data: BoardCards) {
-            binding.viewModel = viewModel
-            binding.card = data
-            if (data.votes >= MAX_CARD_VOTES) binding.voteRetroIcon.visibility = View.GONE
             binding.retroDetailsTextCard.text = data.cardText
             binding.counterUsersVotes.text = data.userVotes.toString()
         }
-
         fun addVote(data: BoardCards) {
             binding.voteRetroIcon.setOnClickListener {
-                viewModel.vote(data.id)
-                if (data.votes >= MAX_CARD_VOTES) {
-                    binding.voteRetroIcon.visibility = View.GONE
+                if (data.votes < MAX_CARD_VOTES) {
+                    viewModel.vote(data.id)
+                    binding.voteRetroIcon.setOnClickListener(null)
+                } else {
+                    viewModel.snackOnlyOneVote()
                 }
             }
         }

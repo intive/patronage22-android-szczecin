@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_retroFragment_to_retroDialogFragment"
             app:destination="@id/retroDialogFragment" />
+        <argument
+            android:name="boardMaxVotes"
+            app:argType="integer" />
     </fragment>
     <dialog
         android:id="@+id/addBoardDialog"

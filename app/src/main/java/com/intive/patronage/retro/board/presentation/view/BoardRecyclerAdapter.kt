@@ -26,7 +26,12 @@ class BoardRecyclerAdapter : RecyclerView.Adapter<BoardRecyclerAdapter.BoardView
 
         fun setAction(board: Board) {
             binding.cardViewBoard.setOnClickListener {
-                Navigation.findNavController(it).navigate(BoardsFragmentDirections.actionBoardsFragmentToRetroFragment(board.id))
+                Navigation.findNavController(it).navigate(
+                    BoardsFragmentDirections.actionBoardsFragmentToRetroFragment(
+                        board.id,
+                        board.numberOfVotes
+                    )
+                )
             }
         }
 

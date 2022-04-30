@@ -25,7 +25,7 @@ class BoardViewModel(private val repo: BoardRepository, private val boardsNaviga
 
     fun addBoard(boardName: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
-        emit(repo.addBoard(Board(0, "", boardName, 0)))
+        emit(repo.addBoard(Board(0, "", boardName, 3)))
     }
 
     fun addUsers(id: Int, users: List<String>) = liveData(Dispatchers.IO) {
