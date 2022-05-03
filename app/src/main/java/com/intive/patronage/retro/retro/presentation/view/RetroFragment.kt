@@ -1,5 +1,6 @@
 package com.intive.patronage.retro.retro.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import com.intive.patronage.retro.retro.presentation.entity.Columns
 import com.intive.patronage.retro.retro.presentation.entity.RetroDetails
 import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RetroFragment : Fragment() {
@@ -32,7 +34,13 @@ class RetroFragment : Fragment() {
     private val args: RetroFragmentArgs by navArgs()
     private val retroViewModel: RetroViewModel by viewModel()
     private val mainViewModel by activityViewModels<MainViewModel>()
+    private val navigator: RetroNavigator by inject()
     private lateinit var startColumns: List<Columns>
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        navigator.attach(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +69,11 @@ class RetroFragment : Fragment() {
         setViewPagerHeartBeat(retroColumnsAdapter, fab)
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        navigator.detach(this)
     }
 
     private fun refreshCards(retroColumnsAdapter: RetroViewPagerAdapter) {

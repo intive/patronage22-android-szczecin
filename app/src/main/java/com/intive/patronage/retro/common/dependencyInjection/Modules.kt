@@ -21,6 +21,7 @@ import com.intive.patronage.retro.main.presentation.viewModel.MainViewModel
 import com.intive.patronage.retro.retro.model.repo.RetroApiImpl
 import com.intive.patronage.retro.retro.model.repo.RetroRepository
 import com.intive.patronage.retro.retro.presentation.view.RetroFragment
+import com.intive.patronage.retro.retro.presentation.view.RetroNavigator
 import com.intive.patronage.retro.retro.presentation.viewModel.RetroViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -38,10 +39,11 @@ val appModule = module {
     factory { RetroRepository(get(), get()) }
     single { Storage() }
     single { BoardsNavigator() }
+    single { RetroNavigator() }
 
     viewModel { MainViewModel(get(), get(), get()) }
     viewModel { BoardViewModel(get(), get()) }
-    viewModel { RetroViewModel(get()) }
+    viewModel { RetroViewModel(get(), get()) }
     viewModel { AboutUsViewModel(get()) }
 }
 
