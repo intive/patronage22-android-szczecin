@@ -32,6 +32,14 @@ class BoardRepository(private val api: BoardApiImpl, var responseHandler: Respon
         }
     }
 
+    suspend fun changeState(id: Int): Resource<Unit> {
+        return try {
+            responseHandler.handleSuccess(api.getBoardApi().changeState(id))
+        } catch (e: Exception) {
+            responseHandler.handleException(e)
+        }
+    }
+
     suspend fun deleteBoard(id: Int): Resource<Unit> {
         return try {
             responseHandler.handleSuccess(api.getBoardApi().deleteBoard(id))

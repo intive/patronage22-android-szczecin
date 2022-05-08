@@ -56,6 +56,20 @@ class BoardViewModel(private val repo: BoardRepository, private val boardsNaviga
         alertDialog.show()
     }
 
+    fun changeState(id: Int) = viewModelScope.launch(Dispatchers.Main) {
+        val response = repo.changeState(id)
+        when (response.status) {
+            Status.SUCCESS -> {
+                boardsNavigator.errorSnackBar(boardsNavigator.fragment!!.getString(R.string.success_board_state))
+            }
+            Status.ERROR -> {
+                boardsNavigator.errorSnackBar(boardsNavigator.fragment!!.getString(R.string.error_board_card_message_1))
+            }
+            else -> {
+            }
+        }
+    }
+
     suspend fun getUsers(email: String): Flow<List<String>> {
         val emails = repo.getUsers(email)
         return when (emails.status) {
