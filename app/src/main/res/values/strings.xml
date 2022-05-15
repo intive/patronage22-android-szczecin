@@ -80,4 +80,5 @@
     <string name="no_more_votes_error">You have no more votes</string>
     <string name="error_one_vote_limit">Only one vote per card</string>
     <string name="voted">Voted</string>
+    <string name="success_board_state">The Board state changed</string>
 </resources>

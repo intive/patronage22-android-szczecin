@@ -21,6 +21,9 @@ interface BoardApi {
     @POST("api/v1/boards/{id}/users")
     suspend fun addUsers(@Path("id") id: Int, @Body users: List<String>): List<String>
 
+    @POST("/api/v1/boards/{id}/nextState")
+    suspend fun changeState(@Path("id") id: Int)
+
     @DELETE("api/v1/boards/{id}/")
     suspend fun deleteBoard(@Path("id") id: Int)
 
