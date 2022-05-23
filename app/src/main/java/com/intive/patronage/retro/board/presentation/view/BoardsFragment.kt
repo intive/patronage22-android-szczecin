@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
-import com.intive.patronage.retro.R
 import com.intive.patronage.retro.auth.model.service.AuthToken
 import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.api.Status
@@ -37,13 +36,11 @@ class BoardsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = BoardFragmentBinding.inflate(inflater, container, false)
-        val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
         val fab = (activity as MainActivity).binding.floatingButton
 
         binding.boardRecyclerAdapter = BoardRecyclerAdapter()
 
         retroViewModel.stopHeartBeat()
-        bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.show()
         fab.setOnClickListener {
             val action = BoardsFragmentDirections.actionBoardsFragmentToAddBoardDialog()

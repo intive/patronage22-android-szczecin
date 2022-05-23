@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -50,6 +51,17 @@ class RetroFragment : Fragment() {
         binding = RetroFragmentBinding.inflate(inflater, container, false)
         tab = binding.tabLayoutRetro
         val bottomAppBar = (activity as MainActivity).binding.bottomAppBar
+        bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_retro)
+        bottomAppBar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.next_state -> {
+                    Toast.makeText(context, "Clicked", Toast.LENGTH_LONG).show()
+                    // TODO will be replaced with call to Api
+                    true
+                }
+                else -> false
+            }
+        }
         val fab = (activity as MainActivity).binding.floatingButton
         val retroColumnsAdapter = RetroViewPagerAdapter()
 
@@ -57,7 +69,6 @@ class RetroFragment : Fragment() {
         tab = binding.tabLayoutRetro
         viewPager.adapter = retroColumnsAdapter
 
-        bottomAppBar.replaceMenu(R.menu.bottom_app_bar_menu_boards)
         fab.hide()
         fab.setOnClickListener {
             findNavController().navigate(
