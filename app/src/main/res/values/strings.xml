@@ -69,13 +69,13 @@
     <string name="send_email_subject">Retro Board App, Android Developer&#160;</string>
     <string name="question_to_user_before_choose_email_app">Choose an Email client:</string>
     <string name="greetings_to_developer">Hello&#160;</string>
-    <string name="email_text_to_developer">\n\nI write to you...</string>
+    <string name="email_text_to_developer">\n\nI write to you…</string>
     <string name="mail_message_type">message/rfc822</string>
     <string name="text_button_edit">Edit</string>
     <string name="text_button_add_user">Add user</string>
     <string name="alert_dialog_title">Remove board</string>
     <string name="alert_dialog_positive_button">YES</string>
-    <string name="alert_dialog_negative_button">CANCEL</string>
+    <string name="alert_dialog_negative_button">"CANCEL"</string>
     <string name="votes_limit">You\'ve reached votes limit</string>
     <string name="no_more_votes_error">You have no more votes</string>
     <string name="error_one_vote_limit">Only one vote per card</string>
@@ -83,4 +83,6 @@
     <string name="success_board_state">The Board state changed</string>
     <string name="desc_menu_next_state">Changes the state of the board</string>
     <string name="menu_next_state">Next state</string>
+    <string name="state_changed">#State changed</string>
+    <string name="update_before_change_state">You need to update board before you can change state</string>
 </resources>

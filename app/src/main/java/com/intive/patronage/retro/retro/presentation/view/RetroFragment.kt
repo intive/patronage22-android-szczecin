@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.intive.patronage.retro.R
+import com.intive.patronage.retro.board.presentation.viewModel.BoardViewModel
 import com.intive.patronage.retro.common.api.Status
 import com.intive.patronage.retro.databinding.RetroFragmentBinding
 import com.intive.patronage.retro.main.presentation.view.MainActivity
@@ -34,6 +34,7 @@ class RetroFragment : Fragment() {
 
     private val args: RetroFragmentArgs by navArgs()
     private val retroViewModel: RetroViewModel by viewModel()
+    private val boardViewModel: BoardViewModel by viewModel()
     private val mainViewModel by activityViewModels<MainViewModel>()
     private val navigator: RetroNavigator by inject()
     private lateinit var startColumns: List<Columns>
@@ -55,8 +56,24 @@ class RetroFragment : Fragment() {
         bottomAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.next_state -> {
-                    Toast.makeText(context, "Clicked", Toast.LENGTH_LONG).show()
-                    // TODO will be replaced with call to Api
+                    boardViewModel.changeState(args.boardId).observe(viewLifecycleOwner) {
+                        when (it.status) {
+                            Status.SUCCESS -> {
+                                Snackbar.make(
+                                    requireView(), R.string.state_changed,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            Status.ERROR -> {
+                                Snackbar.make(
+                                    requireView(), R.string.update_before_change_state,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            else -> {
+                            }
+                        }
+                    }
                     true
                 }
                 else -> false
